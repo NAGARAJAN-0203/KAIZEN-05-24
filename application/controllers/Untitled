@@ -1,0 +1,33 @@
+$reject_reason = $this->input->post('reject_reason'); if(empty($reject_reason)) { $reject_reason = ''; }
+
+'reject_reason'=>$reject_reason,
+
+
+
+$reject_reason =  $rowArray->reject_reason;
+
+<?php
+if(!empty($reject_reason)) { ?>
+  <b>Rejected Reason   :</b> <?php echo $reject_reason; ?> <br/>
+<?php } ?>
+<br/>
+
+
+
+$iedept_reject_reason = $this->input->post('iedept_reject_reason'); if(empty($iedept_reject_reason)) { $iedept_reject_reason = ''; }
+
+'iedept_reject_reason'=>$iedept_reject_reason,
+
+
+===========
+
+
+$fin_status = '1,2,3';
+$fin_status_ex = explode(',',$fin_status);
+
+$status = '4,6,7';
+$status_ex = explode(',',$status);
+
+
+
+$this->db->where_in('status', $status_ex);
