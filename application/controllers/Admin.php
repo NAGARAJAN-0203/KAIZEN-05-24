@@ -37,6 +37,26 @@ class Admin extends CI_Controller {
 
 	}
 
+
+
+	/**********************************
+	ADMIN - testemail
+	**********************************/
+	public function testemail()
+	{
+		$to      = 'chandru5452@gmail.com';
+		$subject = 'kaizen test';
+		$message = 'kaizen test';
+		$headers = array(
+			 'From' => 'chandru5452@gmail.com',
+			 'Reply-To' => 'chandru5452@gmail.com',
+			 'X-Mailer' => 'PHP/' . phpversion()
+		);
+
+		mail($to, $subject, $message, $headers);
+
+	}
+
 	/**********************************
 	ADMIN - Login
 	**********************************/
@@ -53,6 +73,26 @@ class Admin extends CI_Controller {
 	{
 		$this->load->view('signup');
 	}
+
+	/**********************************
+	ADMIN - forgotpassword
+	**********************************/
+	public function forgotpassword()
+	{
+		$this->load->view('forgotpassword');
+	}
+
+	/**********************************
+	ADMIN - forgotpassword
+	**********************************/
+	public function newpassword()
+	{
+		$this->load->view('newpassword');
+	}
+
+
+
+
 
 
 	/**********************************
@@ -127,8 +167,21 @@ class Admin extends CI_Controller {
 	}
 
 
+	public function downloadpdf_kaizenidea_byid($idea_id) {
+		//$this->mapi->downloadpdf_kaizenidea_byid($idea_id);
+		$user_type = $this->session->userdata('viv_user_type');
+		if($user_type=='TRMMADMIN' || $user_type=='TRMMEMP'  || $user_type=='TRMMMANG' || $user_type=='TRMMFINANCE' || $user_type=='TRMMIEDEPT') {
+			$this->load->view('kaizenidea/idea/downloadkaizenpdf');
+		}
+		else  {
+			$this->logout();
+		}
+	}
+
+
 
 	public function updateidea() { $this->mapi->updateidea(); }
+	public function updateidea_ajax() { $this->mapi->updateidea_ajax(); }
 	public function createuser() { $this->mapi->createuser(); }
 	public function edituser() { $this->mapi->edituser(); }
 
@@ -146,12 +199,52 @@ class Admin extends CI_Controller {
 
 	public function updateuserpassword() { $this->mapi->updateuserpassword(); }
 	public function updateuserpassword_user() { $this->mapi->updateuserpassword_user(); }
+	public function updatenewpassword_user() { $this->mapi->updatenewpassword_user(); }
 
 
 	public function updateidea_ideagen() { $this->mapi->updateidea_ideagen(); }
 	public function updateideastatus_ideagen() { $this->mapi->updateideastatus_ideagen(); }
 	public function updateideastatus_iedept_ideagen() { $this->mapi->updateideastatus_iedept_ideagen(); }
 	public function updateideastatus_finance_ideagen() { $this->mapi->updateideastatus_finance_ideagen(); }
+
+
+
+
+
+	public function updateidea_manageredit() { $this->mapi->updateidea_manageredit(); }
+	public function updateidea_ideagen_manageredit() { $this->mapi->updateidea_ideagen_manageredit(); }
+
+
+	public function downloaduseremailsexcel($condi) { $this->mapi->downloaduseremailsexcel($condi); }
+
+	public function deletekaizenbyemp($idea_id) { $this->mapi->deletekaizenbyemp($idea_id); }
+
+	public function addcatg() { $this->mapi->addcatg(); }
+	public function adddepartment() { $this->mapi->adddepartment(); }
+	public function upddmstatus($domainid,$status) { $this->mapi->upddmstatus($domainid,$status); }
+	public function deletedomain($domainid) { $this->mapi->deletedomain($domainid); }
+
+	public function upddpstatus($deptid,$status) { $this->mapi->upddpstatus($deptid,$status); }
+	public function deletedepart($deptid) { $this->mapi->deletedepart($deptid); }
+	public function addwinner() { $this->mapi->addwinner(); }
+	public function updwinnerstatus($winnerid,$status) { $this->mapi->updwinnerstatus($winnerid,$status); }
+	public function deletewinner($winnerid) { $this->mapi->deletewinner($winnerid); }
+
+	public function get_dept_bydomain() { $this->mapi->get_dept_bydomain(); }
+	public function mforgotpassword_user() { $this->mapi->mforgotpassword_user(); }
+
+
+
+
+
+
+
+	//public function importuserexcel_temp() { $this->mapi->importuserexcel_temp(); }
+	//public function temp_updateusers_addinfo() { $this->mapi->temp_updateusers_addinfo(); }
+	//public function temp_addusersfrom_newlist() { $this->mapi->temp_addusersfrom_newlist(); }
+	//public function temp_update_datetimestamp() { $this->mapi->temp_update_datetimestamp(); }
+
+
 
 
 

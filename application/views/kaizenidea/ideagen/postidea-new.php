@@ -1330,9 +1330,9 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 												 				if(empty($horizradio)) { $horizradio = 'NO'; }
 												 ?>
 												 <table class="pull-right"><tr>
-													 <td><input type="radio" name="horizradio" value="YES" dataid="1" class="horizradio" />Yes</td>
+													 <td><input type="radio" name="horizradio" value="YES" dataid="1" class="horizradio" <?php if($horizradio=='YES') { echo 'checked'; } ?> />Yes</td>
 													 <td>&nbsp;</p>
-													 <td><input type="radio" name="horizradio" value="NO" dataid="0" class="horizradio" checked />No</td>
+													 <td><input type="radio" name="horizradio" value="NO" dataid="0" class="horizradio" <?php if($horizradio=='NO') { echo 'checked'; } ?> />No</td>
 												 </tr></table>
 
 											 </br></br>
@@ -1560,6 +1560,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														<?php
 														$findmanageremailbypid = $this->mapi->findmanageremailbypid($emp_dept);
 														$findmanagernamebypid = $this->mapi->findmanagernamebypid($emp_dept);
+														$findallmanagernamebypid = $this->mapi->findallmanagernamebypid($emp_dept);
 														$findmanageremail2bypid = $this->mapi->findmanageremail2bypid($emp_dept);
 
 														$findmanageremailbydid = $this->mapi->findmanageremailbydid($emp_domain);
@@ -1578,28 +1579,33 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 														$approv_name =  $rowArray->approv_name;
 														if($status=='0') { ?>
-														<?php /*
-														<select class="form-control validate[required] mb-10 fil_approv_name" name="approv_name" id="approv_dept" >
-														 <option value="">Select</option>
-														 <?php
-																 $listgroupbynamesbydept = $this->mapi->listgroupbynamesbydept();
-															foreach ($listgroupbynamesbydept as $llistgroupbynamesbydeptArray) {
-																$liemail = $llistgroupbynamesbydeptArray->email;
-																$lifname = $llistgroupbynamesbydeptArray->fname;
-														 ?>
-															 <option <?php if($findmanagerdeptbypid==$liemail) { echo 'selected'; } ?> value="<?php echo $liemail; ?>"><?php echo $liemail; ?> - <?php echo $lifname; ?></option>
-														 <?php } ?>
-															</select>
-															*/ ?>
+
+
+
+															<select required class=" mb-10 fil_approv_name" name="approv_name" id="approv_dept" >
+															 <option value="">Select</option>
+															 <?php
+																//$listgroupbynamesbydept = $this->mapi->listgroupbynamesbydept();
+																foreach ($findallmanagernamebypid as $findallmanagernamebypidArray) {
+																	$liemail = $findallmanagernamebypidArray->email;
+																	$lifname = $findallmanagernamebypidArray->fname;
+															 ?>
+																 <option value="<?php echo $liemail; ?> - <?php echo $lifname; ?>"><?php echo $liemail; ?> - <?php echo $lifname; ?></option>
+															 <?php } ?>
+																</select>
+
+
+															<?php /*
 															<input type="text" name="approv_name" value="<?php echo $findmanagernamebypid; ?>" class="form-control mb10" />
+															*/ ?>
 
 														<?php } else {  ?>
 														 <input type="text" name="approv_name" <?php if($status=='0') { } else { echo 'readonly'; }  ?> value="<?php echo $approv_name; ?>" class="form-control mb10" />
 														<?php }  ?>
 
 
-														<input type="hidden" name="approv_email" value="<?php echo $findmanageremailbypid; ?>" class="form-control mb10" />
-														<input type="hidden" name="approv_email2" value="<?php echo $findmanageremail2bypid; ?>" class="form-control mb10" />
+														<input type="hidden" name="approv_email" value="" class="form-control mb10 hiddmang_email" />
+														<input type="hidden" name="approv_email2" value="" class="form-control mb10 hiddmang_email2" />
 
 
 													</td>
@@ -1722,6 +1728,60 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 						 </div>
 						 </div>
 							<!--END Form1-->
+
+
+							<?php
+							$imgapprov =  $rowArray->imgapprov;
+							$imgapprov_by =  $rowArray->imgapprov_by;
+							if($imgapprov=='2' || $imgapprov=='3') {
+
+						$attachm = $this->mapi->findtotalimageofkaizen_attachm_ideagen($uri5);
+						if($attachm>0) {
+							?>
+								 <!--Form1-->
+							 <div class="col-lg-12">
+									 <div class="carddashed">
+											 <div class="card-body">
+
+									 <div class="right-box-padding">
+											 <div class="read-content">
+												 <!--
+											<div class="card-header">
+												 <h4 class="card-title">Booking Details</h4>
+											</div>
+											 -->
+											<div class="card-body">
+												 <?php
+													if($imgapprov=='2') { $clsbdg = 'bgmildgreen'; $clsbdg_val = 'Approved'; }
+													else if($imgapprov=='3') { $clsbdg = 'bgmildred'; $clsbdg_val = 'Rejected';  }
+
+													$findnamebyprofileid_fnamee = $this->mapi->findnamebyprofileid($imgapprov_by);
+												 ?>
+												 <h4>Image Sanitization</h4><br/>
+
+												 <?php
+													if(!empty($findnamebyprofileid_fnamee)){
+												 ?>
+												 Name   : <?php echo $findnamebyprofileid_fnamee; ?> <br/>
+												 Status : <span class="badge <?php echo $clsbdg; ?>"><?php echo $clsbdg_val; ?></span>
+
+											 <?php } else { ?>
+												 Image Attached by DRI
+											 <?php } ?>
+
+												 <br/>
+											</div>
+										</div>
+									</div>
+
+							 </div>
+							 </div>
+							 </div>
+								<!--END Form1-->
+							<?php
+						}
+						} ?>
+
 
 
 
@@ -1905,7 +1965,10 @@ Q - This poka yoke will make sure the rail orientation is always right.         
                    <input type="hidden" name="ideaid" value="<?php echo $uri5; ?>" />
 
 									 <?php if($status=='0') { ?>
-                   <button type="submit" id="submittodri" class="btn btn-primary">Submit to DRI</button>
+
+										<button type="submit" id="submittodri" class="btn btn-warning" name="submit" value="saveit">Save It</button>
+										<span style="width:100px;">&nbsp;</span>
+                   <button type="submit" id="submittodri" class="btn btn-primary" name="submit" value="submitit">Submit to DRI</button>
 								 <?php }  ?>
 
                   </div>
@@ -1914,9 +1977,35 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 
 					<?php
+					$approv_email =  $rowArray->approv_email;
+					$imgapprov =  $rowArray->imgapprov;
+
+					if($status=='1' && $imgapprov=='1') {
+						?>
+
+						<button type="button" class="btn btn-success">Waiting for Image Sanitization</button>
+						<br/>
+						<?php
+ 					}
+
+
+					$checkimgapprov_auth = $this->mapi->checkimgapprov_auth($viv_profile_id);
+					if($status=='1' && $imgapprov=='1' && $checkimgapprov_auth=='1') {   ?>
+
+
+
+
+
+						<p>&nbsp;</p>
+						<h4>Whould you like to Approve Kaizen Image and Move it to DRI Approval?</h4>
+						<button type="button" name="imagestatus" ideaidurl="<?php echo $uri5; ?>" profile_id="<?php echo $viv_profile_id; ?>" value="yes" class="btn btn-info click_imgapprovalsts_ideagen">Yes</button>
+						<button type="button" name="imagestatus" ideaidurl="<?php echo $uri5; ?>" profile_id="<?php echo $viv_profile_id; ?>" value="no"  class="btn btn-danger click_imgapprovalsts_ideagen" >No</button>
+
+					<?php }
+
 
 					//Emp Status : Waiting for HOD Approval
-					if($status=='1' && $findmanageremailbypid!=$viv_email) {   ?>
+					if($status=='1' && $imgapprov=='2' && $approv_email!=$viv_email) {   ?>
 
 						<button type="button" class="btn btn-success">Waiting for DRI Approval</button>
 
@@ -1925,11 +2014,31 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 				<?php
 
 				if($viv_user_type=='TRMMMANG')	 {
-				if($status=='1' && $findmanageremailbypid==$viv_email) {   ?>
-						<button type="button" class="btn btn-success">Waiting for Your Approval</button>
+					?>
+
+					<?php if($status=='1') { ?>
+					<h4>Whould you like to Edit Idea?</h4>
+					<a href="<?php
+					//echo site_url('admin/managereditstatuszero/'.$uri5.'');
+					echo site_url('admin/kaizenidea/ideagen/postidea_mangedit/'.$uri5.'');
+
+					?>"  class="btn btn-warning colorfff">Edit</a>
+
+					<p>&nbsp;</p>
+
+					<?php
+				}
 
 
-						<p>&nbsp;</p>
+				//echo $approv_email."<br/>";
+				//echo $viv_email;
+
+
+				if($status=='1' && $approv_email==$viv_email) {   ?>
+						<h4>Waiting for Your Feedback</h4>
+
+
+
 									<?php //if($viv_user_type=='TRMMHOD' || $viv_user_type=='TRMMADMIN') {
 										?>
 										<form action="<?php echo site_url('admin/updateideastatus_ideagen'); ?>"   method="post" autocomplete="off"   enctype="multipart/form-data" class="formID">

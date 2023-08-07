@@ -121,13 +121,51 @@ $profile_id = $rowArray->profile_id;
 
        <div class="form-group col-sm-4">
          <label for="email1">Domain</label>
+
          <input type="text" class="form-control mb-10" id="empdomain" name="empdomain" placeholder="" value="<?php echo $rowArray->domain; ?>">
+
+
+          <?php /*
+         <select class="form-control" name="empdomain" id="empdomain"  >
+           <option value="">Select</option>
+           <?php
+           $db_domain = $rowArray->domain;
+
+           $listdomains = $this->mapi->listdomains();
+            foreach ($listdomains as $listdomainsrowArray) {
+              $selectdomainname = $listdomainsrowArray->domain;
+           ?>
+           <option value="<?php echo $selectdomainname; ?>" <?php if($db_domain==$selectdomainname) { echo 'selected'; } ?>><?php echo $selectdomainname; ?></option>
+         <?php }   ?>
+          </select>
+          */ ?>
+
          <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
        </div>
 
      <div class="form-group col-sm-4">
        <label for="email1">Department</label>
+
        <input type="text" class="form-control mb-10" id="empdepart" name="empdepart" placeholder="" value="<?php echo $rowArray->depart; ?>">
+
+
+       <?php /*
+       <select class="form-control" name="empdepart" id="empdepart"  >
+         <option value="">Select</option>
+         <?php
+         $db_domain = $rowArray->domain;
+         $db_depart = $rowArray->depart;
+          $listdepartmentbydid = $this->mapi->listdepartmentbydid($db_domain);
+          foreach ($listdepartmentbydid as $listdepartmentbydidrowArray) {
+            $dep_deptid = $listdepartmentbydidrowArray->deptid;
+            $dep_domainname = $listdepartmentbydidrowArray->domain;
+            $dep_departmentname = $listdepartmentbydidrowArray->department;
+            $dep_status = $listdepartmentbydidrowArray->status;
+         ?>
+         <option value="<?php echo $dep_departmentname; ?>" <?php if($db_depart==$dep_departmentname) { echo 'selected'; } ?>><?php echo $dep_departmentname; ?></option>
+       <?php }   ?>
+        </select>
+        */ ?>
        <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
      </div>
 
@@ -172,6 +210,21 @@ $profile_id = $rowArray->profile_id;
        <input type="text" class="form-control mb-10" id="empemail2" name="empemail2" placeholder="" value="<?php echo $rowArray->email2; ?>">
        <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
      </div>
+
+
+     <div class="form-group col-sm-4">
+       <label for="Cadre">Cadre</label>
+       <select class="form-control  mb-10" name="cadre" id="cadre">
+         <?php $cadre = $rowArray->cadre; ?>
+         <option value="" <?php if($cadre=='') { echo 'selected'; } ?>>Select</option>
+           <option value="C1" <?php if($cadre=='C1') { echo 'selected'; } ?>>C1</option>
+           <option value="C2" <?php if($cadre=='C2') { echo 'selected'; } ?>>C2</option>
+           <option value="C3" <?php if($cadre=='C3') { echo 'selected'; } ?>>C3</option>
+           <option value="C4" <?php if($cadre=='C4') { echo 'selected'; } ?>>C4</option>
+         </select>
+     </div>
+
+
      </div>
 
 

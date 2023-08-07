@@ -57,7 +57,7 @@
                                             <label for="email1" class="mb10">Gender</label>
                                             <div class="row">
                                             <div class="col-md-6 text-left">
-                                              <input type="radio" name="gender" class="form-control1 inpradio" value="M" id="gender"> <label for="personal"> Male</label>
+                                              <input type="radio" name="gender" class="form-control1 inpradio" value="M" id="gender" > <label for="personal"> Male</label>
                                             </div>
                                             <div class="col-md-6 text-left">
                                               <input type="radio" name="gender" class="form-control1 inpradio" value="F" id="gender"> <label for="social"> Female</label>
@@ -85,14 +85,32 @@
                                           <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="mb-1"><strong>Domain</strong></label>
-                                                <input name="domain" type="text" class="form-control mb10" placeholder="Please enter your Domain">
+                                                <!--
+                                                <input name="domain" type="text" class="form-control mb10" placeholder="Please enter your Domain">-->
+                                                <select class="fil_domain" name="domain" id="domain" >
+                                           			<option value="">All</option>
+                                                 <?php
+                                                 $db_domain = $rowArray->domain;
+                                                 $listdomains = $this->mapi->listdomains();
+                                                  foreach ($listdomains as $listdomainsrowArray) {
+                                                    $selectdomainname = $listdomainsrowArray->domain;
+                                                 ?>
+                                           				<option value="<?php echo $selectdomainname; ?>" <?php if($db_domain==$selectdomainname) { echo 'selected'; } ?>><?php echo $selectdomainname; ?></option>
+                                           			<?php }   ?>
+                                           			 </select>
                                             </div>
                                            </div>
 
                                            <div class="col-sm-6">
                                              <div class="form-group">
                                                  <label class="mb-1"><strong>Department</strong></label>
-                                                 <input name="depart" type="text" class="form-control mb10" placeholder="Please enter your Department">
+                                                 <!--
+                                                 <input name="depart" type="text" class="form-control mb10" placeholder="Please enter your Department">-->
+                                                 <div class="sel_fil_dept">
+                                             		 <select class="form-group" name="dept" id="dept" >
+                                             			 <option value="">All</option>
+                                              		</select>
+                                             		 </div>
                                              </div>
                                             </div>
 

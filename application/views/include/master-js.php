@@ -134,8 +134,9 @@ LOGIN
 
     },
     success: function (response) {
+      //alert(response);
       var objData = JSON.parse(response);
-      //alert(objData);
+
       if(objData.mstatus=='0') {
         //alert(objData.message);
         $(".responsemessage").html("<r1>"+objData.message+"</r1>");
@@ -211,13 +212,349 @@ ADD TEAM
 
  });
 
+
+
+
+/**********************************
+Check Image Approval
+***********************************/
+ $(document).on('click', '.viewemp_imgapproval', function(){
+ //$('.returnstate_checkb').on('click', function (e) {
+            var checked = $(this).is(':checked');
+            var profile_id = $(this).attr('profile_id');
+            var sub_by = $(this).attr('sub_by');
+
+
+            if (checked) {
+               //alert('checked');
+               var status = 1;
+
+            } else {
+              //alert('unchecked');
+                var status = 0;
+
+            }
+
+
+          /*** CHECKED ****/
+           $.ajax({
+             url:"<?php echo site_url('api/updempimgapprovalcheckbyid') ?>",
+             type: "post",
+             //data: serializedData,
+             data: {profile_id:profile_id,sub_by:sub_by,status:status},
+             beforeSend: function() {
+              //$(".tablerefresh").addClass('blurdiv');
+              //$(".imgajaxload").show('blurdiv');
+             },
+             success:function(response){
+               //alert(response);
+               //$(".imgajaxload").hide('blurdiv');
+               //$(".tablerefresh").removeClass('blurdiv');
+
+
+               var objData = JSON.parse(response);
+               //alert(objData);
+               if(objData.mstatus=='0') {
+                 //alert(objData.message);
+                 $(".responsemessage").html("<r1>"+objData.message+"</r1>");
+               } else if(objData.mstatus=='1') {
+                 //alert(objData.message);
+                 $(".responsemessage").html("<g1>"+objData.message+"</g1>");
+                 //$(".tablerefresh").load(" .tablerefresh");
+                 $.notice({
+                   text: ""+objData.message+"",
+                   type: "success"
+                 });
+
+                 }
+
+             }
+           });
+           /** CHECKED***/
+
+                });
+
 <?php } ?>
 
 
 
 
+/**********************************
+Check Image Approval
+***********************************/
+ $(document).on('click', '.viewemp_imgapproval', function(){
+ //$('.returnstate_checkb').on('click', function (e) {
+            var checked = $(this).is(':checked');
+            var profile_id = $(this).attr('profile_id');
+            var sub_by = $(this).attr('sub_by');
+
+
+            if (checked) {
+               //alert('checked');
+               var status = 1;
+
+            } else {
+              //alert('unchecked');
+                var status = 0;
+
+            }
+
+
+          /*** CHECKED ****/
+           $.ajax({
+             url:"<?php echo site_url('api/updempimgapprovalcheckbyid') ?>",
+             type: "post",
+             //data: serializedData,
+             data: {profile_id:profile_id,sub_by:sub_by,status:status},
+             beforeSend: function() {
+              //$(".tablerefresh").addClass('blurdiv');
+              //$(".imgajaxload").show('blurdiv');
+             },
+             success:function(response){
+               //alert(response);
+               //$(".imgajaxload").hide('blurdiv');
+               //$(".tablerefresh").removeClass('blurdiv');
+
+
+               var objData = JSON.parse(response);
+               //alert(objData);
+               if(objData.mstatus=='0') {
+                 //alert(objData.message);
+                 $(".responsemessage").html("<r1>"+objData.message+"</r1>");
+               } else if(objData.mstatus=='1') {
+                 //alert(objData.message);
+                 $(".responsemessage").html("<g1>"+objData.message+"</g1>");
+                 //$(".tablerefresh").load(" .tablerefresh");
+                 $.notice({
+                   text: ""+objData.message+"",
+                   type: "success"
+                 });
+
+                 }
+
+             }
+           });
+           /** CHECKED***/
+
+                });
+
+
+
+
+
+
 <?php
-if($uri3=='ideamang' && $uri4=='postidea') {
+if($uri2=='kaizenidea' && $uri3=='ideamang' && $uri4=='postidea')  {
+?>
+
+/**********************************
+ADD TEAM
+***********************************/
+
+  $(document).on('click', '.click_imgapprovalsts', function(){
+  //$('.deleteemp').on('click', function (e) {
+    var ideaidurl = $(this).attr('ideaidurl');
+    var profile_id = $(this).attr('profile_id');
+    var datavalue = $(this).attr('value');
+    var img_reject_reason = $('.img_reject_reason').val();
+
+
+    $.ajax({
+       url:"<?php echo site_url('api/update_imgapprovalsts') ?>",
+       type: "post",
+       //data: serializedData,
+       data: {ideaidurl:ideaidurl,profile_id:profile_id,datavalue:datavalue,img_reject_reason:img_reject_reason},
+       success:function(response){
+         var objData = JSON.parse(response);
+         //alert(objData);
+         if(objData.mstatus=='0') {
+           //alert(objData.message);
+           $(".responsemessage").html("<r1>"+objData.message+"</r1>");
+           $.notice({
+             text: ""+objData.message+"",
+             type: "error"
+           });
+           location.reload();
+         } else if(objData.mstatus=='1') {
+           //alert(objData.message);
+           $(".responsemessage").html("<g1>"+objData.message+"</g1>");
+           //$(".tablerefresh").load(" .tablerefresh");
+           $.notice({
+             text: ""+objData.message+"",
+             type: "success"
+           });
+           location.reload();
+          }
+
+       }});
+
+
+ });
+
+
+ <?php
+ if($viv_user_type=='TRMMEMP')	 {
+ ?>
+
+ var currentstatusvalue = $('.currentstatusvalue').val();
+ //alert(currentstatusvalue);
+ if(currentstatusvalue=='0') {
+
+ setInterval(function()
+ {
+   var dataString = $('.autosaveform').serialize();
+   // alert(dataString); return false;
+   $.ajax({
+     type: "POST",
+     url: "<?php echo site_url('admin/updateidea_ajax'); ?>",
+     data: dataString,
+     success: function (result) {
+
+         //alert(result);
+         /*
+         if(result=='1') {
+           $.notice({
+             text: "Kaizen Saved",
+             type: "success"
+           });
+         } else {
+           $.notice({
+             text: "Something went wrong! please refresh page",
+             type: "error"
+           });
+         }
+         */
+
+     }
+   });
+
+   e.preventDefault();
+
+ }, 5000);//time in milliseconds
+
+}
+
+<?php } ?>
+
+<?php
+if($viv_user_type=='TRMMADMIN')	 {
+?>
+
+/**********************************
+ADD TEAM
+***********************************/
+
+  $(document).on('click', '.submitshortlisted', function(){
+  //$('.deleteemp').on('click', function (e) {
+
+      if($('.sortlistclick').prop('checked')){
+         var kaizensortlistname = 1;
+      }else{
+         var kaizensortlistname = 2;
+      }
+     var kaizensortlistcomment = $('.kaizensortlistcomment').val();
+     var kaizenid = $('.kaizenid').val();
+
+
+
+    $.ajax({
+       url:"<?php echo site_url('api/update_shortlistedsts') ?>",
+       type: "post",
+       //data: serializedData,
+       data: {kaizenid:kaizenid,kaizensortlistname:kaizensortlistname,kaizensortlistcomment:kaizensortlistcomment},
+       success:function(response){
+         var objData = JSON.parse(response);
+         //alert(objData);
+         if(objData.mstatus=='0') {
+           //alert(objData.message);
+           $(".responsemessage").html("<r1>"+objData.message+"</r1>");
+           $.notice({
+             text: ""+objData.message+"",
+             type: "error"
+           });
+           //location.reload();
+           $(".referesh_shortlisteddiv").load(" .referesh_shortlisteddiv");
+         } else if(objData.mstatus=='1') {
+           //alert(objData.message);
+           $(".responsemessage").html("<g1>"+objData.message+"</g1>");
+           //$(".tablerefresh").load(" .tablerefresh");
+           $.notice({
+             text: ""+objData.message+"",
+             type: "success"
+           });
+           //location.reload();
+           $(".referesh_shortlisteddiv").load(" .referesh_shortlisteddiv");
+          }
+
+       }});
+
+
+ });
+<?php } ?>
+
+<?php } ?>
+
+
+
+
+
+<?php
+if($uri2=='kaizenidea' && $uri3=='ideagen' && $uri4=='postidea')  {
+?>
+
+/**********************************
+ADD TEAM
+***********************************/
+
+  $(document).on('click', '.click_imgapprovalsts_ideagen', function(){
+  //$('.deleteemp').on('click', function (e) {
+    var ideaidurl = $(this).attr('ideaidurl');
+    var profile_id = $(this).attr('profile_id');
+    var datavalue = $(this).attr('value');
+    //alert(ideaidurl);
+
+
+
+    $.ajax({
+       url:"<?php echo site_url('api/update_imgapprovalsts_ideagen') ?>",
+       type: "post",
+       //data: serializedData,
+       data: {ideaidurl:ideaidurl,profile_id:profile_id,datavalue:datavalue},
+       success:function(response){
+         var objData = JSON.parse(response);
+         //alert(objData);
+         if(objData.mstatus=='0') {
+           //alert(objData.message);
+           $(".responsemessage").html("<r1>"+objData.message+"</r1>");
+           $.notice({
+             text: ""+objData.message+"",
+             type: "error"
+           });
+           location.reload();
+         } else if(objData.mstatus=='1') {
+           //alert(objData.message);
+           $(".responsemessage").html("<g1>"+objData.message+"</g1>");
+           //$(".tablerefresh").load(" .tablerefresh");
+           $.notice({
+             text: ""+objData.message+"",
+             type: "success"
+           });
+           location.reload();
+          }
+
+       }});
+
+
+ });
+
+
+
+<?php } ?>
+
+
+
+<?php
+if($uri3=='ideamang' && ($uri4=='postidea' || $uri4=='postidea_mangedit')) {
 ?>
 
 
@@ -376,6 +713,138 @@ if($uri3=='ideamang' && $uri4=='postidea') {
 
   });
   /**disable for view page**/
+
+
+
+
+    //$("#attach_file_after").change(function() {
+    $(document).on('change', '#attach_file_multi', function(e) {
+    var attached_file= $('#attach_file_multi').val();
+    //var hiddchallengeid = $('.hiddchallengeid').val();
+    //var hidduniqueurlid = $('.hidduniqueurlid').val();
+    //alert(attached_file);
+    //
+    if(attached_file!=""){
+
+
+              var name = document.getElementById("attach_file_multi").files[0].name;
+
+              var form_data = new FormData();
+              var ext = name.split('.').pop().toLowerCase();
+              //if(jQuery.inArray(ext, ['gif','png','jpg','jpeg','pdf','ppt','docx','pptx','xlsx','xls','doc']) == -1)
+              if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1)
+
+              {
+               alert("Invalid File Format");
+               return false;
+              }
+              var oFReader = new FileReader();
+              oFReader.readAsDataURL(document.getElementById("attach_file_multi").files[0]);
+              var f = document.getElementById("attach_file_multi").files[0];
+              var fsize = f.size||f.fileSize;
+              //alert(fsize);
+              if(fsize > 10526268)  {
+               alert("File too Big, please select a file less than 10mb");
+              } else {
+
+                     form_data.append("files_multi", document.getElementById('attach_file_multi').files[0]);
+                     form_data.append('postid','<?php echo $uri5; ?>');
+                     form_data.append('profileid','<?php echo $viv_profile_id; ?>');
+
+                       $.ajax({
+                        url:"<?php echo site_url('api/ajaxaddimage_multiple'); ?>",
+                        method:"POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend:function(){
+                         $('#uploaded_image_multi').html("<label class='text-success'>Image Uploading...</label>");
+                        },
+                        error: function(xhr, status, error) {
+                          //alert(error);
+                          //$('#ignismyModalfailure').modal({backdrop: 'static', keyboard: false});
+                          $(".responsemessage_img_multi").html("<r1>"+error+"</r1>");
+
+                        },
+                        success:function(data)
+                        {
+                            //alert(data);
+                            $('#uploaded_image_multi').html('');
+                            $('#attach_file_multi').val("");
+                            //$(".fun_reloadattachdiv").load(location.href + " .fun_reloadattachdiv");
+                            //$(".fun_reload_div").load(location.href + " .fun_reload_div");
+                            $(".referesh_att_multi_image").load(" .referesh_att_multi_image");
+                            if(data==2){
+                             alert("Something went wrong !!");
+                            }
+
+                        }
+                     });
+                }
+
+              } else {
+                alert("Attachment is missed !!");
+                return false;
+              }
+
+    });
+    /**disable for view page**/
+
+
+
+      /**********************************
+      Delete Image
+      ***********************************/
+
+      $(document).on('click', '.deletekaizenimg_multi', function(e) {
+        //$('.deleteemp').on('click', function (e) {
+          var dataiid = $(this).attr('data-iid');
+          var dataimgid = $(this).attr('data-imgid');
+          //alert(dataiid);
+          $.ajax({
+             url:"<?php echo site_url('api/deletekaizenimg_multi') ?>",
+             type: "post",
+             //data: serializedData,
+             data: {dataiid:dataiid,dataimgid:dataimgid},
+             success:function(response){
+               //alert(response);
+
+               var objData = JSON.parse(response);
+
+               if(objData.mstatus=='0') {
+                 //alert(objData.message);
+                 $(".responsemessage_img_multi").html("<r1>"+objData.message+"</r1>");
+                 //$(".fun_reload_div").load(location.href + " .fun_reload_div");
+                 $(".referesh_att_multi_image").load(" .referesh_att_multi_image");
+
+                 $.notice({
+                   text: ""+objData.message+"",
+                   type: "error"
+                 });
+               } else if(objData.mstatus=='1') {
+                 //alert(objData.message);
+
+                    $(".responsemessage_img_multi").html("<g1>"+objData.message+"</g1>");
+                    $(".referesh_att_multi_image").load(" .referesh_att_multi_image");
+
+
+                 //$(".tablerefresh").load(" .tablerefresh");
+                 //$(".fun_reload_div").load(location.href + " .fun_reload_div");
+
+                 $.notice({
+                   text: ""+objData.message+"",
+                   type: "success"
+                 });
+                }
+
+
+             }});
+
+       });
+
+
+
 
 
 
@@ -746,7 +1215,7 @@ if($uri3=='ideamang' && $uri4=='postidea') {
       $(document).on('change', '.typeempid', function(e) {
         //var installercompname = $(".fil_installercompname option:selected").text();
         var typeempid = $(".typeempid").val();
-           //alert(installercompname);
+
           /**** AJax*******/
           $.ajax({
           type: "POST",
@@ -789,7 +1258,7 @@ IDEA_GENERATION
 ******************************/
 
 <?php
-if($uri3=='ideagen' && $uri4=='postidea') {
+if($uri3=='ideagen' && ($uri4=='postidea' || $uri4=='postidea_mangedit')) {
 ?>
 
 
@@ -948,6 +1417,8 @@ if($uri3=='ideagen' && $uri4=='postidea') {
 
   });
   /**disable for view page**/
+
+
 
 
 
@@ -1354,6 +1825,109 @@ if($uri3=='ideagen' && $uri4=='postidea') {
 <?php } ?>
 
 
+<?php
+if($uri2=='kaizenidea' && $uri3=='winners' && $uri4=='createwinner')  {
+?>
+
+/**********************
+INSTALLER INFO
+**********************/
+$(document).on('change', '.typeempid', function(e) {
+  //var installercompname = $(".fil_installercompname option:selected").text();
+  var typeempid = $(".typeempid").val();
+
+    /**** AJax*******/
+    $.ajax({
+    type: "POST",
+    url: "<?php echo site_url('api/getempinfobyempid'); ?>",
+    data: {typeempid:typeempid},
+    success: function(response){
+      //alert(response);
+          var objData = JSON.parse(response);
+          //var instid = objData.instid;
+
+
+        //let pack_cst = (data.result[i].packingcost!='')?data.result[i].packingcost:0;
+        var fname = objData.fname;
+        var domain = objData.domain;
+        var depart = objData.depart;
+
+
+        $(".etypefname").val(fname);
+        $(".etypedomain").val(domain);
+        $(".etypedepart").val(depart);
+
+     }
+
+  });
+});
+
+
+$(document).on('change', '.typeempid2', function(e) {
+  //var installercompname = $(".fil_installercompname option:selected").text();
+  var typeempid = $(".typeempid2").val();
+
+    /**** AJax*******/
+    $.ajax({
+    type: "POST",
+    url: "<?php echo site_url('api/getempinfobyempid'); ?>",
+    data: {typeempid:typeempid},
+    success: function(response){
+      //alert(response);
+          var objData = JSON.parse(response);
+          //var instid = objData.instid;
+
+
+        //let pack_cst = (data.result[i].packingcost!='')?data.result[i].packingcost:0;
+        var fname = objData.fname;
+        var domain = objData.domain;
+        var depart = objData.depart;
+
+
+        $(".etypefname2").val(fname);
+        $(".etypedomain2").val(domain);
+        $(".etypedepart2").val(depart);
+
+     }
+
+  });
+});
+
+
+$(document).on('change', '.typeempid3', function(e) {
+  //var installercompname = $(".fil_installercompname option:selected").text();
+  var typeempid = $(".typeempid3").val();
+
+    /**** AJax*******/
+    $.ajax({
+    type: "POST",
+    url: "<?php echo site_url('api/getempinfobyempid'); ?>",
+    data: {typeempid:typeempid},
+    success: function(response){
+      //alert(response);
+          var objData = JSON.parse(response);
+          //var instid = objData.instid;
+
+
+        //let pack_cst = (data.result[i].packingcost!='')?data.result[i].packingcost:0;
+        var fname = objData.fname;
+        var domain = objData.domain;
+        var depart = objData.depart;
+
+
+        $(".etypefname3").val(fname);
+        $(".etypedomain3").val(domain);
+        $(".etypedepart3").val(depart);
+
+     }
+
+  });
+});
+
+
+<?php } ?>
+
+
 
 
 </script>
@@ -1376,12 +1950,20 @@ $(document).ready(function() {
       /**** AJax*******/
       $.ajax({
       type: "POST",
-      url: "<?php echo site_url('api/ajaxgetdeptnamebyempid'); ?>",
+      url: "<?php echo site_url('api/ajaxgetemail2byempid'); ?>",
       data: {email:str_email},
       dataType:"json",
       success: function(data){
-          //alert(data);
 
+
+
+          $.each(data.result, function(i, item) {
+            $(".hiddmang_email").val(data.result[i].email);
+            $(".hiddmang_email2").val(data.result[i].email2);
+          });
+
+
+          /*
           var select=' <select class="form-control validate[required] mb-10 " name="approv_dept" id="approv_dept" >';
 
           $.each(data.result, function(i, item) {
@@ -1389,10 +1971,12 @@ $(document).ready(function() {
           //let ut_prc = (data.result[i].price!='')?data.result[i].price:0;
            //select+='<option product_id="'+data.result[i].product_id+'" unit_price="'+ut_prc+'" packingcost="'+pack_cst+'" value="'+data.result[i].product_title+'">'+data.result[i].product_title+'</option>'
            select+='<option value="'+data.result[i].depart+'">'+data.result[i].depart+'</option>';
-          });
+
              select+="</select>";
 
           $(".sel_fil_approv_name").html(select);
+          */
+
       }
       });
       /**** AJax*******/
@@ -1443,4 +2027,33 @@ $(document).ready(function() {
 
 
  });
+</script>
+
+
+
+<script type="text/javascript">
+<?php
+
+$count_listactivewinners = $this->mapi->count_listactivewinners_popup();
+ if($count_listactivewinners>0) {
+   /*
+   $listactivewinners = $this->mapi->listactivewinners();
+   foreach ($listactivewinners as $listactivewinnersrowArray) {
+     //$winnerid = $listactivewinnersrowArray->winnerid;
+     $stimestamp = $listactivewinnersrowArray->stimestamp;
+     $etimestamp = $listactivewinnersrowArray->etimestamp;
+  }
+  */
+?>
+
+    $(window).on('load', function() {
+        $('#modelwinnerpopup').modal('show');
+    });
+<?php } ?>
+
+
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+
 </script>

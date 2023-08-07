@@ -18,7 +18,7 @@ class Messages extends CI_Model {
 			$mge292d7e3 = array('User deleted successfully', '1');
 			$mge182d7f3 = array('Deleted successfully','1');
 			$mgc1619f66 = array('Submitted successfully', '1');
-			$mgcf2f4d4a = array('', '1');
+			$msgsus = array('Please check email and verify', '1');
 
 			$mg76ea943a = array('', '1');
 			$mg23se765u = array('','1');
@@ -112,8 +112,8 @@ class Messages extends CI_Model {
 						return $mgc1619f66;
 						break;
 
-				case 'mgcf2f4d4a':
-						return $mgcf2f4d4a;
+				case 'msgsus':
+						return $msgsus;
 						break;
 
 				case 'mg23se765u':

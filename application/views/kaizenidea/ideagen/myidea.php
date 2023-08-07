@@ -65,6 +65,128 @@
 
 
 
+  <?php
+  $viv_user_type = $this->session->userdata('viv_user_type');
+  $viv_profile_id = $this->session->userdata('viv_profile_id');
+  $viv_email = $this->session->userdata('viv_email');
+
+  if($viv_user_type=='TRMMADMIN') {
+  ?>
+    <!-- FILTER FORM-->
+    <div class="row page-titles mx-0">
+    <div class="col-sm-12 p-md-0">
+    <div class="welcome-text">
+    <div class="row">
+
+    <form action="" method="POST" >
+    <div class="col-sm-12">
+
+      <div class="pull-left">
+        <div class="form-group ">
+         <label>Year </label> <br/>
+         <select class="" name="year" id="year" >
+         <?php
+           $listgroupbykaizenyear = $this->mapi->listgroupbykaizenyear();
+          foreach ($listgroupbykaizenyear as $listgroupbykaizenyearArray) {
+            $kaizenyear = $listgroupbykaizenyearArray->syear;
+            $todayyear = date('Y');
+         ?>
+           <option <?php if($kaizenyear==$todayyear) { echo 'selected'; } ?> value="<?php echo $kaizenyear; ?>"><?php echo $kaizenyear; ?></option>
+         <?php }   ?>
+          </select>
+        </div>
+      </div>
+
+
+
+     <div class="pull-left">
+
+       <div class="form-group">
+        <label>Domain </label> <br/>
+        <select class="fil_domain" name="domain" id="domain" >
+         <option value="">All</option>
+         <?php
+           $listgroupbydomain = $this->mapi->listgroupbydomain();
+          foreach ($listgroupbydomain as $listgroupbydomainArray) {
+            $domain = $listgroupbydomainArray->domain;
+         ?>
+           <option <?php //if($approv_dept==$lidepart) { echo 'selected'; } ?> value="<?php echo $domain; ?>"><?php echo $domain; ?></option>
+         <?php }   ?>
+          </select>
+        </div>
+
+     </div>
+
+
+
+    <div class="pull-left">
+      <div class="form-group">
+       <label>Department </label> <br/>
+       <div class="sel_fil_dept">
+
+       <select class="" name="dept" id="dept" >
+         <option value="">All</option>
+         <?php /*
+        <option value="">All</option>
+        <?php
+          $listgroupbydept = $this->mapi->listgroupbydept();
+         foreach ($listgroupbydept as $listgroupbydeptArray) {
+           $lidepart = $listgroupbydeptArray->depart;
+        ?>
+          <option <?php //if($approv_dept==$lidepart) { echo 'selected'; } ?> value="<?php echo $lidepart; ?>"><?php echo $lidepart; ?></option>
+        <?php }   ?>
+        */ ?>
+         </select>
+
+       </div>
+       </div>
+    </div>
+
+
+
+    <div class="pull-left col-sm-6">
+      <div class="form-group">
+      <label>Kaizen Theme </label> <br/>
+       <input type="text" class="form-control col-sm-12" name="kaizentheme" />
+      </div>
+    </div>
+
+
+    <div class="pull-left">
+      <div class="form-group">
+      <label>Status</label> <br/>
+        <select class="" name="status" id="status" >
+         <option value="">All</option>
+
+         <option value="totalsubmitted">Total Submitted</option>
+         <option value="totalpending">Total Pending</option>
+         <option value="totalapproved">Total Approved</option>
+         <option value="totalrejected">Total Rejected</option>
+
+         </select>
+      </div>
+    </div>
+
+
+
+
+
+      <div class="pull-left">
+        <label>&nbsp; </label>
+       <button type="submit" name="filter"  value="filter" class="btn btn-primary width100per">Filter</button>
+      </div>
+
+
+  </div>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  </div>
+    <!--END FILTER FORM-->
+  <?php } ?>
+
 
                <div class="row page-titles mx-0">
 
@@ -114,7 +236,28 @@
 
                          <?php
 
-                         $listmyideas = $this->mapi->listmyideas_ideagen();
+
+
+
+                         $filter = $this->input->post('filter');
+                      		if(!empty($filter || $filter=='filter')) {
+
+                                if($viv_user_type=='TRMMADMIN') {
+                                    $listmyideas = $this->mapi->listmyideas_ideagen_filter();
+                                } else {
+                                    $listmyideas = $this->mapi->listmyideas_ideagen();
+                                }
+                     		   } else {
+                            $listmyideas = $this->mapi->listmyideas_ideagen();
+
+                          }
+
+
+
+
+
+
+
                          if(empty($listmyideas)) {  ?>
 
                            <tr><td colspan="3">Sorry! No records added yet...</td></tr>
@@ -154,6 +297,7 @@
                              $finance_status = $rowArray->finance_status;
 
                              $horizradio = $rowArray->horizradio;
+                             $imgapprov = $rowArray->imgapprov;
 
 
 
@@ -167,8 +311,14 @@
                                <p>Kaizen Theme : <b><?php echo $ktheme; ?></b>
                                  <span class="pull-right">
                                    Status :
-                                  <?php
-                                  if($status==1) { ?>
+                                   <?php
+                                   if($status==1 && $imgapprov==1) { ?>
+                                   <span class="badge bgmildgray">Waiting for Image Sanitization</span>
+
+                                 <?php } else if($status==1 && $imgapprov==3) { ?>
+                                 <span class="badge bgmildred">Images Sanitization Rejected</span>
+
+                               <?php } else if($status==1 && $imgapprov==2) { ?>
                                   <span class="badge bgmildgray">Waiting for DRI Approval</span>
                                 <?php } else if($status==2) { ?>
 
@@ -197,7 +347,10 @@
                                   <span class="badge bgmildgreen">Finance Approved</span>
                                 <?php } else if($status==7) {  ?>
                                     <span class="badge bgmildred">Finance Rejected</span>
-                                <?php } ?>
+                                  <?php }  else if($status==0) {  ?>
+                                      <span class="badge bgmildgray">Not Submitted</span>
+
+                                  <?php } ?>
 
 
                                    </b></span>
@@ -247,7 +400,14 @@
 
                                <td class="text-center">
                                  <div class="d-flex align-center84">
+
+                                   <?php
+                                   if($status==0) { ?>
+                                   <a href="<?php echo site_url('admin/kaizenidea/ideagen/postidea/'.$idea_id.''); ?>" class="btn btn-info shadow" >Edit</a>
+                                 <?php } else { ?>
+
                                  <a href="<?php echo site_url('admin/kaizenidea/ideagen/postidea/'.$idea_id.''); ?>" class="btn btn-warning shadow" >View</a>
+                                 <?php } ?>
 
                                  </div>
                                </td>

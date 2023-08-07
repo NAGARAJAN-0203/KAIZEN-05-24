@@ -128,6 +128,106 @@
 		<!--END Page Title-->
 	<?php } ?>
 
+
+
+	<!--Page Title-->
+	<div class="row page-titles mx-0">
+	<div class="col-sm-12 p-md-0">
+		<h6 class="text-right">Total Employees Submitted Ideas / Total Employees in Domain</h4>
+	<div class="welcome-text">
+
+		<?php
+		$listgroupbydomain = $this->mapi->listgroupbydomain();
+		foreach ($listgroupbydomain as $listgroupbydomainrowArray) {
+			$domain = $listgroupbydomainrowArray->domain;
+
+			$uri4 = str_replace('%20', ' ', $uri4);
+		 ?>
+
+		<div class="">
+					 <!--Div-->
+					 <a href="<?php echo site_url('admin/kaizenidea/ideagen_dashboard/'.$domain.''); ?>">
+					 <div class="divcount pull-right">
+						<div class="<?php if($uri4==$domain) { echo 'bgl-green'; } else { echo 'bgl-primary'; } ?> rounded p-2">
+							<p class="mb-0 counttitle txt-center"><?php echo $domain; ?></p>
+							<p class="mb-0 countnumb text-center"><b><?php
+$count_totalkaizenbydomain_ideagen = $this->mapi->count_totalkaizenbydomain_ideagen($domain);
+$count_totalkaizenusersdomain_ideagen = $this->mapi->count_totalkaizenusersdomain_ideagen($domain);
+$count_empbydomain = $this->mapi->count_empbydomain($domain);
+
+
+	echo $count_totalkaizenusersdomain_ideagen." / ".$count_empbydomain." ";
+
+							//echo $count_totalkaizenbydomain_ideagen." / ".$count_totalkaizenusersdomain_ideagen." ";
+							?></b></p>
+						</div>
+						<center><?php
+						$diff2 = ($count_totalkaizenusersdomain_ideagen / $count_empbydomain) * 100;
+						//echo round($diff);
+						echo number_format((float)$diff2, 2, '.', '');
+						?>%</center>
+					</div>
+				</a>
+						<!--END Div-->
+		 </div>
+
+	 <?php } ?>
+
+ 	</div>
+	</div>
+	</div>
+	<!--END Page Title-->
+
+
+
+
+			 <?php if(!empty($uri4)) { ?>
+			 <!--Page Title-->
+			 <div class="row page-titles mx-0">
+			 <div class="col-sm-12 p-md-0">
+				 <h6 class="text-right">Total Employees Submitted Ideas  / Total Employees in Department</h4>
+			 <div class="welcome-text">
+
+				 <?php
+				 $listgroupbydeptbydomain = $this->mapi->listgroupbydeptbydomain($uri4);
+				 foreach ($listgroupbydeptbydomain as $listgroupbydeptbydomainArray) {
+					 //$domain = $listgroupbydeptbydomainArray->domain;
+					 $depart = $listgroupbydeptbydomainArray->depart;
+					 ?>
+
+				 <div class="">
+								<!--Div-->
+									<div class="divcount pull-right">
+								 <div class="bgl-primary rounded p-2">
+									 <p class="mb-0 counttitle txt-center"><?php echo $depart; ?></p>
+									 <p class="mb-0 countnumb text-center"><b><?php
+									 $count_totalkaizenbydepart = $this->mapi->count_totalkaizenbydepart_ideagen($uri4,$depart);
+									 $count_totalkaizenusersdepart = $this->mapi->count_totalkaizenusersdepart_ideagen($uri4,$depart);
+									 $count_empbydepart = $this->mapi->count_empbydepart($uri4,$depart);
+
+									 echo $count_totalkaizenusersdepart." / ".$count_empbydepart." ";
+									 ?></b></p>
+								 </div>
+								 <center><?php
+								 $diff_depart2 = ($count_totalkaizenusersdepart / $count_empbydepart) * 100;
+								 //echo round($diff);
+								 echo number_format((float)$diff_depart2, 2, '.', '');
+								 ?>%</center>
+							 </div>
+									 <!--END Div-->
+					</div>
+
+				<?php } ?>
+
+			 </div>
+			 </div>
+			 </div>
+			 <!--END Page Title-->
+		 <?php } ?>
+
+
+
+
 	<?php } ?>
 
 
@@ -1039,8 +1139,11 @@
 
 
 	 <h3 class="col-sm-12"> Submitted Ideas Forms <small class="minifonth">(<?php echo "Domain : ".$domain_sub.",&nbsp;&nbsp; |&nbsp;&nbsp; Department : ".$dept_sub.", &nbsp;&nbsp; |&nbsp;&nbsp;  Year : ".$year_sub; ?>)</small></h3>
+
+
+
 	 <!--Box-->
-	 <div class="col-xl-2 col-lg-2 col-sm-2">
+	 <div class="col-xl-3 col-lg-3 col-sm-3">
 		 <a href="<?php echo site_url('admin/kaizenidea/ideagen/myidea/totalsubmitted/'.$year_sub.'/'.$domain_sub.'/'.$dept_sub.''); ?>">
 	 <div class="widget-stat card">
 	 <div class="card-body p-4">
@@ -1059,6 +1162,63 @@
 	</a>
 	 </div>
 		<!--END Box-->
+
+
+
+		<!--Box-->
+		<div class="col-xl-4 col-lg-4 col-sm-4">
+			 <a>
+						<div class="card overflow-hidden">
+														<div class="card-body">
+																<div class="text-center">
+																		<div class="profile-photo">
+										<img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="" width="100">
+									</div>
+																		<h4 class="card-title">Image Sanitization</h4>
+																		<!--
+																	 <div class="progress mb-2">
+																	 <div class="progress-bar progress-animated bg-warning" style="width: 80%"></div>
+																	 </div>
+																 -->
+																 <p>&nbsp;</p>
+ 																</div>
+														</div>
+
+														<div class="card-footer pt-0 pb-0 text-center">
+																<div class="row">
+
+
+									<div class="col-6 pt-3 pb-3 border-right">
+										<h3 class="mb-1">
+											<?php
+											//$tstsapp = '1,2,4,6';
+											$stsimgapp_pen = '1';
+											$count_listmyideas_imgapprov_filter_pen = $this->mapi->count_listmyideasgen_imgapprov_filter($stsimgapp_pen,$year_sub,$domain_sub,$dept_sub);
+											echo $count_listmyideas_imgapprov_filter_pen;
+											?>
+								 </h3><span>Total Pending</span>
+									</div>
+
+
+									<div class="col-6 pt-3 pb-3">
+										<h3 class="mb-1">
+											<?php
+ 									 $stsimgapp_rej = '3';
+									 $count_listmyideas_imgapprov_filter_rej = $this->mapi->count_listmyideasgen_imgapprov_filter($stsimgapp_rej,$year_sub,$domain_sub,$dept_sub);
+									 echo $count_listmyideas_imgapprov_filter_rej;
+									 ?>
+								 </h3><span>Total Rejected</span>
+									</div>
+
+																</div>
+														</div>
+												</div>
+											</a>
+					</div>
+					<!--End Box-->
+
+
+
 
 
 		<!--Box-->
@@ -1188,7 +1348,7 @@
 
 
 			<!--Box-->
-			 <div class="col-xl-2 col-lg-2 col-sm-2">
+			 <div class="col-xl-3 col-lg-3 col-sm-3">
 			 <a href="<?php echo site_url('admin/kaizenidea/ideagen/myidea/totalpending/'.$year_sub.'/'.$domain_sub.'/'.$dept_sub.''); ?>">
 			 <div class="widget-stat card">
 			 <div class="card-body p-4">

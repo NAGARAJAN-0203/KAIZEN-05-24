@@ -1,8 +1,13 @@
+
+
+
+
 <?php
   $uri3 = $this->uri->segment(3);
   $uri4 = $this->uri->segment(4);
   $uri5 = $this->uri->segment(5);
   $uri6 = $this->uri->segment(6);
+  $uri7 = $this->uri->segment(7);
 
 ?>
 <div class="content-body">
@@ -30,12 +35,12 @@
   <div class="welcome-text">
 
     <?php
+    $uri5 = str_replace('%20', ' ', $uri5);
+    $uri6 = str_replace('%20', ' ', $uri6);
     $listgroupbydomain = $this->mapi->listgroupbydomain();
     foreach ($listgroupbydomain as $listgroupbydomainrowArray) {
       $domain = $listgroupbydomainrowArray->domain;
-
-      $uri5 = str_replace('%20', ' ', $uri5);
-     ?>
+      ?>
 
     <div class="">
            <!--Div-->
@@ -71,7 +76,13 @@
   $emailid2 = $this->input->post('emailid2');
   $usertype = $this->input->post('usertype');
   //$domain = $this->input->post('domain');
-  $dept = $this->input->post('dept');
+
+
+
+    $dept = $this->input->post('dept');
+    if(empty($dept)) {
+      $dept = '';
+    }
 
 
   ?>
@@ -172,19 +183,36 @@
   <div class="col-lg-12">
       <div class="card">
           <div class="card-header">
-              <div><h4 class="card-title">Users List -
+              <div>
+
+
+
+                <h4 class="card-title">Total Employees -
                 <?php $countlistrsausers = $this->mapi->countlistusersbyids($uri5,$name,$emailid,$emailid2,$usertype,$dept);
                 echo $countlistrsausers;
                 ?>
 
-              </h4><p class="responsemessage"></p></div>
+                <div class="pull-right importtbutt ml-3">
+                 <a href="<?php echo site_url('admin/kaizenidea/useraccounts/listusersbykaizen/'); ?>" class="btn btn-block btn-outline-info active" >Kaizen Sorted</a>
+                </div>
+
+                <div class="pull-right importtbutt">
+                 <a class="btn btn-block btn-outline-warning active" data-toggle="modal" data-target="#importExcelModel" >Import Users</a>
+                </div>
+
+              </h4>
+
+              <p class="responsemessage"></p>
 
 
+              </div>
 
+              <?php /*
               <div class="pull-right importtbutt">
               <label for="validationTooltip02 "> &nbsp;</label><br/>
-              <a class="btn btn-block btn-outline-warning active" data-toggle="modal" data-target="#importExcelModel" >Import Users</a>
+              <a class="btn btn-block btn-outline-warning active" data-toggle="modal" data-target="#importExcelModelTemp" >Import Temp Users</a>
               </div>
+              */ ?>
 
           </div>
 
@@ -258,7 +286,41 @@
 
 
 
+<?php
+/*
 
+<!--Model Form-->
+<div class="modal fade" id="importExcelModelTemp" tabindex="-1" role="dialog" aria-labelledby="importExcelModelTemp" >
+
+  <!--aria-hidden="true"-->
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <form id="formID-1" action="<?php echo site_url('admin/importuserexcel_temp') ?>" method="POST"   autocomplete="off" enctype="multipart/form-data" >
+        <div class="modal-body">
+
+          <div class="row">
+          <!-- Form -->
+
+          <div class="form-group col-sm-5">
+                <label>Upload : xls / xlsx / CSV sheet</label>
+                <input type="file"  class="form-control" name="userfile" id="userfile" required  />
+          </div>
+          <div class="form-group col-sm-4">
+              <label><p>&nbsp;</p><br/></label>
+            <button type="submit" class="btn btn-success" name="importfile" id="importfile-id">Upload & Submit</button>
+          </div>
+          <!--END Form -->
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+<!--END Model Form-->
+
+*/ ?>
 
           <div class="card-body">
 
@@ -275,13 +337,14 @@
 
                               <th class="text-center">#</th>
                             <!--  <th>ProfilePic</th>-->
-                               <th class="">Name</th>
-                               <th class="">Emp ID</th>
-                               <th class="">Gender</th>
-                               <th class="">Domain</th>
-                               <th class="">Department</th>
-                               <th class="">Email</th>
-                               <th class="">UserType</th>
+                              <th class="">Emp ID</th>
+                               <th class="">Name, Email & Gender</th>
+
+                               <th class="">Total Kaizen Posted</th>
+                               <th class="">Domain & Department</th>
+                               <th class="">Plant, Area & Carde</th>
+                               <th class="">User <br/>Type</th>
+                               <th class=""><center>IMG Approval</center></th>
                               <th class="">Status</th>
                               <th class="text-center">Action</th>
                           </tr>
@@ -306,6 +369,8 @@
                          foreach ($listusersbyids as $rowArray) {
 
                             $profile_id = $rowArray->profile_id;
+                            $profile_iddd = $rowArray->profile_id;
+                            $imgapprov = $rowArray->imgapprov;
 
 
                          ?>
@@ -329,17 +394,34 @@
                                 <img class="mr-2 rounded" width="50" alt="image" src="<?php echo $returnprofilepic; ?>">
                               </td>
                             -->
-                              <td><?php echo $rowArray->fname; ?></td>
                               <td><?php echo $rowArray->email; ?></td>
-                              <td><?php
-                              $gender = $rowArray->gender;
-                              if($gender=='M') { echo 'Male'; }
-                              elseif($gender=='F') { echo 'Female'; }
-                              ?></td>
-                              <td><?php echo $rowArray->domain; ?></td>
-                              <td><?php echo $rowArray->depart; ?></td>
-                               <td><?php echo $rowArray->email2; ?></td>
+                              <td><?php echo "<b1>".$rowArray->fname."</b1>"; ?> <br/>
+                                <?php echo $rowArray->email2; ?> <br/>
+                                <small></i>Gender : <?php
+                                $gender = $rowArray->gender;
+                                if($gender=='M') { echo 'Male'; }
+                                elseif($gender=='F') { echo 'Female'; }
+                                ?></i></small>
+                              </td>
 
+                              <td>
+                              <center>
+                                <a target="_blank" href="<?php echo site_url('admin/kaizenidea/useraccounts/listkaizensbyuser/'.$profile_id.''); ?>">
+                                <span class=""><?php
+                              echo $this->mapi->count_listmyideas_empbypid($profile_iddd);
+                              ?></a></span></center>
+                            </td>
+
+
+
+                              <td><?php echo "<b1>".$rowArray->domain."</b1>"; ?> <br/>
+                                <?php echo $rowArray->depart; ?>
+                              </td>
+
+                              <td>Plant : <?php echo $rowArray->plant; ?> <br/>
+                                  Area : <?php echo $rowArray->area; ?> <br/>
+                                  Carde : <?php echo $rowArray->cadre; ?>
+                              </td>
 
 
                                <td class="text-center">
@@ -356,6 +438,12 @@
                                  IT Dept
                                <?php } ?>
 
+                               </td>
+
+                               <td>
+                                 <center>
+                                <input type="checkbox" name="imgapprov" value="" class="checksubmit viewemp_imgapproval"  profile_id="<?php echo $profile_id; ?>" sub_by="<?php echo $this->session->userdata('viv_profile_id'); ?>" <?php if($imgapprov==1) { echo 'checked'; } ?> />
+                            </center>
                                </td>
 
 

@@ -13,9 +13,28 @@ else if($uri3=='ideamang' && $uri4=='postidea') {
    //$this->load->view('kaizenidea/idea/postidea');
 }
 
+else if($uri3=='ideamang' && $uri4=='postidea_mangedit') {
+   $this->load->view('kaizenidea/idea/postidea-new-mangedit');
+   //$this->load->view('kaizenidea/idea/postidea');
+}
+
 else if($uri3=='ideamang' && $uri4=='myidea') {
    $this->load->view('kaizenidea/idea/myidea');
 }
+
+else if($uri3=='ideamang' && $uri4=='myidea_imgapproval') {
+   $this->load->view('kaizenidea/idea/myidea_imgapproval');
+}
+
+else if($uri3=='ideamang' && $uri4=='myidea_monthfilter') {
+   $this->load->view('kaizenidea/idea/myidea_monthfilter');
+}
+
+else if($uri3=='ideamang' && $uri4=='myidea_half_monthfilter') {
+   $this->load->view('kaizenidea/idea/myidea_half_monthfilter');
+}
+
+
 
 else if($uri3=='ideamang' && $uri4=='ideaverification') {
    $this->load->view('kaizenidea/idea/ideaverification');

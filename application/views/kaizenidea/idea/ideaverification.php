@@ -185,6 +185,10 @@
                              $finance_status = $rowArray->finance_status;
 
                              $horizradio = $rowArray->horizradio;
+                             $imgapprov = $rowArray->imgapprov;
+
+                             $emp_edit_status = $rowArray->emp_edit_status;
+                             $hold_status = $rowArray->hold_status;
 
 
 
@@ -197,35 +201,54 @@
                                  <p>Kaizen Theme : <b><?php echo $ktheme; ?></b>
                                    <span class="pull-right">
                                      Status :
-                                    <?php
-                                    if($status==1) { ?>
-                                    <span class="badge bgmildgray">Waiting for DRI Approval</span>
-                                  <?php } else if($status==2) { ?>
+                                     <?php
+                                     if($status==1 && $imgapprov==1 && $hold_status==0) { ?>
+                                     <span class="badge bgmildgray">Waiting for Image Sanitization</span>
 
+                                   <?php } else if($status==1 && $imgapprov==3 && $hold_status==0) { ?>
+                                   <span class="badge bgmildred">Images Sanitization Rejected</span>
 
-                                      <span class="badge bgmildgreen">DRI Approved <?php
-                                      if(empty($cs_cycletime) && empty($cs_manpower) && $cs_cost<50000) { } else {
-                                      ?>& Waiting for <?php
-                                      if(!empty($cs_cycletime) || !empty($cs_manpower)) { echo 'IE Dept'; }
-                                      if((!empty($cs_cycletime) || !empty($cs_manpower)) && $cs_cost>=50000) { echo ', '; }
-                                      if($cs_cost>=50000) { echo 'Finance'; }
-                                      ?> Approval
+                                 <?php } else if($status==1 && $imgapprov==2 && $hold_status==0) { ?>
+                                     <span class="badge bgmildgray">Waiting for DRI Approval</span>
+
+                                 <?php } else if($status==1 && $imgapprov==2 && $hold_status==1) { ?>
+                                     <span class="badge bgmildred">Hold</span>
+
+                                 <?php } else if($status==2) { ?>
+
+                                     <span class="badge bgmildgreen"> DRI Approved
+                                      <?php
+                                     if(empty($cs_cycletime) && empty($cs_manpower) && $cs_cost<50000) {
+
+                                        echo '';
+                                       } else {
+                                     ?>& Waiting for <?php
+                                     if(!empty($cs_cycletime) || !empty($cs_manpower)) { echo 'IE Dept'; }
+                                     if((!empty($cs_cycletime) || !empty($cs_manpower)) && $cs_cost>=50000) { echo ', '; }
+                                     if($cs_cost>=50000) { echo 'Finance'; }
+                                     ?> Approval
                                     <?php } ?>
-                                    </span>
+                                     </span>
 
+                                   <?php } else if($status==3) { ?>
+                                         <span class="badge bgmildred">DRI Rejected</span>
+                                   <?php } else if($status==4) { ?>
+                                     <span class="badge bgmildgray">IE Department Approved <?php
+                                     if($cs_cost>=50000) { echo '& Waiting for Finance Approval'; }
+                                     ?></span>
 
-                                  <?php } else if($status==3) { ?>
-                                        <span class="badge bgmildred">Rejected</span>
-                                  <?php } else if($status==4) { ?>
-                                            <span class="badge bgmildgreen">IE Department Approved</span>
+                                   <?php } else if($status==5) { ?>
+                                             <span class="badge bgmildred">IE Department Rejected</span>
 
-                                  <?php } else if($status==5) { ?>
-                                            <span class="badge bgmildred">IE Department Rejected</span>
-                                  <?php } else if($status==6) {  ?>
-                                      <span class="badge bgmildgreen">Finance Approved</span>
-                                    <?php } else if($status==7) {  ?>
-                                        <span class="badge bgmildred">Finance Rejected</span>
-                                    <?php } ?>
+                                 <?php } else if($status==6) {  ?>
+                                     <span class="badge bgmildgreen">Finance Approved</span>
+                                   <?php } else if($status==7) {  ?>
+                                       <span class="badge bgmildred">Finance Rejected</span>
+
+                                   <?php }  else if($status==0) {  ?>
+                                       <span class="badge bgmildgray">Not Submitted</span>
+
+                                   <?php } ?>
 
                                      </b></span>
                                    <br/>
@@ -490,6 +513,10 @@
                                  $finance_status = $rowArray->finance_status;
 
                                  $horizradio = $rowArray->horizradio;
+                                 $imgapprov = $rowArray->imgapprov;
+
+                                 $emp_edit_status = $rowArray->emp_edit_status;
+                                 $hold_status = $rowArray->hold_status;
 
 
 
@@ -502,37 +529,61 @@
                                        <p>Kaizen Theme : <b><?php echo $ktheme; ?></b>
                                        <span class="pull-right">
                                          Status :
-                                        <?php
-                                        if($status==1) { ?>
-                                        <span class="badge bgmildgray">Waiting for DRI Approval</span>
-                                      <?php } else if($status==2) { ?>
+                                         <?php
+                                         if($status==1 && $imgapprov==1 && $hold_status==0) { ?>
+                                         <span class="badge bgmildgray">Waiting for Image Sanitization</span>
 
+                                       <?php } else if($status==1 && $imgapprov==3 && $hold_status==0) { ?>
+                                       <span class="badge bgmildred">Images Sanitization Rejected</span>
 
-                                          <span class="badge bgmildgray">DRI Approved <?php
-                                          if(empty($cs_cycletime) && empty($cs_manpower) && $cs_cost<50000) { } else {
-                                          ?>& Waiting for <?php
-                                          if(!empty($cs_cycletime) || !empty($cs_manpower)) { echo 'IE Dept'; }
-                                          if((!empty($cs_cycletime) || !empty($cs_manpower)) && $cs_cost>=50000) { echo ', '; }
-                                          if($cs_cost>=50000) { echo 'Finance'; }
-                                          ?> Approval</span>
+                                     <?php } else if($status==1 && $imgapprov==2 && $hold_status==0) { ?>
+                                         <span class="badge bgmildgray">Waiting for DRI Approval</span>
+
+                                     <?php } else if($status==1 && $imgapprov==2 && $hold_status==1) { ?>
+                                         <span class="badge bgmildred">Hold</span>
+
+                                     <?php } else if($status==2 && $hold_status==0) { ?>
+
+                                         <span class="badge bgmildgreen"> DRI Approved
+                                          <?php
+                                         if(empty($cs_cycletime) && empty($cs_manpower) && $cs_cost<50000) {
+
+                                            echo '';
+                                           } else {
+                                         ?>& Waiting for <?php
+                                         if(!empty($cs_cycletime) || !empty($cs_manpower)) { echo 'IE Dept'; }
+                                         if((!empty($cs_cycletime) || !empty($cs_manpower)) && $cs_cost>=50000) { echo ', '; }
+                                         if($cs_cost>=50000) { echo 'Finance'; }
+                                         ?> Approval
                                         <?php } ?>
+                                         </span>
 
+                                       <?php } else if($status==2 && $hold_status==1) { ?>
 
+                                            <span class="badge bgmildred">Hold</span>
 
-                                      <?php } else if($status==3) { ?>
-                                            <span class="badge bgmildred">Rejected</span>
-                                      <?php } else if($status==4) { ?>
-                                          <span class="badge bgmildgreen">IE Department Approved <?php
-                                          if($cs_cost>=50000) { echo '& Waiting for Finance Approval'; }
-                                          ?></span>
+                                         <?php } else if($status==3  && $hold_status==0) { ?>
+                                             <span class="badge bgmildred">DRI Rejected</span>
+                                       <?php } else if($status==4  && $hold_status==0) { ?>
+                                         <span class="badge bgmildgray">IE Department Approved <?php
+                                         if($cs_cost>=50000) { echo '& Waiting for Finance Approval'; }
+                                         ?></span>
 
-                                      <?php } else if($status==5) { ?>
-                                          <span class="badge bgmildred">IE Department Rejected</span>
+                                       <?php } else if($status==4  && $hold_status==1) { ?>
+                                           <span class="badge bgmildred">Hold</span>
+
+                                       <?php } else if($status==5) { ?>
+                                                 <span class="badge bgmildred">IE Department Rejected</span>
+
                                      <?php } else if($status==6) {  ?>
-                                        <span class="badge bgmildgreen">Finance Approved</span>
-                                      <?php } else if($status==7) {  ?>
-                                          <span class="badge bgmildred">Finance Rejected</span>
-                                      <?php } ?>
+                                         <span class="badge bgmildgreen">Finance Approved</span>
+                                       <?php } else if($status==7) {  ?>
+                                           <span class="badge bgmildred">Finance Rejected</span>
+
+                                       <?php }  else if($status==0) {  ?>
+                                           <span class="badge bgmildgray">Not Submitted</span>
+
+                                       <?php } ?>
 
                                          </b></span>
                                        <br/>
@@ -787,6 +838,15 @@
                                      $cs_cycletime = $rowArray->cs_cycletime;
                                      $cs_manpower = $rowArray->cs_manpower;
 
+                                     $iedept_status = $rowArray->iedept_status;
+                                     $finance_status = $rowArray->finance_status;
+
+                                     $horizradio = $rowArray->horizradio;
+                                     $imgapprov = $rowArray->imgapprov;
+
+                                     $emp_edit_status = $rowArray->emp_edit_status;
+                                     $hold_status = $rowArray->hold_status;
+
 
                                   ?>
 
@@ -797,37 +857,61 @@
                                          <p>Doc No : <b><?php echo $doc_no; ?></b>
                                            <span class="pull-right">
                                              Status :
-                                            <?php
-                                            if($status==1) { ?>
-                                            <span class="badge bgmildgray">Waiting for DRI Approval</span>
-                                          <?php } else if($status==2) { ?>
+                                             <?php
+                                             if($status==1 && $imgapprov==1 && $hold_status==0) { ?>
+                                             <span class="badge bgmildgray">Waiting for Image Sanitization</span>
 
+                                           <?php } else if($status==1 && $imgapprov==3 && $hold_status==0) { ?>
+                                           <span class="badge bgmildred">Images Sanitization Rejected</span>
 
-                                              <span class="badge bgmildgray">DRI Approved <?php
-                                              if(empty($cs_cycletime) && empty($cs_manpower) && $cs_cost<50000) { } else {
-                                              ?>& Waiting for <?php
-                                              if(!empty($cs_cycletime) || !empty($cs_manpower)) { echo 'IE Dept'; }
-                                              if((!empty($cs_cycletime) || !empty($cs_manpower)) && $cs_cost>=50000) { echo ', '; }
-                                              if($cs_cost>=50000) { echo 'Finance'; }
-                                              ?> Approval</span>
+                                         <?php } else if($status==1 && $imgapprov==2 && $hold_status==0) { ?>
+                                             <span class="badge bgmildgray">Waiting for DRI Approval</span>
+
+                                         <?php } else if($status==1 && $imgapprov==2 && $hold_status==1) { ?>
+                                             <span class="badge bgmildred">Hold</span>
+
+                                         <?php } else if($status==2  && $hold_status==0) { ?>
+
+                                             <span class="badge bgmildgreen"> DRI Approved
+                                              <?php
+                                             if(empty($cs_cycletime) && empty($cs_manpower) && $cs_cost<50000) {
+
+                                                echo '';
+                                               } else {
+                                             ?>& Waiting for <?php
+                                             if(!empty($cs_cycletime) || !empty($cs_manpower)) { echo 'IE Dept'; }
+                                             if((!empty($cs_cycletime) || !empty($cs_manpower)) && $cs_cost>=50000) { echo ', '; }
+                                             if($cs_cost>=50000) { echo 'Finance'; }
+                                             ?> Approval
                                             <?php } ?>
+                                             </span>
 
+                                           <?php } else if($status==2 && $hold_status==1) { ?>
 
+                                                <span class="badge bgmildred">Hold</span>
 
-                                          <?php } else if($status==3) { ?>
-                                                <span class="badge bgmildred">Rejected</span>
-                                          <?php } else if($status==4) { ?>
-                                              <span class="badge bgmildgreen">IE Department Approved <?php
-                                              if($cs_cost>=50000) { echo '& Waiting for Finance Approval'; }
-                                              ?></span>
+                                             <?php } else if($status==3  && $hold_status==0) { ?>
+                                                 <span class="badge bgmildred">DRI Rejected</span>
+                                           <?php } else if($status==4  && $hold_status==0) { ?>
+                                             <span class="badge bgmildgray">IE Department Approved <?php
+                                             if($cs_cost>=50000) { echo '& Waiting for Finance Approval'; }
+                                             ?></span>
 
-                                          <?php } else if($status==5) { ?>
-                                              <span class="badge bgmildred">IE Department Rejected</span>
-                                          <?php } else if($status==6) {  ?>
-                                              <span class="badge bgmildgreen">Finance Approved</span>
-                                            <?php } else if($status==7) {  ?>
-                                                <span class="badge bgmildred">Finance Rejected</span>
-                                            <?php } ?>
+                                           <?php } else if($status==4  && $hold_status==1) { ?>
+                                              <span class="badge bgmildred">Hold</span>
+
+                                           <?php } else if($status==5) { ?>
+                                                     <span class="badge bgmildred">IE Department Rejected</span>
+
+                                         <?php } else if($status==6) {  ?>
+                                             <span class="badge bgmildgreen">Finance Approved</span>
+                                           <?php } else if($status==7) {  ?>
+                                               <span class="badge bgmildred">Finance Rejected</span>
+
+                                           <?php }  else if($status==0) {  ?>
+                                               <span class="badge bgmildgray">Not Submitted</span>
+
+                                           <?php } ?>
 
                                              </b></span>
                                            <br/>

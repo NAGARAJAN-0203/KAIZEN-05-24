@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8888/CANOPUS-GBS/24-KaizenForm/OLD/';
+$config['base_url'] = 'http://localhost:8888/CANOPUS-GBS/24-KaizenForm/kaizenidea/kaizenidea/';
 date_default_timezone_set("Asia/Kolkata");
 //error_reporting(0);
 /*

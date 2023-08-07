@@ -17,17 +17,15 @@ class Memail extends CI_Model {
 
 					$this->load->library('email');
 					 $config = array (
-						 'mailtype' => 'html',
+						'mailtype' => 'html',
  						'wordwrap' => 'TRUE',
  						'charset' => 'iso-8859-1',
- 						'protocol' => 'smtp',
  						'isHTML' => 'TRUE',
-
-
-						'smtp_host' => 'webmail.vivartha.com',
-						'smtp_port' => 587,
-						'smtp_user' => 'developer@vivartha.com',
-						'smtp_pass' => 'Developer@123'
+ 						'protocol' => 'smtp',
+  					'smtp_host' => 'vivartha.com',
+ 						'smtp_port' => 587,
+ 						'smtp_user' => 'dgldeveloper@vivartha.com',
+ 						'smtp_pass' => 'Reset@@123'
 
 
 
@@ -47,14 +45,14 @@ class Memail extends CI_Model {
 						 );
 					 $this->email->initialize($config);
 					 $this->email->set_newline('\r\n');
-					 $this->email->from('developer@vivartha.com', 'Noreply Kaizen');
-					 $this->email->to($to);
-					 //$this->email->to('chandru5452@gmail.com');
-					 $this->email->cc($cc);
+					 $this->email->from('dgldeveloper@vivartha.com', 'Noreply Kaizen');
+					 //$this->email->to($to);
+					 $this->email->to('chandru5452@gmail.com');
+					 //$this->email->cc($cc);
 					 //$this->email->bcc('chandru5452@gmail.com');
 					 $this->email->subject($subject);
 					 $this->email->message($message);
-					 //$this->email->send();
+					 $this->email->send();
 					 //echo $this->email->print_debugger();
 
 }
@@ -120,7 +118,7 @@ public function triggerkaizensubmit($approv_email,$ideaid,$currentdatetime,$rand
 
 										 <br /><br /><br />
 
-										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #002a2c;
+										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #ffffff;
 background-color: #1b9de0;border-bottom: 3px solid #1b9de0;padding: 10px 34px;margin-top: 10px !important;border: 1px solid #1b9de0;  border-radius: 2px !important;  font-size: 17px;">Open Kaizen App</span></a>
 										 <br /><br />
 
@@ -225,7 +223,7 @@ public function triggerkaizen_driappr($approv_email,$ideaid,$currentdatetime,$ra
 
 										 <br /><br /><br />
 
-										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #002a2c;
+										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #ffffff;
 background-color: #1b9de0;border-bottom: 3px solid #1b9de0;padding: 10px 34px;margin-top: 10px !important;border: 1px solid #1b9de0;  border-radius: 2px !important;  font-size: 17px;">Open Kaizen App</span></a>
 										 <br /><br />
 
@@ -328,7 +326,7 @@ public function triggerkaizen_iedeptappr($approv_email,$ideaid,$currentdatetime,
 
 										 <br /><br /><br />
 
-										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #002a2c;
+										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #ffffff;
 background-color: #1b9de0;border-bottom: 3px solid #1b9de0;padding: 10px 34px;margin-top: 10px !important;border: 1px solid #1b9de0;  border-radius: 2px !important;  font-size: 17px;">Open Kaizen App</span></a>
 										 <br /><br />
 
@@ -434,7 +432,7 @@ public function triggerideagensubmit($approv_email,$ideaid,$currentdatetime,$ran
 
 										 <br /><br /><br />
 
-										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #002a2c;
+										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #ffffff;
 background-color: #1b9de0;border-bottom: 3px solid #1b9de0;padding: 10px 34px;margin-top: 10px !important;border: 1px solid #1b9de0;  border-radius: 2px !important;  font-size: 17px;">Open Kaizen App</span></a>
 										 <br /><br />
 
@@ -539,7 +537,7 @@ public function triggeridea_driappr($approv_email,$ideaid,$currentdatetime,$rand
 
 										 <br /><br /><br />
 
-										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #002a2c;
+										 <a style="text-decoration:none;font-size:18px;font-weight:bold;color:#ffffff;outline:none" href="'.site_url('admin/kaizenidea/ideamang/postidea/'.$ideaid.'').'" target="_blank" data-saferedirecturl=""><span style="color: #ffffff;
 background-color: #1b9de0;border-bottom: 3px solid #1b9de0;padding: 10px 34px;margin-top: 10px !important;border: 1px solid #1b9de0;  border-radius: 2px !important;  font-size: 17px;">Open Kaizen App</span></a>
 										 <br /><br />
 
@@ -684,6 +682,88 @@ background-color: #1b9de0;border-bottom: 3px solid #1b9de0;padding: 10px 34px;ma
 		//$to = 'deepika.singh@tataelectronics.co.in';
 		$cc = '';
 		$subject = 'Idea Form - IE Dept Approved'.$currentdatetime.'';
+		$this->triggermail($to,$cc,$subject,$message);
+			/****************** MAIL TEMPLATE*************/
+}
+
+
+
+/********************************
+MESSAGES - js_forgotpassword
+********************************/
+public function js_forgotpassword($fname, $email, $currentdatetime, $profileid, $randomiduniq) {
+
+
+		/****************** MAIL TEMPLATE*************/
+			 $message = '<html><head>';
+			 $message .= '</head><body>';
+			 /*border:1px solid #00d0bb;border-top:4px solid #00d0bb;border-bottom:4px solid #00d0bb;*/
+			 $message .= '<div><tr>
+			 <td>
+				<div>
+				<div style="width:97% !important; padding:10px 10px 10px 10px !important; float:left; text-align:left !important;
+				 position:relative; bottom:0px !important; font-weight:lighter;    font-family:Geneva, Arial, Helvetica, sans-serif; font-size:14px;">
+
+
+					<table style=";font-family:Arial,Helvetica,sans-serif" width="100%" align="center" cellspacing="0" cellpadding="0" border="0">
+						 <tbody>
+							<tr>
+							 <td style="padding-top:15px" align="center"><a style="outline:none;border:0px" href=""><img style="display:block;max-width:217px" alt="" width="100%" align="absbottom" border="0" src="" class="CToWUd"></a></td>
+							</tr>
+							<tr>
+							 <td style="">
+								<table width="100%" cellspacing="0" cellpadding="0" border="0">
+									 <tbody>
+
+
+								 <tr>
+									<td>
+									<img src="'.base_url().'/assets/images/tatalogo.png" height="70" />
+									<br/>
+									<br/>
+
+									Hi '.$fname.',</td>
+								 </tr>
+										<tr>
+										 <td style="font-size:14px;text-align:left;">
+										 <br /><br />
+										 We received a request to reset your password. Click the link below to choose a new one:<br /><br /><br />
+
+											<a style="text-decoration:none;font-size:18px;font-weight:bold;color:#fff;outline:none" href="'.site_url('admin/newpassword/'.$profileid.'/'.$randomiduniq.'').'" target="_blank" data-saferedirecturl=""><span style="color: #ffffff;
+background-color: #1d7dbe;border-bottom: 3px solid #1d7dbe;padding: 10px 34px;margin-top: 10px !important;border: 1px solid #1d7dbe;  border-radius: 2px !important;  font-size: 17px;">Reset Password</span></a>
+											<br /><br />
+
+										 <p>If you received this email by mistake, you can safely ignore it. Your password won&#39;t be changed.<p>
+										 <br/><br />
+										 </td>
+										</tr>
+
+										<tr>
+								<td><a style="color:#9a9a9a">Kaizen</a> <br/></td>
+								 </tr>
+
+										<tr>
+										 <td>&nbsp;</td>
+										</tr>
+
+										<tr>
+										 <td>&nbsp;</td>
+										</tr>
+
+									 </tbody>
+								</table>
+							 </td>
+							</tr>
+						 </tbody>
+					</table>
+					<p>&nbsp;</p>
+				 </div>
+				</div>
+			 </td>
+		</tr></div></body></html>';
+		$to = $email;
+		$cc = '';
+		$subject = 'Your Kaizen New Password';
 		$this->triggermail($to,$cc,$subject,$message);
 			/****************** MAIL TEMPLATE*************/
 }

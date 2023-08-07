@@ -41,7 +41,8 @@
 		$status = $rowArray->status;
 		$subdatetime = $rowArray->subdatetime;
 		$root_cause = $rowArray->root_cause;
-		$status = $rowArray->status;
+		$emp_edit_status = $rowArray->emp_edit_status;
+		$hold_status = $rowArray->hold_status;
 
 	?>
 
@@ -515,21 +516,38 @@ Q - This poka yoke will make sure the rail orientation is always right.         
      <div class="read-content fun_reload_div">
 
 
-  <form id="formID-1"  action="<?php if($status=='0') { echo site_url('admin/updateidea'); } else {
-		echo '';
-	} ?>"   method="post" autocomplete="off"   enctype="multipart/form-data" class="formID">
+  <form id="formID-1"  action="<?php
+			if($emp_edit_status=='0') { echo site_url('admin/updateidea'); }
+			else { echo ''; }
+	?>"   method="post" autocomplete="off"   enctype="multipart/form-data" class="formID autosaveform">
           <!--Div-->
                   <div class="card-header">
-                    <h4 class="card-title">Post My Idea</h4>
+
+
+                    <h4 class="card-title">Post My Idea
+
+
+										<?php if($viv_user_type=='TRMMADMIN') { ?>
+
+
+										<a href="#" class="btn btn-info   pull-right cardheaderbtn" onclick="history.back()" >Back</a>
+
+										<a href="#" class="btn btn-warning shadow btn-convert pull-right cardheaderbtn" >Download PDF</a>
+
+										<?php } ?>
+
+										</h4>
+
                  </div>
+								 <p id="downloadmsg" class="col-sm-12"><g1 class="pull-right">Please wait... Preparing to Download...</g1>
+									 <p>&nbsp;</p>
+								 </p>
                  <div class="card-body">
                     <div class="basic-form">
 
 
-
+											<div class="single-html-block">
 											<div class="row">
-
-
 												<!--Form1-->
 											<div class="col-lg-3">
 													<div class="carddashed">
@@ -572,52 +590,74 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 															<div class="form-group mb10 radiotick">
 																<label>ACTIVITY<r1>*</r1></label>
-																<label title="MURA" class="mlmin12"><input type="checkbox" class="hideradio" name="activity[]" <?php if(in_array("MURA", $activity_ex)) { echo 'checked'; } ?> value="MURA" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /> <img class="higwei20" />MURA</label>
+																<label   class="mlmin12"
+																data-toggle="popover" data-trigger="hover" data-placement="top"  title="ACTIVITY [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/activity.png" height="40" />'><input type="checkbox" class="hideradio" name="activity[]" <?php if(in_array("MURA", $activity_ex)) { echo 'checked'; } ?> value="MURA" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
+																<img class="higwei20" />MURA</label>
 
-																<label title="MURI" class="mlmin12"><input type="checkbox" class="hideradio" name="activity[]" <?php if(in_array("MURI", $activity_ex))  { echo 'checked'; } ?> value="MURI" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /> <img class="higwei20" />MURI</label>
+																<label  class="mlmin12"
+																data-toggle="popover" data-trigger="hover" data-placement="top"  title="ACTIVITY [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/activity.png" height="40" />'
+																><input type="checkbox" class="hideradio" name="activity[]" <?php if(in_array("MURI", $activity_ex))  { echo 'checked'; } ?> value="MURI" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /> <img class="higwei20" />MURI</label>
 
-																<label title="MUDA" class="mlmin12"><input type="checkbox" class="hideradio" name="activity[]" <?php if(in_array("MUDA", $activity_ex)) { echo 'checked'; } ?> value="MUDA" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /> <img class="higwei20" />MUDA</label>
+																<label  class="mlmin12"
+																data-toggle="popover" data-trigger="hover" data-placement="top"  title="ACTIVITY [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/activity.png" height="40" />'
+																><input type="checkbox" class="hideradio" name="activity[]" <?php if(in_array("MUDA", $activity_ex)) { echo 'checked'; } ?> value="MUDA" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /> <img class="higwei20" />MUDA</label>
 														 </div>
 
 														 <div class="form-group">
-															 <textarea class="form-control mb10" name="activity_desc" <?php if($status=='0') { } else { echo 'readonly'; }  ?> id="activity_desc"><?php echo $activity_desc; ?></textarea>
+															 <textarea class="form-control mb10" name="activity_desc" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> id="activity_desc"><?php echo $activity_desc; ?></textarea>
 														 </div>
+
+
 
 														 <div class="form-group">
 															 <label class=""> <span class="pullleft">Benefit Area <r1>*</r1></span>
 															 </br>
-																 <label class="tab tabcheckbox">
-	                                 <input type="checkbox" name="benifit_area[]" value="P" class="tab-input" <?php if(in_array("P", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($status=='0') { } else { echo 'readonly'; }  ?>>
+																 <label class="tab tabcheckbox"
+																 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benefit Area [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/benifitarea.png" height="40" />'
+																 >
+	                                 <input type="checkbox" name="benifit_area[]" value="P" class="tab-input" <?php if(in_array("P", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>>
 	                                 <div class="tab-box">P</div>
 	                               </label>
 
-																 <label class="tab tabcheckbox">
-	                                 <input type="checkbox" name="benifit_area[]" value="Q" class="tab-input" <?php if(in_array("Q", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($status=='0') { } else { echo 'readonly'; }  ?>>
+																 <label class="tab tabcheckbox"
+																 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benefit Area [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/benifitarea.png" height="40" />'
+																 >
+	                                 <input type="checkbox" name="benifit_area[]" value="Q" class="tab-input" <?php if(in_array("Q", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>>
 	                                 <div class="tab-box">Q</div>
 	                               </label>
 
-																 <label class="tab tabcheckbox">
-																	 <input type="checkbox" name="benifit_area[]" value="D" class="tab-input" <?php if(in_array("C", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($status=='0') { } else { echo 'readonly'; }  ?>>
+																 <label class="tab tabcheckbox"
+																 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benefit Area [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/benifitarea.png" height="40" />'
+																 >
+																	 <input type="checkbox" name="benifit_area[]" value="D" class="tab-input" <?php if(in_array("C", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>>
 																	 <div class="tab-box">C</div>
 																 </label>
 
-																 <label class="tab tabcheckbox">
-	                                 <input type="checkbox" name="benifit_area[]" value="D" class="tab-input" <?php if(in_array("D", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($status=='0') { } else { echo 'readonly'; }  ?>>
+																 <label class="tab tabcheckbox"
+																 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benefit Area [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/benifitarea.png" height="40" />'
+																 >
+	                                 <input type="checkbox" name="benifit_area[]" value="D" class="tab-input" <?php if(in_array("D", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>>
 	                                 <div class="tab-box">D</div>
 	                               </label>
 
-																 <label class="tab tabcheckbox">
-	                                 <input type="checkbox" name="benifit_area[]" value="S" class="tab-input" <?php if(in_array("S", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($status=='0') { } else { echo 'readonly'; }  ?>>
+																 <label class="tab tabcheckbox"
+																 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benefit Area [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/benifitarea.png" height="40" />'
+																 >
+	                                 <input type="checkbox" name="benifit_area[]" value="S" class="tab-input" <?php if(in_array("S", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>>
 	                                 <div class="tab-box">S</div>
 	                               </label>
 
-																 <label class="tab tabcheckbox">
-	                                 <input type="checkbox" name="benifit_area[]" value="M" class="tab-input" <?php if(in_array("M", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($status=='0') { } else { echo 'readonly'; }  ?>>
+																 <label class="tab tabcheckbox"
+																 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benefit Area [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/benifitarea.png" height="40" />'
+																 >
+	                                 <input type="checkbox" name="benifit_area[]" value="M" class="tab-input" <?php if(in_array("M", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>>
 	                                 <div class="tab-box">M</div>
 	                               </label>
 
-																 <label class="tab tabcheckbox">
-	                                 <input type="checkbox" name="benifit_area[]" value="E" class="tab-input" <?php if(in_array("E", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($status=='0') { } else { echo 'readonly'; }  ?>>
+																 <label class="tab tabcheckbox"
+																 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benefit Area [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenform/benifitarea.png" height="40" />'
+																 >
+	                                 <input type="checkbox" name="benifit_area[]" value="E" class="tab-input" <?php if(in_array("E", $benifit_area_ex)) { echo 'checked'; } ?> <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>>
 	                                 <div class="tab-box">E</div>
 	                               </label>
 															 </label>
@@ -651,28 +691,33 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 <div class="col-sm-6">
 														 <div class="form-group">
 																<label>Doc No <r1>*</r1></label>
-																<input type="text" name="doc_no" class="form-control mb10" value="<?php  if(empty($doc_no)) { echo "TEPL-IE-C-FR-0005"; } else { echo $doc_no; } ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+																<input type="text" name="doc_no" class="form-control mb10" value="<?php  if(empty($doc_no)) { echo "TEPL-IE-C-FR-0005"; } else { echo $doc_no; } ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 														 </div>
 													 	</div>
 
 														<div class="col-sm-6">
 														 <div class="form-group">
 																<label>Version No/Date<r1>*</r1></label>
-																<input type="text" name="version_no" class="form-control mb10" value="<?php   if(empty($version_no)) { echo "01/".date("d.m.Y").""; } else { echo $version_no; } ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+																<input type="text" name="version_no" class="form-control mb10" value="<?php   if(empty($version_no)) { echo "01/".date("d.m.Y").""; } else { echo $version_no; } ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 														 </div>
 													 </div>
 
 													 <div class="col-sm-6">
 														 <div class="form-group">
 																<label><!--Project Code-->Cost Centre<r1>*</r1></label>
-																<input type="text" required name="proj_code" id="proj_code" class="form-control mb10 " value="<?php echo $proj_code; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+																<input type="text" required name="proj_code" id="proj_code" class="form-control mb10 " value="<?php echo $proj_code; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+																data-toggle="popover" data-trigger="hover" data-placement="top"  title="Cost Centre [Example]" data-html="true" data-content='00C'
+																/>
 														 </div>
 													 </div>
 
 													 <div class="col-sm-6">
 														 <div class="form-group">
 																<label>KAIZEN Ref.No<r1>*</r1></label>
-																<input type="text" required name="ref_no" id="ref_no" class="form-control " value="<?php echo $ref_no; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+																<input type="text" required name="ref_no" id="ref_no" class="form-control " value="<?php echo $ref_no; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+																data-toggle="popover" data-trigger="hover" data-placement="top"  title="KAIZEN Ref.No [Example]" data-html="true" data-content='IM/PP/05'
+																/>
 														 </div>
 													 </div>
 												 </div> <!--row-->
@@ -706,7 +751,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 															 <label>Plant Name<r1>*</r1></label> <br/>
 															 <select class="form-control " name="plantname" id="plantname">
 
-																 <?php if($status=='0') {    ?>
+																 <?php if($emp_edit_status=='0') {    ?>
 																								<option value="">Select</option>
 																								<?php $plantname = $rowArray->plantname; ?>
 																 								<option value="Pilot Plant" <?php if($plantname=='Pilot Plant') { echo 'selected'; } ?>>Pilot Plant</option>
@@ -727,7 +772,9 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														<div class="col-sm-6">
 														<div class="form-group">
 															<label>Kaizen Theme <r1>*</r1></label>
-															<input type="text" name="ktheme" id="ktheme" required class="form-control" value="<?php echo $ktheme; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+															<input type="text" name="ktheme" id="ktheme" required class="form-control" value="<?php echo $ktheme; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+															data-toggle="popover" data-trigger="hover" data-placement="top"  title="Kaizen Theme [Example]" data-html="true" data-content='Poka yoke in Rail placing'
+															/>
 													   </div>
 													 	</div>
 
@@ -735,7 +782,9 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														<div class="col-sm-6">
 														<div class="form-group">
 															<label><!--Area/Line/Machine-->Block/Line/Machine/Others <r1>*</r1></label>
-															<input type="text" name="tepl_plant" id="tepl_plant" required class="form-control" value="<?php echo $tepl_plant; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+															<input type="text" name="tepl_plant" id="tepl_plant" required class="form-control" value="<?php echo $tepl_plant; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+															data-toggle="popover" data-trigger="hover" data-placement="top"  title="Block/Line/Machine/Others [Example]" data-html="true" data-content='IM 01 Process'
+															 />
 													   </div>
 													 	</div>
 
@@ -745,7 +794,9 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														<div class="col-sm-6">
 														<div class="form-group">
 															<label><!--Idea-->Suggested Kaizen ( Logical Correlation with root cause) <r1>*</r1></label>
-															<input type="text" required name="idea" id="idea" class="form-control" value="<?php echo $idea; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+															<input type="text" required name="idea" id="idea" class="form-control" value="<?php echo $idea; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+																data-toggle="popover" data-trigger="hover" data-placement="top"  title="Suggested Kaizen [Example]" data-html="true" data-content='Provide stopper pin in Heating Fixture'
+															 />
 													   </div>
 													 	</div>
 													</div><!--row-->
@@ -779,14 +830,20 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														<div class="col-sm-6">
 														<div class="form-group">
 															<label>Problem Statement<r1>*</r1></label> <br/>
-															<textarea class="textarea50" <?php if($status=='0') { } else { echo 'readonly'; }  ?> name="prob_stmt"><?php echo $rowArray->prob_stmt; ?></textarea>
+															<textarea class="textarea50" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> name="prob_stmt"
+
+																	data-toggle="popover" data-trigger="hover" data-placement="top"  title="Problem Statement [Example]" data-html="true" data-content='There is no POKA YOKE for Rail placing in Heating Fixture, due to this rail can place wrong direction and it possible for Mold damage and it affect part qualitity.'
+
+																><?php echo $rowArray->prob_stmt; ?></textarea>
 													 	</div>
 												 		</div>
 
 														<div class="col-sm-6">
 														<div class="form-group">
 															<label>Counter measure( Engineering solution)<r1>*</r1></label> <br/>
-															<textarea class="textarea50" name="count_measur" <?php if($status=='0') { } else { echo 'readonly'; }  ?>><?php echo $rowArray->count_measur; ?></textarea>
+															<textarea class="textarea50" name="count_measur" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+																data-toggle="popover" data-trigger="hover" data-placement="top"  title="Counter measure [Example]" data-html="true" data-content='Locating guide pin placed in fixture 3 places to avoid rail placing wrong orientation'
+																><?php echo $rowArray->count_measur; ?></textarea>
 													 	</div>
 												 		</div>
 													</div><!--row-->
@@ -834,7 +891,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 															 <img src='<?php echo base_url(); ?>assets/images/kaizenattachments/<?php echo $before_img; ?>' class="imgbeforedisplay" />
 															 </a>
 
-															 <?php if($status=='0') {    ?>
+															 <?php if($emp_edit_status=='0') {    ?>
 															 <span onclick="return confirm('Are you sure you want to delete this image?');" class="cursorpointer badge bgmildreddark mt10 deletekaizenimg" data-iid="<?php echo $idea_id; ?>" data-itype="before">Delete</span>
 														 <?php } ?>
 														 <?php }	 else {
@@ -843,15 +900,20 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 <input type="file" id="attach_file" name="files" />
 														 -->
 														 <!--AttachFile-->
-														 <div class="inpfilelabel addattachfile">
+														 <div class="inpfilelabel addattachfile"
+														 data-toggle="popover" data-trigger="hover" data-placement="top"  title="Before [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenimages/1.jpg" height="160" />'
+														 >
+														 <?php if($emp_edit_status=='0') {    ?>
 														 <input id="attach_file" type="file" name="files"  style="display: none;" />
+													   <?php } ?>
 														 <label for="attach_file" id="file-drag" class="">
 															 <div id="start">
 																	<div class="row">
 
 																 <div class="col-sm-12">
 																		 <img id="file-image" src="<?php echo base_url(); ?>assets/images/uploadicon.svg" alt="Preview" class="hidden">
-																		 <div class="attachtitle">Click here to attach files</div>
+																		 <div class="attachtitle"
+																		 >Click here to attach files</div>
 																		 <div id="notimage" class="hidden">Supportive formats:
 																							 JPG / PNG / JPEG
 																							 Upload up to 10 MB</div>
@@ -886,7 +948,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 															 <img src='<?php echo base_url(); ?>assets/images/kaizenattachments/<?php echo $after_img; ?>' class="imgbeforedisplay" />
 															 </a>
 
-															 <?php if($status=='0') {    ?>
+															 <?php if($emp_edit_status=='0') {    ?>
 															 <span onclick="return confirm('Are you sure you want to delete this image?');" class="cursorpointer badge bgmildreddark mt10 deletekaizenimg" data-iid="<?php echo $idea_id; ?>" data-itype="after">Delete</span>
 														 <?php } ?>
 														 <?php }	 else {
@@ -895,8 +957,13 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 <input type="file" id="attach_file" name="files" />
 														 -->
 														 <!--AttachFile-->
-														 <div class="inpfilelabel addattachfile_a">
+														 <div class="inpfilelabel addattachfile_a"
+														 data-toggle="popover" data-trigger="hover" data-placement="top"  title="After [Example]" data-html="true" data-content='<img src="<?php echo base_url(); ?>assets/images/kaizenimages/2.jpg" height="160" />'
+
+														 >
+														<?php if($emp_edit_status=='0') {    ?>
 														 <input id="attach_file_after" type="file" name="files_a"  style="display: none;" />
+													 <?php } ?>
 														 <label for="attach_file_after" id="file-drag" class="">
 															 <div id="start">
 																	<div class="row">
@@ -937,6 +1004,128 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 
 
+
+
+
+<!--Form1-->
+<div class="col-lg-12">
+	<div class="carddashed">
+			<div class="card-body">
+
+	<div class="right-box-padding">
+			<div class="read-content">
+				<!--
+		 <div class="card-header">
+				<h4 class="card-title">Booking Details</h4>
+		 </div>
+			-->
+		 <div class="card-body">
+			 <div class="referesh_att_multi_image">
+			 <div class="row">
+
+ 			<?php
+			$listideasmultiimgbyiid_count = $this->mapi->listideasmultiimgbyiid_count($uri5);
+
+			if($listideasmultiimgbyiid_count>0) {
+			$listideasmultiimgbyiid = $this->mapi->listideasmultiimgbyiid($uri5);
+			 foreach ($listideasmultiimgbyiid as $listideasmultiimgbyiidArray) {
+				 $multi_idea_id = $listideasmultiimgbyiidArray->idea_id;
+				 $multi_imgid = $listideasmultiimgbyiidArray->imgid;
+				 $multi_img_name = $listideasmultiimgbyiidArray->img_name;
+
+				?>
+			 <div class="col-sm-3">
+			 <div class="form-group">
+				 <label>&nbsp;</label> <br/>
+				 <!--Before Image-->
+				 <div class="">
+
+				 <div class="inpfilelabel_attm addattachfile">
+ 					 <div id="start">
+							<div class="row">
+
+						 <div class="col-sm-12">
+							 <img src="<?php echo base_url(); ?>assets/images/kaizenattachments/<?php echo $multi_img_name; ?>" height="113" width="170" />
+
+
+							 <?php if($emp_edit_status=='0') {    ?>
+							 <span onclick="return confirm('Are you sure you want to delete this image?');" class="cursorpointer badge bgmildreddark mt10 deletekaizenimg_multi delbutt" data-iid="<?php echo $multi_idea_id; ?>" data-imgid="<?php echo $multi_imgid; ?>"  >Delete</span>
+						 	<?php } ?>
+
+
+						 </div>
+
+
+
+
+						 </div>
+
+						</div>
+				 </div>
+
+
+				 <!--END AttachFile-->
+			 </div>
+				 <!--END Before Image -->
+			 </div>
+			 </div>
+		 <?php }
+
+	 			}
+		 ?>
+
+
+
+
+
+			 <div class="col-sm-3 addimg_positiontop">
+			 <div class="form-group">
+				 <label>Add Additional Attachments</label> <br/>
+				 <div class="">
+
+				 <div class="inpfilelabel_attm addattachfile_a">
+				 <?php if($emp_edit_status=='0') {    ?>
+				 <input id="attach_file_multi" type="file" name="files_multi"  style="display: none;" />
+			   <?php } ?>
+				 <label for="attach_file_multi" id="file-drag" class="">
+					 <div id="start">
+							<div class="row">
+
+						 <div class="col-sm-12">
+								 <img id="file-image" src="<?php echo base_url(); ?>assets/images/uploadicon.svg" alt="Preview" class="hidden">
+								 <div class="attachtitle">Click here to attach more files</div>
+ 						 </div>
+
+
+						 </div>
+
+						</div>
+				 </div>
+
+				 <span id="uploaded_image_multi"></span> <br/>
+				 <span class="responsemessage_img_multi"></span>
+
+				 <!--END AttachFile-->
+
+			 </div>
+			 </div>
+			 </div>
+
+			 </div>
+		 </div><!--row-->
+
+		</div>
+
+		 </div>
+	 </div>
+ </div>
+
+</div>
+</div>
+<!--END Form1-->
+
+
+
 									 <!--Form1-->
 								 <div class="col-lg-6">
 										 <div class="carddashed">
@@ -966,21 +1155,24 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 													<div class="col-sm-4">
 													<div class="form-group">
  														<label>Yield<r1>*</r1></label> <br/>
-														<input type="text" name="cs_yield" class="form-control mb10" value="<?php echo $rowArray->cs_yield; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="cs_yield" class="form-control mb10" value="<?php echo $rowArray->cs_yield; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 													</div>
 													</div>
 
 													<div class="col-sm-4">
 													<div class="form-group">
  														<label>Cycle Time<r1>*</r1></label> <br/>
-														<input type="text" name="cs_cycletime" class="form-control mb10 inpchangecls cs_cycletime" value="<?php $cs_cycletime =  $rowArray->cs_cycletime; echo $cs_cycletime; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="cs_cycletime" class="form-control mb10 inpchangecls cs_cycletime" value="<?php $cs_cycletime =  $rowArray->cs_cycletime; echo $cs_cycletime; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 													</div>
 													</div>
 
 													<div class="col-sm-4">
 													<div class="form-group">
  														<label>Cost<r1>*</r1></label> <br/>
-														<input type="text" name="cs_cost" class="form-control mb10 cs_costenter validate[custom[integer]]" value="<?php $cs_cost = $rowArray->cs_cost; echo $cs_cost; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="cs_cost" class="form-control mb10 cs_costenter validate[custom[integer]]" value="<?php $cs_cost = $rowArray->cs_cost; echo $cs_cost; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+														data-toggle="popover" data-trigger="hover" data-placement="top"  title="Cost [Example]" data-html="true" data-content='Rs 388186 / IM01 mold ( 13 IM1 molds for PP+BMB1 + BMB2)'
+														/>
 													</div>
 													</div>
 
@@ -998,28 +1190,31 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 													<div class="col-sm-4">
 													<div class="form-group">
  														<label>Man power<r1>*</r1></label> <br/>
-														<input type="text" name="cs_manpower" class="form-control mb10 inpchangecls cs_manpower" value="<?php $cs_manpower = $rowArray->cs_manpower; echo $cs_manpower; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="cs_manpower" class="form-control mb10 inpchangecls cs_manpower" value="<?php $cs_manpower = $rowArray->cs_manpower; echo $cs_manpower; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 													</div>
 													</div>
 
 													<div class="col-sm-4">
 													<div class="form-group">
  														<label>Consumables<r1>*</r1></label> <br/>
-														<input type="text" name="cs_consumables" class="form-control mb10" value="<?php echo $rowArray->cs_consumables; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="cs_consumables" class="form-control mb10" value="<?php echo $rowArray->cs_consumables; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 													</div>
 													</div>
 
 													<div class="col-sm-4">
 													<div class="form-group">
  														<label>Others<r1>*</r1></label> <br/>
-														<input type="text" name="cs_others" class="form-control mb10" value="<?php echo $rowArray->cs_others; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="cs_others" class="form-control mb10" value="<?php echo $rowArray->cs_others; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 													</div>
 													</div>
 
 													<div class="col-sm-4">
 													<div class="form-group">
  														<label>Total Savings<r1>*</r1></label> <br/>
-														<input type="text" name="cs_totalsavings" class="form-control mb10" value="<?php echo $rowArray->cs_totalsavings; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="cs_totalsavings" class="form-control mb10" value="<?php echo $rowArray->cs_totalsavings; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+														data-toggle="popover" data-trigger="hover" data-placement="top"  title="Total Savings [Example]" data-html="true" data-content='5046418'
+														/>
 													</div>
 													</div>
 
@@ -1037,7 +1232,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 													} else {
 														echo $cs_appr_ie;
 													}
-														 ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														 ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 													</div>
 													</div>
 
@@ -1051,7 +1246,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 													} else {
 														echo $cs_appr_acco;
 													}
-														 ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														 ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 													</div>
 													</div>
 
@@ -1123,13 +1318,13 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 </tr>
 															<tr>
 																<td width="10%">
-																	<input type="text" name="eempid" placeholder="" class="eempid typeempid" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+																	<input type="text" name="eempid" placeholder="" class="eempid typeempid" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 
 																</td>
 																	<td width="30%">
-																		<input type="text" name="teamname" placeholder="" class="eteamname etypefname" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
-																	<td width="30%"><input type="text" name="function" placeholder="" class="efunction etypedepart" class="efunction" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
-																	 <input type="hidden" class="eideaid width53" name="eideaid" value="<?php echo $uri5; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+																		<input type="text" name="teamname" placeholder="" class="eteamname etypefname" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
+																	<td width="30%"><input type="text" name="function" placeholder="" class="efunction etypedepart" class="efunction" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
+																	 <input type="hidden" class="eideaid width53" name="eideaid" value="<?php echo $uri5; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> />
 
 																	<td width="10%">
 																		<?php
@@ -1207,7 +1402,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														$root_cause_ex = explode(",",$root_cause);
 
 														?>
-														<select name="root_cause[]" class="form-control mb10" <?php if($status=='0') { } else { echo 'readonly'; }  ?> multiple>
+														<select name="root_cause[]" class="form-control mb10" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> multiple>
 																						<option value="">Select</option>
 																						<option value="Pareto Chart" <?php if (in_array('Pareto Chart', $root_cause_ex)) { echo 'selected'; } ?>>Pareto Chart</option>
 																						<option value="5 whys" <?php if (in_array('5 whys', $root_cause_ex)) { echo 'selected'; } ?>>5 whys</option>
@@ -1220,7 +1415,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
  														<br/>
 														Attachment <br/>
 														<?php /*
-														<textarea class="textarea50" name="root_cause_exp" <?php if($status=='0') { } else { echo 'readonly'; }  ?>><?php
+														<textarea class="textarea50" name="root_cause_exp" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>><?php
 														echo $rowArray->root_cause_exp; ?></textarea>
 														*/ ?>
 
@@ -1240,7 +1435,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
  															 <img src='<?php echo base_url(); ?>assets/images/kaizenattachments/<?php echo $rootcause_img; ?>' class="imgrootcausedisplay" />
  															 </a>
 
- 															 <?php if($status=='0') {    ?>
+ 															 <?php if($emp_edit_status=='0') {    ?>
  															 <span onclick="return confirm('Are you sure you want to delete this image?');" class="cursorpointer badge bgmildreddark mt10 deletekaizenimg" data-iid="<?php echo $idea_id; ?>" data-itype="rootcause">Delete</span>
  														 <?php } ?>
  														 <?php }	 else {
@@ -1280,7 +1475,10 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 													 <!--END Attach File-->
 
 														Root Cause Explanation <br/>
-														<textarea class="textarea50" name="root_cause_block" <?php if($status=='0') { } else { echo 'readonly'; }  ?>><?php
+														<textarea class="textarea50" name="root_cause_block" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+															data-toggle="popover" data-trigger="hover" data-placement="top"  title="Root Cause Explanation [Example]" data-html="true" data-content='There is no POKA YOKE for Rail placing in Heating Fixture, due to this rail can place wrong direction and it possible for Mold damage and it affect part qualitity.'
+															><?php
 														echo $rowArray->root_cause_block; ?></textarea>
 
  			 										</div>
@@ -1289,14 +1487,23 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 			 										<div class="col-sm-4">
 			 										<div class="form-group">
 			 											<label>Brief explanation of present conditions<r1>*</r1></label> <br/>
-			 											<textarea class="textarea331" name="brf_exp_precond" <?php if($status=='0') { } else { echo 'readonly'; }  ?>><?php echo $rowArray->brf_exp_precond; ?></textarea>
+			 											<textarea class="textarea331" name="brf_exp_precond" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+															data-toggle="popover" data-trigger="hover" data-placement="top"  title="Brief explanation [Example]" data-html="true" data-content='"There is no poka-yoke/ provision  avaiable in  Preheating Fixture.
+So, even if the rail orientation is changed during the placement by operator, it cant be easily noticed and potentially the rails would be placed in a mold with wrong orientation whci shall cause mold damage as well as defect part."'
+															><?php echo $rowArray->brf_exp_precond; ?></textarea>
 			 										</div>
 			 										</div>
 
 													<div class="col-sm-4">
 			 										<div class="form-group">
 			 											<label>Brief explanation of Improvements done<r1>*</r1></label> <br/>
-			 											<textarea class="textarea331" name="brf_exp_impdone" <?php if($status=='0') { } else { echo 'readonly'; }  ?>><?php echo $rowArray->brf_exp_impdone; ?></textarea>
+			 											<textarea class="textarea331" name="brf_exp_impdone" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+															data-toggle="popover" data-trigger="hover" data-placement="top"  title="Brief explanation [Example]" data-html="true" data-content='""This Poka Yoke improvement (stopper pin) is used to improve the rail locating guidance to avoid wrong direction placing.                                                                              Locator pin has been placed in fixture for bottom rail, left rail & right rail toavoid direction wrong loading and Mold damage as well as correction time saved.                                                                      After implementing a poka yoke, operator cant able to place a rail in wrong orientation. This problem will be permanently eliminated.
+
+POKA YOKE Pin made in Inhouse with tool room mfg support."'
+															><?php echo $rowArray->brf_exp_impdone; ?></textarea>
 			 										</div>
 			 										</div>
 			 									</div><!--row-->
@@ -1330,31 +1537,42 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 												 				if(empty($horizradio)) { $horizradio = 'NO'; }
 												 ?>
 												 <table class="pull-right"><tr>
-													 <td><input type="radio" name="horizradio" value="YES" dataid="1" class="horizradio" />Yes</td>
+													 <td><input type="radio" name="horizradio" value="YES" dataid="1" class="horizradio" <?php if($horizradio=='YES') { echo 'checked'; } ?> />Yes</td>
 													 <td>&nbsp;</p>
-													 <td><input type="radio" name="horizradio" value="NO" dataid="0" class="horizradio" checked />No</td>
+													 <td><input type="radio" name="horizradio" value="NO" dataid="0" class="horizradio" <?php if($horizradio=='NO') { echo 'checked'; } ?> />No</td>
 												 </tr></table>
 
 											 </br></br>
 											 <div id="enbdisblur" class="<?php if($horizradio=='NO') { echo 'blurdiv'; } ?>">
 												 <div class="form-group">
 														<label>In Other Machines within the cell </label>
-														<input type="text" name="horizontal1" value="<?php echo $rowArray->horizontal1; ?>" class="form-control mb10" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="horizontal1" value="<?php echo $rowArray->horizontal1; ?>" class="form-control mb10" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+														data-toggle="popover" data-trigger="hover" data-placement="top"  title="In Other Machines within the cell [Example]" data-html="true" data-content='All IM1 heating fixtures (manual ) + IM01 Automation Heating fixtures'
+														/>
 												 </div>
 
 												 <div class="form-group">
 														<label>Within the Department in all the machine groups </label>
-														<input type="text" name="horizontal2" value="<?php echo $rowArray->horizontal2; ?>" class="form-control mb10" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="horizontal2" value="<?php echo $rowArray->horizontal2; ?>" class="form-control mb10" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+														data-toggle="popover" data-trigger="hover" data-placement="top"  title="[Example]" data-html="true" data-content='Yes'
+														 />
 												 </div>
 
 												 <div class="form-group">
 														<label>In Other Dept/ Other Location </label>
-														<input type="text" name="horizontal3" value="<?php echo $rowArray->horizontal3; ?>" class="form-control mb10" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+														<input type="text" name="horizontal3" value="<?php echo $rowArray->horizontal3; ?>" class="form-control mb10" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+														data-toggle="popover" data-trigger="hover" data-placement="top"  title="[Example]" data-html="true" data-content='Included BMB01 & BMB02 Location'
+														 />
 												 </div>
 
 												 <div class="form-group">
 														<label>Any other Relevant Points</label>
-													 <input type="text" name="horizontal4" value="<?php echo $rowArray->horizontal4; ?>" class="form-control mb10" <?php if($status=='0') { } else { echo 'readonly'; }  ?> />
+													 <input type="text" name="horizontal4" value="<?php echo $rowArray->horizontal4; ?>" class="form-control mb10" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+													 data-toggle="popover" data-trigger="hover" data-placement="top"  title="[Example]" data-html="true" data-content='Nill'
+													  />
 												 </div>
 
 											 </div>
@@ -1401,11 +1619,11 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 															 $ssn = $count_listsustenancebyiid + 1;
 															 ?>
-														 <input readonly type="text" name="sn" class="form-control esn" value="<?php echo $ssn; ?>" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
-														 <td><input type="text" name="mc" class="form-control emc" value="" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
-														 <td><input type="text" name="targetdate" class="form-control etargetdate" value="" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
-														 <td><input type="text" name="responsi" class="form-control eresponsi" value="" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
-														 <td><input type="text" name="status" class="form-control estatus" value="" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
+														 <input readonly type="text" name="sn" class="form-control esn" value="<?php echo $ssn; ?>" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
+														 <td><input type="text" name="mc" class="form-control emc" value="" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
+														 <td><input type="text" name="targetdate" class="form-control etargetdate" value="" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
+														 <td><input type="text" name="responsi" class="form-control eresponsi" value="" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
+														 <td><input type="text" name="status" class="form-control estatus" value="" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
 														 <input type="hidden" class="eideaid_s width53" name="eideaid_s" value="<?php echo $uri5; ?>" />
 														 <td>
 															 <?php
@@ -1483,7 +1701,12 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 							 				<div class="form-group">
 							 					<label>Benifits (P,Q,C,S,D,M,E)<r1>*</r1></label> <br/>
 
-							 					<textarea class="textarea292" name="benifits" <?php if($status=='0') { } else { echo 'readonly'; }  ?>><?php echo $rowArray->benifits; ?></textarea>
+							 					<textarea class="textarea292" name="benifits" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?>
+
+													data-toggle="popover" data-trigger="hover" data-placement="top"  title="Benifits [Example]" data-html="true" data-content='""Q - This poka yoke will make sure the rail orientation is always right.              S -  This will ensure and prevent mold or part damage and improves mold
+       safety.                                                                                                                           M- It will increase MTTR & MTBF (as of now no data).                                                Since IM1 is citical for further downstream process, this will have direct impact of unplanned downtime (reduction) in downstream process till final assembly."'
+
+													><?php echo $rowArray->benifits; ?></textarea>
 							 				</div>
 							 				</div>
 
@@ -1529,7 +1752,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 												 <tr class="borderedtd">
 													<td>Name</td>
-													<td><input type="text" <?php if($status=='0') { } else { echo 'readonly'; }  ?> name="origi_name" value="<?php
+													<td><input type="text" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> name="origi_name" value="<?php
 													$origi_name = $rowArray->origi_name;
 													if(empty($origi_name)) {
 														echo $viv_fname;
@@ -1537,7 +1760,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														echo $origi_name;
 													}
 
-													?>" class="form-control" /></td>
+													?>" class="form-control" readonly /></td>
 													<td>
 
 														<?php
@@ -1560,6 +1783,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														<?php
 														$findmanageremailbypid = $this->mapi->findmanageremailbypid($emp_dept);
 														$findmanagernamebypid = $this->mapi->findmanagernamebypid($emp_dept);
+														$findallmanagernamebypid = $this->mapi->findallmanagernamebypid($emp_dept);
 														$findmanageremail2bypid = $this->mapi->findmanageremail2bypid($emp_dept);
 
 														$findmanageremailbydid = $this->mapi->findmanageremailbydid($emp_domain);
@@ -1577,39 +1801,49 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														$findiedeptemail2bypid = $this->mapi->findiedeptemail2bypid();
 
 														$approv_name =  $rowArray->approv_name;
-														if($status=='0') { ?>
-														<?php /*
-														<select class="form-control validate[required] mb-10 fil_approv_name" name="approv_name" id="approv_dept" >
+														if($emp_edit_status=='0') { ?>
+
+														<select required class=" mb-10 fil_approv_name" name="approv_name" id="approv_dept" >
 														 <option value="">Select</option>
 														 <?php
-																 $listgroupbynamesbydept = $this->mapi->listgroupbynamesbydept();
-															foreach ($listgroupbynamesbydept as $llistgroupbynamesbydeptArray) {
-																$liemail = $llistgroupbynamesbydeptArray->email;
-																$lifname = $llistgroupbynamesbydeptArray->fname;
+															//$listgroupbynamesbydept = $this->mapi->listgroupbynamesbydept();
+															foreach ($findallmanagernamebypid as $findallmanagernamebypidArray) {
+																$liemail = $findallmanagernamebypidArray->email;
+																$lifname = $findallmanagernamebypidArray->fname;
 														 ?>
-															 <option <?php if($findmanagerdeptbypid==$liemail) { echo 'selected'; } ?> value="<?php echo $liemail; ?>"><?php echo $liemail; ?> - <?php echo $lifname; ?></option>
+															 <option value="<?php echo $liemail; ?> - <?php echo $lifname; ?>"><?php echo $liemail; ?> - <?php echo $lifname; ?></option>
 														 <?php } ?>
 															</select>
-															*/ ?>
+
+
+															<?php /*
 															<input type="text" name="approv_name" value="<?php echo $findmanagernamebypid; ?>" class="form-control mb10" />
+															*/ ?>
 
 														<?php } else {  ?>
-														 <input type="text" name="approv_name" <?php if($status=='0') { } else { echo 'readonly'; }  ?> value="<?php echo $approv_name; ?>" class="form-control mb10" />
+
+
+														 <input type="text" name="approv_name" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> value="<?php echo $approv_name; ?>" class="form-control mb10" />
+
+
+
+
+
 														<?php }  ?>
 
 
-														<input type="hidden" name="approv_email" value="<?php echo $findmanageremailbypid; ?>" class="form-control mb10" />
-														<input type="hidden" name="approv_email2" value="<?php echo $findmanageremail2bypid; ?>" class="form-control mb10" />
+														<input type="hidden" name="approv_email" value="" class="form-control mb10 hiddmang_email" />
+														<input type="hidden" name="approv_email2" value="" class="form-control mb10 hiddmang_email2" />
 
 
 													</td>
-													<td  class="blurdiv"><input type="text" name="confirm_name" value="<?php echo $rowArray->confirm_name; ?>" class="form-control" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
+													<td  class="blurdiv"><input type="text" name="confirm_name" value="<?php echo $rowArray->confirm_name; ?>" class="form-control" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
 													</tr>
 
 
 												 <tr class="borderedtd">
 													 <td>Dept</td>
-													 <td><input type="text" <?php if($status=='0') { } else { echo 'readonly'; }  ?> name="origi_dept" value="<?php
+													 <td><input type="text" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> name="origi_dept" value="<?php
 													 $origi_dept = $rowArray->origi_dept;
 													 if(empty($origi_dept)) {
 														 echo $this->mapi->findmydeptbypid($viv_profile_id);
@@ -1617,7 +1851,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 echo $origi_dept;
 													 }
 
-													 ?>" class="form-control" />
+													 ?>" class="form-control" readonly />
 
 													 <input type="hidden" name="origi_domain" value="<?php
 													 $origi_domain = $rowArray->origi_domain;
@@ -1633,7 +1867,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 <?php
 														 $findmanagerdepartbypid = $this->mapi->findmanagerdepartbypid($emp_dept); ?>
 														 <?php $approv_dept =  $rowArray->approv_dept; ?>
-												     <?php if($status=='0') { ?>
+												     <?php if($emp_edit_status=='0') { ?>
 														 <?php /*
 														 <div class="sel_fil_approv_name">
  														 <select class="form-control validate[required] mb-10 " name="approv_dept" id="approv_dept" >
@@ -1649,19 +1883,19 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 </div>
 														 */ ?>
 
-														 <input type="text" name="approv_dept" <?php if($status=='0') { } else { echo 'readonly'; }  ?> value="<?php echo $findmanagerdepartbypid; ?>" class="form-control mb10" />
+														 <input type="text" name="approv_dept" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> value="<?php echo $findmanagerdepartbypid; ?>" class="form-control mb10" readonly />
 
 														 <?php } else {  ?>
-															<input type="text" name="approv_dept" <?php if($status=='0') { } else { echo 'readonly'; }  ?> value="<?php echo $approv_dept; ?>" class="form-control mb10" />
+															<input type="text" name="approv_dept" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> value="<?php echo $approv_dept; ?>" class="form-control mb10" readonly />
 														 <?php }  ?>
 													 </td>
-													 <td class="blurdiv"><input type="text" name="confirm_dept" value="<?php echo $rowArray->confirm_dept; ?>" class="form-control" <?php if($status=='0') { } else { echo 'readonly'; }  ?> /></td>
+													 <td class="blurdiv"><input type="text" name="confirm_dept" value="<?php echo $rowArray->confirm_dept; ?>" class="form-control" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> /></td>
  												 </tr>
 
 
 												 <tr class="borderedtd">
 													 <td>Date</td>
-													 <td><input type="date" min="{new Date().toISOString().split('T')[0]}" required id="origi_date"  name="origi_date" <?php if($status=='0') { } else { echo 'readonly'; }  ?> value="<?php
+													 <td><input type="date" min="{new Date().toISOString().split('T')[0]}" required id="origi_date"  name="origi_date" <?php if($emp_edit_status=='0') { } else { echo 'readonly'; }  ?> value="<?php
 													 $origi_date = $rowArray->origi_date;
 													 if(empty($origi_date)) {
 														 echo date('d-m-Y');
@@ -1669,7 +1903,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 echo $origi_date;
 													 }
 													 ?>" class="form-control" /></td>
-													 <td><input type="date"  min="{new Date().toISOString().split('T')[0]}" id="approv_date" <?php if($status=='0') {  } else { echo 'readonly'; } ?> name="approv_date" value="<?php
+													 <td><input type="date"  min="{new Date().toISOString().split('T')[0]}" id="approv_date" <?php if($emp_edit_status=='0') {  } else { echo 'readonly'; } ?> name="approv_date" value="<?php
 													 $approv_date = $rowArray->approv_date;
 													 if(empty($approv_date)) {
 														 echo date('d-m-Y');
@@ -1677,7 +1911,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														 echo $approv_date;
 													 }
 													 ?>" class="form-control" /></td>
-													 <td  class="blurdiv"><input <?php if($status=='0') {  } else { echo 'readonly'; } ?> type="text" name="confirm_date" value="<?php echo $rowArray->confirm_date; ?>" class="form-control"  /></td>
+													 <td  class="blurdiv"><input <?php if($emp_edit_status=='0') {  } else { echo 'readonly'; } ?> type="text" name="confirm_date" value="<?php echo $rowArray->confirm_date; ?>" class="form-control"  /></td>
  												 </tr>
  											 </table>
 
@@ -1721,6 +1955,164 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 						 </div>
 						 </div>
 							<!--END Form1-->
+
+
+							<?php if($viv_user_type=='TRMMADMIN') {
+								$shortlisted =  $rowArray->shortlisted;
+								$shortlisteddesc =  $rowArray->shortlisteddesc;
+ 								?>
+							<div class="col-lg-12">
+									<div class="carddashed">
+											<div class="card-body referesh_shortlisteddiv">
+												<h4>Is Kaizen Shortlisted?  </h4><br/>
+												<table>
+													<tr>
+														<td><input type="radio" class="kaizensortlistname" name="kaizensortlist" value="2" <?php  if(empty($shortlisted)) { } else {
+															if($shortlisted=='2') { echo 'checked'; } else { echo 'disabled'; }
+														}  ?> /> Yes</td>
+														<td width="10">&nbsp;</td>
+														<td><input type="radio" class="kaizensortlistname sortlistclick" name="kaizensortlist" value="1" <?php  if(empty($shortlisted)) { } else {
+															if($shortlisted=='1') { echo 'checked'; } else { echo 'disabled'; }
+														}  ?> /> No</td>
+													</tr>
+ 												</table>
+
+												<?php
+												if($shortlisted=='2') { } else {
+												?>
+												<div class=" width100per ">
+													<span class="isnohide <?php
+													if(empty($shortlisteddesc)) { echo 'blurdiv'; }
+													?>">
+													<br/> Comments :<br/>
+
+													<?php
+													if(empty($shortlisteddesc)) {
+													?>
+													<textarea name="sortlistcomments" class="kaizensortlistcomment form-control width100per sortlistcommentscls"></textarea>
+													</span>
+													<input type="hidden" class="kaizenid" value="<?php echo $idea_id; ?>" />
+													<button type="button" class="btn btn-info mt-2 submitshortlisted">Submit</button>
+												<?php } else {
+													echo $shortlisteddesc;
+										 		} ?>
+
+												</div>
+												<?php } ?>
+
+											</div>
+										</div>
+							</div>
+						<?php } ?>
+
+							<?php
+							$imgapprov =  $rowArray->imgapprov;
+							$imgapprov_by =  $rowArray->imgapprov_by;
+							$img_reject_reason =  $rowArray->img_reject_reason;
+							if($imgapprov=='2' || $imgapprov=='3') {
+
+						$attachm = $this->mapi->findtotalimageofkaizen_attachm($uri5);
+						if($attachm>0) {
+							?>
+								 <!--Form1-->
+							 <div class="col-lg-12">
+									 <div class="carddashed">
+											 <div class="card-body">
+
+									 <div class="right-box-padding">
+											 <div class="read-content">
+												 <!--
+											<div class="card-header">
+												 <h4 class="card-title">Booking Details</h4>
+											</div>
+											 -->
+											<div class="card-body">
+												 <?php
+													if($imgapprov=='2') { $clsbdg = 'bgmildgreen'; $clsbdg_val = 'Approved'; }
+													else if($imgapprov=='3') { $clsbdg = 'bgmildred'; $clsbdg_val = 'Rejected';  }
+
+ 													$findnamebyprofileid_fnamee = $this->mapi->findnamebyprofileid($imgapprov_by);
+ 												 ?>
+												 <h4>Image Sanitization</h4><br/>
+
+												 <?php
+												 	if(!empty($findnamebyprofileid_fnamee)){
+												 ?>
+												 Name   : <?php echo $findnamebyprofileid_fnamee; ?> <br/>
+ 												 Status : <span class="badge <?php echo $clsbdg; ?>"><?php echo $clsbdg_val; ?></span></br/>
+
+												 <?php if($imgapprov=='3') { ?>
+												 Comments : <?php echo $img_reject_reason; ?>
+											 <?php } ?>
+
+											 <?php } else { ?>
+												 Image Attached by DRI
+ 											 <?php } ?>
+
+												 <br/>
+ 											</div>
+										</div>
+									</div>
+
+							 </div>
+							 </div>
+							 </div>
+								<!--END Form1-->
+							<?php
+						}
+						} ?>
+
+
+
+						<?php
+							$count_findholdlist = $this->mapi->count_findholdlist('HOD',$uri5);
+							if($count_findholdlist>0)	{
+							$findholdlist = $this->mapi->findholdlist('HOD',$uri5);
+							foreach($findholdlist as $findholdlistArray){
+						?>
+							 <!--Form1-->
+						 <div class="col-lg-12">
+								 <div class="carddashed">
+										 <div class="card-body">
+
+								 <div class="right-box-padding">
+										 <div class="read-content">
+											 <!--
+										<div class="card-header">
+											 <h4 class="card-title">Booking Details</h4>
+										</div>
+										 -->
+										<div class="card-body">
+											 <?php
+												$hod_email =  $findholdlistArray->iemail;
+
+												$emailidd = $this->mapi->findemail2byemail($hod_email);
+												$fnamee = $this->mapi->findnamebyemail($hod_email);
+												$departt = $this->mapi->finddeptbyemail($hod_email);
+											 ?>
+											 <h4>DRI</h4><br/>
+											 Name   : <?php echo $fnamee; ?> <br/>
+											 Email   : <?php echo $emailidd; ?> <br/>
+											 Department   : <?php echo $departt; ?> <br/>
+											 Status : <span class="badge bgmildred">Hold</span> <br/>
+											 <?php
+											 //if(!empty($reject_reason)) {
+
+												 ?>
+												 Hold Reason   : <?php echo $findholdlistArray->hold_reason; ?> <br/>
+
+											 <br/>
+											 Date & Time   : <?php echo $findholdlistArray->idatetime; ?> <br/>
+										</div>
+									</div>
+								</div>
+
+						 </div>
+						 </div>
+						 </div>
+							<!--END Form1-->
+							<?php } ?>
+						<?php }  ?>
 
 
 
@@ -1772,6 +2164,61 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 					<!--END Form1-->
 				<?php } ?>
 
+
+
+
+
+
+
+				<?php
+					$count_findholdlist = $this->mapi->count_findholdlist('IEDEPT',$uri5);
+					if($count_findholdlist>0)	{
+					$findholdlist = $this->mapi->findholdlist('IEDEPT',$uri5);
+					foreach($findholdlist as $findholdlistArray){
+				?>
+					 <!--Form1-->
+				 <div class="col-lg-12">
+						 <div class="carddashed">
+								 <div class="card-body">
+
+						 <div class="right-box-padding">
+								 <div class="read-content">
+									 <!--
+								<div class="card-header">
+									 <h4 class="card-title">Booking Details</h4>
+								</div>
+								 -->
+								<div class="card-body">
+									 <?php
+										$hod_email =  $findholdlistArray->iemail;
+
+										$emailidd = $this->mapi->findemail2byemail($hod_email);
+										$fnamee = $this->mapi->findnamebyemail($hod_email);
+										$departt = $this->mapi->finddeptbyemail($hod_email);
+									 ?>
+									 <h4>IE Dept</h4><br/>
+									 Name   : <?php echo $fnamee; ?> <br/>
+									 Email   : <?php echo $emailidd; ?> <br/>
+									 Department   : <?php echo $departt; ?> <br/>
+									 Status : <span class="badge bgmildred">Hold</span> <br/>
+									 <?php
+									 //if(!empty($reject_reason)) {
+
+										 ?>
+										 Hold Reason   : <?php echo $findholdlistArray->hold_reason; ?> <br/>
+
+									 <br/>
+									 Date & Time   : <?php echo $findholdlistArray->idatetime; ?> <br/>
+								</div>
+							</div>
+						</div>
+
+				 </div>
+				 </div>
+				 </div>
+					<!--END Form1-->
+					<?php } ?>
+				<?php }  ?>
 
 
 
@@ -1828,6 +2275,59 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 					<!--END Form1-->
 				<?php } ?>
 
+
+
+
+
+				<?php
+					$count_findholdlist = $this->mapi->count_findholdlist('FINANCE',$uri5);
+					if($count_findholdlist>0)	{
+					$findholdlist = $this->mapi->findholdlist('FINANCE',$uri5);
+					foreach($findholdlist as $findholdlistArray){
+				?>
+					 <!--Form1-->
+				 <div class="col-lg-12">
+						 <div class="carddashed">
+								 <div class="card-body">
+
+						 <div class="right-box-padding">
+								 <div class="read-content">
+									 <!--
+								<div class="card-header">
+									 <h4 class="card-title">Booking Details</h4>
+								</div>
+								 -->
+								<div class="card-body">
+									 <?php
+										$hod_email =  $findholdlistArray->iemail;
+
+										$emailidd = $this->mapi->findemail2byemail($hod_email);
+										$fnamee = $this->mapi->findnamebyemail($hod_email);
+										$departt = $this->mapi->finddeptbyemail($hod_email);
+									 ?>
+									 <h4>Finance Dept</h4><br/>
+									 Name   : <?php echo $fnamee; ?> <br/>
+									 Email   : <?php echo $emailidd; ?> <br/>
+									 Department   : <?php echo $departt; ?> <br/>
+									 Status : <span class="badge bgmildred">Hold</span> <br/>
+									 <?php
+									 //if(!empty($reject_reason)) {
+
+										 ?>
+										 Hold Reason   : <?php echo $findholdlistArray->hold_reason; ?> <br/>
+
+									 <br/>
+									 Date & Time   : <?php echo $findholdlistArray->idatetime; ?> <br/>
+								</div>
+							</div>
+						</div>
+
+				 </div>
+				 </div>
+				 </div>
+					<!--END Form1-->
+					<?php } ?>
+				<?php }  ?>
 
 				<?php $finance_status =  $rowArray->finance_status;
 				if($finance_status=='2' || $finance_status=='3') {
@@ -1892,7 +2392,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 
 </div>
-
+</div><!--single-html-block-->
 
 
 
@@ -1902,11 +2402,39 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
                  <p>&nbsp;</p>
                  <div class="form-group col-md-6">
-                   <input type="hidden" name="ideaid" value="<?php echo $uri5; ?>" />
+									 <input type="hidden" name="ideaid" value="<?php echo $uri5; ?>" />
+                   <input type="hidden" name="currentstatus" class="currentstatusvalue" value="<?php echo $status; ?>" />
 
-									 <?php if($status=='0') { ?>
-                   <button type="submit" id="submittodri" class="btn btn-primary">Submit to DRI</button>
-								 <?php }  ?>
+									 <?php
+ 									 if($emp_edit_status=='0') {
+
+										$profile_id_sub =  $rowArray->profile_id;
+										$viv_profile_id = $this->session->userdata('viv_profile_id');
+										if($profile_id_sub==$viv_profile_id) {
+										?>
+
+
+
+
+									 <?php
+									 if($status=='1' || $status=='0') {
+									 ?>
+									 <button type="submit" id="submittodri" class="btn btn-warning" name="submit" value="saveit">Save It</button>
+									 <span style="width:100px;">&nbsp;</span>
+                    <button type="submit" id="submittodri" class="btn btn-primary" name="submit" value="submitit">Submit to DRI</button>
+									<?php } else if($status=='2') {  ?>
+
+										<button type="submit" id="submittodri" class="btn btn-primary" name="submit" value="submitiedept">Submit to IE Dept</button>
+									<?php } else if($status=='4') { ?>
+
+										<button type="submit" id="submittodri" class="btn btn-primary" name="submit" value="submitfinance">Submit to Finance</button>
+									<?php } ?>
+
+
+									 <p>&nbsp;</p>
+								 <?php
+							 				}
+							 	}  ?>
 
                   </div>
             </form>
@@ -1914,23 +2442,99 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 
 					<?php
-
+					$approv_email =  $rowArray->approv_email;
+					$imgapprov =  $rowArray->imgapprov;
 					//Emp Status : Waiting for HOD Approval
-					if($status=='1' && $findmanageremailbypid!=$viv_email) {   ?>
+					//echo $approv_email."<br/>";
+					//echo $viv_email."<br/>";
 
-						<button type="button" class="btn btn-success">Waiting for DRI Approval</button>
+					if($status=='1' && $imgapprov=='1') {
+						?>
 
-					<?php } ?>
+						<button type="button" class="btn btn-success">Waiting for Image Sanitization</button>
+						<br/>
+						<?php
+ 					}
 
-				<?php
 
- 				if($viv_user_type=='TRMMMANG')	 {
 
-				if($status=='1' && $findmanageremailbypid==$viv_email) {   ?>
-						<button type="button" class="btn btn-success">Waiting for Your Approval</button>
+					$checkimgapprov_auth = $this->mapi->checkimgapprov_auth($viv_profile_id);
+ 					if($status=='1' && $imgapprov=='1' && $checkimgapprov_auth=='1') {   ?>
+
+
+
 
 
 						<p>&nbsp;</p>
+ 						<h4>Whould you like to Approve Kaizen Image and Move it to DRI Approval?</h4>
+						<button type="button" name="imagestatus" ideaidurl="<?php echo $uri5; ?>" profile_id="<?php echo $viv_profile_id; ?>" value="yes" class="btn btn-info click_imgapprovalsts">Yes</button>
+
+						<?php /*
+						<button type="button" name="imagestatus" ideaidurl="<?php echo $uri5; ?>" profile_id="<?php echo $viv_profile_id; ?>" value="no"  class="btn btn-danger click_imgapprovalsts" >No</button>
+					   */ ?>
+
+
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#imagerejectkaizenform">No</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="imagerejectkaizenform" role="dialog">
+							<div class="modal-dialog" style="width:400px;">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Please Enter Reason for Rejection</h4>
+
+									</div>
+									<div class="modal-body">
+									 <!--Sample Form-->
+									 <textarea class="textarea150 img_reject_reason" name="img_reject_reason" required>-</textarea>
+									 <button type="button"  name="imagestatus" ideaidurl="<?php echo $uri5; ?>" profile_id="<?php echo $viv_profile_id; ?>" value="no"  class="btn btn-danger click_imgapprovalsts">Reject</button>
+									 <!--Sample Form-->
+								 </div>
+							 </div>
+						 </div>
+					 </div>
+						 <!-- END Modal -->
+
+
+
+
+
+					<?php }
+
+					if($status=='1' && $imgapprov=='2' && $approv_email!=$viv_email) {
+					?>
+ 						<button type="button" class="btn btn-success">Waiting for DRI Approval</button>
+				<?php } ?>
+
+
+
+
+				<?php
+  				if($viv_user_type=='TRMMMANG')	 {
+ 					?>
+
+					<?php if($status=='1' && $hold_status==0) { ?>
+					<h4>Whould you like to Edit Kaizen?</h4>
+					<a href="<?php
+					//echo site_url('admin/managereditstatuszero/'.$uri5.'');
+					echo site_url('admin/kaizenidea/ideamang/postidea_mangedit/'.$uri5.'');
+
+					?>"  class="btn btn-warning colorfff">Edit</a>
+
+					<p>&nbsp;</p>
+
+					<?php
+				}
+
+				//echo  $approv_email."<br/>";
+				//echo  $viv_email;
+				if($status=='1' && $approv_email==$viv_email && $hold_status==0) {   ?>
+ 						<h4>Waiting for Your Feedback</h4>
+
+
+
 									<?php //if($viv_user_type=='TRMMHOD' || $viv_user_type=='TRMMADMIN') {
 										?>
 										<form action="<?php echo site_url('admin/updateideastatus'); ?>"   method="post" autocomplete="off"   enctype="multipart/form-data" class="formID">
@@ -1975,8 +2579,13 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 
 
+
+
+
 								   <button type="submit" name="status" value="approve" class="btn btn-info">Approve</button>
 									 <button type="button"   class="btn btn-danger" data-toggle="modal" data-target="#drirejectkaizenform">Reject</button>
+
+
 
 									 <!-- Modal -->
 									 <div class="modal fade" id="drirejectkaizenform" role="dialog">
@@ -2000,6 +2609,30 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 									  <!-- END Modal -->
 
 
+										<button type="button"   class="btn btn-warning colorfff" data-toggle="modal" data-target="#driholdkaizenform">Hold</button>
+
+										<!-- Modal -->
+ 									 <div class="modal fade" id="driholdkaizenform" role="dialog">
+ 									   <div class="modal-dialog" style="width:400px;">
+  									     <!-- Modal content-->
+ 									     <div class="modal-content">
+ 									       <div class="modal-header">
+ 									         <button type="button" class="close" data-dismiss="modal">&times;</button>
+ 									         <h4 class="modal-title">Please Enter Reason for Hold</h4>
+
+ 									       </div>
+ 									       <div class="modal-body">
+ 									 				<!--Sample Form-->
+ 													<textarea class="textarea150" name="hold_reason" required>-</textarea>
+ 													<button type="submit" name="status"  value="hold" class="btn btn-danger" >Hold</button>
+ 													<!--Sample Form-->
+ 									      </div>
+ 									    </div>
+  									  </div>
+ 									</div>
+ 									  <!-- END Modal -->
+
+
 
 								 		</form>
 									 <?php //} ?>
@@ -2015,10 +2648,10 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 					<?php
 					//findfinancenamebypid = $this->mapi->findfinancenamebypid();
 					//$findfinanceemail2bypid = $this->mapi->findfinanceemail2bypid();
-			}	}
+						}	}
 
 				if($viv_user_type=='TRMMIEDEPT')	 {
-				if($status=='2' && $findiedeptemailbypid==$viv_email) { ?>
+				if($status=='2' && $findiedeptemailbypid==$viv_email  && $hold_status==0) { ?>
 					<button type="button" class="btn btn-success">Waiting for Your Approval</button>
 
 					<p>&nbsp;</p>
@@ -2051,6 +2684,34 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 								</div>
 									<!-- END Modal -->
 
+
+
+									<button type="button"   class="btn btn-warning colorfff" data-toggle="modal" data-target="#iedeptholdkaizenform">Hold</button>
+
+									<!-- Modal -->
+								 <div class="modal fade" id="iedeptholdkaizenform" role="dialog">
+									 <div class="modal-dialog" style="width:400px;">
+											 <!-- Modal content-->
+										 <div class="modal-content">
+											 <div class="modal-header">
+												 <button type="button" class="close" data-dismiss="modal">&times;</button>
+												 <h4 class="modal-title">Please Enter Reason for Hold</h4>
+
+											 </div>
+											 <div class="modal-body">
+												<!--Sample Form-->
+												<textarea class="textarea150" name="hold_reason" required>-</textarea>
+												<button type="submit" name="status"  value="hold" class="btn btn-danger" >Hold</button>
+												<!--Sample Form-->
+											</div>
+										</div>
+										</div>
+								</div>
+									<!-- END Modal -->
+
+
+
+
 									</form>
 
 				<?php } }
@@ -2058,7 +2719,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 
 
 				if($viv_user_type=='TRMMFINANCE')	 {
-				if(($status=='4' || $status=='2') && $findfinanceemailbypid==$viv_email) { ?>
+				if(($status=='4' || $status=='2') && $findfinanceemailbypid==$viv_email  && $hold_status==0) { ?>
 					<button type="button" class="btn btn-success">Waiting for Your Approval</button>
 
 					<p>&nbsp;</p>
@@ -2067,6 +2728,7 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 									<form action="<?php echo site_url('admin/updateideastatus_finance'); ?>"   method="post" autocomplete="off"   enctype="multipart/form-data" class="formID">
 									<input type="hidden" name="ideaid" value="<?php echo $uri5; ?>" />
 									<button type="submit" name="status" value="approve" class="btn btn-info">Approve</button>
+
 									<button type="button"   class="btn btn-danger" data-toggle="modal" data-target="#financerejectkaizenform">Reject</button>
 
  							 <!-- Modal -->
@@ -2089,6 +2751,31 @@ Q - This poka yoke will make sure the rail orientation is always right.         
  								</div>
  							</div>
  								<!-- END Modal -->
+
+								<button type="button"   class="btn btn-warning colorfff" data-toggle="modal" data-target="#financeholdkaizenform">Hold</button>
+
+								<!-- Modal -->
+							 <div class="modal fade" id="financeholdkaizenform" role="dialog">
+								 <div class="modal-dialog" style="width:400px;">
+										 <!-- Modal content-->
+									 <div class="modal-content">
+										 <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal">&times;</button>
+											 <h4 class="modal-title">Please Enter Reason for Hold</h4>
+
+										 </div>
+										 <div class="modal-body">
+											<!--Sample Form-->
+											<textarea class="textarea150" name="hold_reason" required>-</textarea>
+											<button type="submit" name="status"  value="hold" class="btn btn-danger" >Hold</button>
+											<!--Sample Form-->
+										</div>
+									</div>
+									</div>
+							</div>
+								<!-- END Modal -->
+
+
 									</form>
 
 				<?php } }

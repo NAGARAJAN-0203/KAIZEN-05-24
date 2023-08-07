@@ -74,13 +74,30 @@
        <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
      </div>
 
-
+     <?php /*
      <div class="form-group col-sm-4">
        <label for="email1">Domain</label>
        <input type="text" class="form-control mb-10 validate[required] text-input" id="empdomain" name="empdomain" placeholder="">
        <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
-     </div>
+     </div> */ ?>
 
+
+
+
+    <div class="form-group  col-sm-4">
+		 <label>Domain </label> <br/>
+		 <select class="fil_domain" name="empdomain" id="domain" >
+			<option value="">All</option>
+      <?php
+      $db_domain = $rowArray->domain;
+      $listdomains = $this->mapi->listdomains();
+       foreach ($listdomains as $listdomainsrowArray) {
+         $selectdomainname = $listdomainsrowArray->domain;
+      ?>
+				<option value="<?php echo $selectdomainname; ?>" <?php if($db_domain==$selectdomainname) { echo 'selected'; } ?>><?php echo $selectdomainname; ?></option>
+			<?php }   ?>
+			 </select>
+		 </div>
 
 
 
@@ -88,11 +105,43 @@
 
      <div class="row">
 
+      <?php /*
      <div class="form-group col-sm-4">
        <label for="email1">Department</label>
        <input type="text" class="form-control mb-10 validate[required] text-input" id="empdepart" name="empdepart" placeholder="">
        <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
+     </div> */
+     ?>
+
+     <?php /*
+     <div class="form-group col-sm-4">
+       <label for="email1">Department</label>
+     <select class="form-control" name="empdepart" id="empdepart"  >
+       <option value="">Select</option>
+       <?php
+       $db_domain = $rowArray->domain;
+       $db_depart = $rowArray->depart;
+        $listdepartmentbydid = $this->mapi->listdepartmentbydid($db_domain);
+        foreach ($listdepartmentbydid as $listdepartmentbydidrowArray) {
+          $dep_deptid = $listdepartmentbydidrowArray->deptid;
+          $dep_domainname = $listdepartmentbydidrowArray->domain;
+          $dep_departmentname = $listdepartmentbydidrowArray->department;
+          $dep_status = $listdepartmentbydidrowArray->status;
+       ?>
+       <option value="<?php echo $dep_departmentname; ?>" <?php if($db_depart==$dep_departmentname) { echo 'selected'; } ?>><?php echo $dep_departmentname; ?></option>
+     <?php }   ?>
+      </select>
      </div>
+     */ ?>
+
+     <div class="form-group col-sm-4">
+ 		 <label>Department </label> <br/>
+ 		 <div class="sel_fil_dept">
+ 		 <select class="form-group" name="empdepart" id="dept" >
+ 			 <option value="">All</option>
+  		</select>
+ 		 </div>
+ 		 </div>
 
      <div class="form-group col-sm-4">
        <label for="email1">Emp ID</label>
@@ -114,14 +163,14 @@
 
      <div class="form-group col-sm-4">
        <label for="email1">UserType</label>
-       <select class="form-control  mb-10 validate[required] text-input" name="usertype" id="usertype">
+       <select class="form-control  mb-10 text-input" name="usertype" id="usertype">
            <option value="1">SUPERADMIN</option>
            <option value="2">ADMIN</option>
            <option value="3">MANAGER</option>
             <!--
-           <option value="4">HOD</option>
-           <option value="5">IE Dept</option>
-         -->
+               <option value="4">HOD</option>
+               <option value="5">IE Dept</option>
+            -->
            <option value="4">EMPLOYEE</option>
            <option value="5">FINANCE</option>
            <option value="6">IE Dept</option>
@@ -130,7 +179,7 @@
 
      <div class="form-group col-sm-4">
        <label for="email1">Status</label>
-       <select class="form-control validate[required] mb-10" name="accstatus" id="accstatus">
+       <select class="form-control  mb-10" name="accstatus" id="accstatus">
            <option value="1">Active</option>
            <option value="0">InActive</option>
            <option value="3">Block</option>
@@ -140,8 +189,20 @@
 
      <div class="form-group col-sm-4">
        <label for="email1">Email</label>
-       <input type="text" class="form-control mb-10 validate[required] text-input" id="empemail2" name="empemail2" placeholder="">
+       <input type="text" class="form-control mb-10  text-input" id="empemail2" name="empemail2" placeholder="">
        <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
+     </div>
+
+
+     <div class="form-group col-sm-4">
+       <label for="Cadre">Cadre</label>
+       <select class="form-control  mb-10" name="cadre" id="cadre">
+         <option value="">Select</option>
+           <option value="C1">C1</option>
+           <option value="C2">C2</option>
+           <option value="C3">C3</option>
+           <option value="C4">C4</option>
+         </select>
      </div>
 
      </div>

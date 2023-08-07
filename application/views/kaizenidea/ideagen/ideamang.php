@@ -17,6 +17,11 @@ if($uri3=='ideagen' && $uri4=='postideaauto') {
    //$this->load->view('kaizenidea/idea/postidea');
 }
 
+elseif($uri3=='ideagen' && $uri4=='postidea_mangedit') {
+  $this->load->view('kaizenidea/ideagen/postidea-new-mangedit');
+  //$this->load->view('kaizenidea/idea/postidea');
+}
+
 elseif($uri3=='ideagen' && $uri4=='myidea') {
    $this->load->view('kaizenidea/ideagen/myidea');
 }
@@ -25,6 +30,9 @@ elseif($uri3=='ideagen' && $uri4=='ideaverification') {
    $this->load->view('kaizenidea/ideagen/ideaverification');
 }
 
+else if($uri3=='ideagen' && $uri4=='myidea_imgapproval') {
+   $this->load->view('kaizenidea/ideagen/myidea_imgapproval');
+}
 
 
 

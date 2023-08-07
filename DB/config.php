@@ -24,7 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://172.21.5.101/';
-$config['base_url'] = 'http://win-gq5j3h3arbl.tataelectronics.co.in/';
+//$config['base_url'] = 'http://win-gq5j3h3arbl.tataelectronics.co.in/';
+$config['base_url'] = 'http://kaizen.tataelectronics.co.in/';
+
 date_default_timezone_set("Asia/Kolkata");
 error_reporting(0);
 /*

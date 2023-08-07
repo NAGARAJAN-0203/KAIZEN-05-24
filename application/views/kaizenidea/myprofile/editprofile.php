@@ -122,15 +122,21 @@
      <div class="row">
 
        <div class="form-group col-sm-4">
-         <label for="email1">Domain</label>
+         <label for="email1">Domain</label></br/>
+				 <h2><?php echo $rowArray->domain; ?><h2>
+				 <?php /*
          <input type="text" class="form-control mb-10" id="empdomain" name="empdomain" placeholder="" value="<?php echo $rowArray->domain; ?>">
+				 */ ?>
          <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
        </div>
 
 
      <div class="form-group col-sm-4">
-       <label for="email1">Department</label>
+       <label for="email1">Department</label></br/>
+			 <h2><?php echo $rowArray->depart; ?></h2>
+			 <?php /*
        <input type="text" class="form-control mb-10" id="empdepart" name="empdepart" placeholder="" value="<?php echo $rowArray->depart; ?>">
+			 */ ?>
        <!--<small id="emailHelp" class="form-text text-muted">Sample error message display.</small>-->
      </div>
 

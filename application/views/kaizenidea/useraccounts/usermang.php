@@ -22,6 +22,14 @@ else if($uri3=='useraccounts' && $uri4=='viewusersdetail') {
 }
 
 
+else if($uri3=='useraccounts' && $uri4=='listusersbykaizen') {
+   $this->load->view('kaizenidea/useraccounts/listusersbykaizen');
+}
+
+
+else if($uri3=='useraccounts' && $uri4=='listkaizensbyuser') {
+   $this->load->view('kaizenidea/useraccounts/listkaizensbyuser');
+}
 
 
 //Edited Info

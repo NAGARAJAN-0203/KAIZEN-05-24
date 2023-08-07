@@ -38,10 +38,15 @@
                                       $resul = $msg[1];
                       								if($resul=='1') { echo "<g1>".$msg[0]."</g1>"; }
                       								elseif($resul=='0') { echo "<r1>".$msg[0]."</r1>"; } */
+
                                       $mssg = $this->uri->segment(3);
                                       if($mssg=='mgs')	{
                                         echo '<g1>Registered Successfully, Please Login...</g1>';
-                                      }?>
+                                      } elseif($mssg=='msgsus')	{
+                                        echo '<g1>Please check email and verify</g1>';
+                                      }
+
+                                      ?>
 
                                     </p>
 
@@ -63,11 +68,11 @@
                             <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
                           </div> */ ?>
                                               </div>
-                                              <?php /*
+
                                               <div class="form-group">
-                                                  <a href="#">Forgot Password?</a>
+                                                  <a href="<?php echo site_url('admin/forgotpassword'); ?>">Forgot Password?</a>
                                               </div>
-                                              */ ?>
+
                                           </div>
                                           <div class="text-center">
                                               <button type="submit" class="btn btn-primary btn-block ">Sign Me In</button>

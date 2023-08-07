@@ -71,3 +71,13 @@ $uri3 = $this->uri->segment(3);
 <link href="<?php echo base_url(); ?>assets/lib/bargraph1/main.css" rel="stylesheet" type="text/css">
 
 <?php } ?>
+
+
+
+<?php
+  if($uri3=='dashboardcadre' || ($uri3=='dashboardcadre' && $uri4=='index')) {
+?>
+<link href="<?php echo base_url(); ?>assets/lib/bargraph1/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href="<?php echo base_url(); ?>assets/lib/bargraph1/main.css" rel="stylesheet" type="text/css">
+
+<?php } ?>
