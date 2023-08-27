@@ -76,10 +76,21 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '172.21.5.102',
+	/*
 	'username' => 'kaizenadmin',
 	'password' => 'Kaizen@@admin',
 	'database' => 'kaizenidea',
+	*/
+
+
+	'username' => 'kaizenmaria',
+	'password' => 'Kaizen@@admin',
+	'database' => 'kaizenmariadb',
+
+
+
 	'dbdriver' => 'mysqli',
+	'port' => '3307',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

@@ -4109,6 +4109,7 @@ public function deletekaizenbyemp($idea_id) {
 									 $timestamp = strtotime("now");
 									 $datestamp = strtotime($date_today);
 
+
 									 $exl_id = 'EXLID_'.$this->randomiduniq();
 									 $data = array(
 										 'exl_id' => $exl_id,
@@ -13046,6 +13047,7 @@ public function findlastidofwinner() {
 	foreach ($sql->result() as $rowArray) {
 				$id = $rowArray->id;
 	}
+	if(empty($id)) { $id = 0; }
 	return $id;
 
 }

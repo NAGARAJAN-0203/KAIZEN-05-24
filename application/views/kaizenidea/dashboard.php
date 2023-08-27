@@ -397,6 +397,7 @@
 
 <?php if($viv_user_type=='TRMMEMP') { ?>
 
+<?php /*
 
  		<!-- Modal -->
    <div class="modal show" id="modelwinnerpopup" role="dialog">
@@ -511,6 +512,8 @@
      </div>
    </div>
 	 <!-- END Modal -->
+<?php */ ?>
+
 
 	<div class="col-sm-11">
 

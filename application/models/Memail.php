@@ -45,14 +45,14 @@ class Memail extends CI_Model {
 						 );
 					 $this->email->initialize($config);
 					 $this->email->set_newline('\r\n');
-					 $this->email->from('dgldeveloper@vivartha.com', 'Noreply Kaizen');
+					 //$this->email->from('dgldeveloper@vivartha.com', 'Noreply Kaizen');
 					 //$this->email->to($to);
-					 $this->email->to('chandru5452@gmail.com');
+					 //$this->email->to('chandru5452@gmail.com');
 					 //$this->email->cc($cc);
 					 //$this->email->bcc('chandru5452@gmail.com');
 					 $this->email->subject($subject);
 					 $this->email->message($message);
-					 $this->email->send();
+					 //$this->email->send();
 					 //echo $this->email->print_debugger();
 
 }

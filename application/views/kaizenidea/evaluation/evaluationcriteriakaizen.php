@@ -1,12 +1,4 @@
-<?php
-  $uri3 = $this->uri->segment(3);
-  $uri4 = $this->uri->segment(4);
-  $uri5 = $this->uri->segment(5);
-  $uri6 = $this->uri->segment(6);
-
-
-
-?>
+ 
 <div class="content-body">
 <div class="container-fluid">
 
@@ -142,7 +134,7 @@
     <th>Remarks	</th>
   </tr>
 
-    	  	 		 		 	 	 	 
+
 
   <tr>
      <td>1	</td>
@@ -250,5 +242,4 @@ table th {
   border: 1px solid black;
   background-color:#e3e3e3;
 }
-
 </style>

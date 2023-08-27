@@ -1,12 +1,4 @@
-<?php
-  $uri3 = $this->uri->segment(3);
-  $uri4 = $this->uri->segment(4);
-  $uri5 = $this->uri->segment(5);
-  $uri6 = $this->uri->segment(6);
 
-
-
-?>
 <div class="content-body">
 <div class="container-fluid">
 
