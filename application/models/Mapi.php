@@ -12913,11 +12913,14 @@ public function addwinner() {
 		//$viv_email = $this->session->userdata('viv_email');
 
 
+		$id = $this->input->post('id');
+		$g_catg = $this->input->post('catg');
 		$g_empid = $this->input->post('empid');
 		$g_name = $this->input->post('fname');
 		$g_domain = $this->input->post('domain');
 		$g_depart = $this->input->post('depart');
 
+		/*
 		$s_empid = $this->input->post('empid2');
 		$s_name = $this->input->post('fname2');
 		$s_domain = $this->input->post('domain2');
@@ -12927,8 +12930,11 @@ public function addwinner() {
 		$b_name = $this->input->post('fname3');
 		$b_domain = $this->input->post('domain3');
 		$b_depart = $this->input->post('depart3');
+		*/
+
 
 		$startdate = $this->input->post('startdate');
+
 
 
 		$startdate_ex = explode("-",$startdate);
@@ -12959,18 +12965,22 @@ public function addwinner() {
 		$syear=date('Y');
 
 
-		$winnerid     = 'WIN'.$randomiduniq;
+		//$winnerid     = 'WIN'.$randomiduniq;
+		$winnerid     = $id;
+
 		$uniqueurlid     = uniqid();
 
 
 
 		$data = array(
 							 'winnerid'=>$winnerid,
+							 'g_catg'=>$g_catg,
 							 'g_empid'=>$g_empid,
 							 'g_name'=>$g_name,
 							 'g_domain'=>$g_domain,
 							 'g_depart'=>$g_depart,
 
+							 /*
 							 's_empid'=>$s_empid,
 							 's_name'=>$s_name,
 							 's_domain'=>$s_domain,
@@ -12980,6 +12990,7 @@ public function addwinner() {
 							 'b_name'=>$b_name,
 							 'b_domain'=>$b_domain,
 							 'b_depart'=>$b_depart,
+							 */
 
 							 'startdate'=>$startdate_now,
 							 'stimestamp'=>$stimestamp,
@@ -12995,9 +13006,9 @@ public function addwinner() {
 
 
 			if($this->db->affected_rows() > 0) {
-				redirect('admin/kaizenidea/winners/winnerslist');
+				redirect('admin/kaizenidea/winners/createwinner/'.$winnerid.'/');
 			} else {
-				redirect('admin/kaizenidea/winners/winnerslist');
+				redirect('admin/kaizenidea/winners/createwinner/'.$winnerid.'/');
 			}
 
 
@@ -13032,6 +13043,39 @@ public function count_listwinners() {
 	return $sql->num_rows();
 
 }
+
+
+/********************************
+ SUPER ADMIN - listwinners
+********************************/
+public function count_listwinners_gp() {
+
+	$this->db->select('winnerid');
+	$this->db->from('winnerslist');
+ 	//$this->db->order_by('id', 'DESC');
+	$this->db->group_by('winnerid');
+	$sql = $this->db->get();
+	return $sql->num_rows();
+
+}
+/********************************
+ SUPER ADMIN - listwinners
+********************************/
+public function listwinners_gp() {
+
+	$this->db->select('status');
+	$this->db->select('winnerid');
+	$this->db->from('winnerslist');
+ 	//$this->db->order_by('id', 'DESC');
+	$this->db->group_by('status');
+	$this->db->group_by('winnerid');
+	$sql = $this->db->get();
+	return $sql->result();
+
+}
+
+
+
 
 
 /********************************
@@ -13167,6 +13211,75 @@ public function findlastidofwinner() {
  		 	$sql = $this->db->get();
 		 	return $sql->result();
 
+		 }
+
+
+		 /********************************
+		  SUPER ADMIN - listdepartment
+		 ********************************/
+		 public function listactivewinnersbyidcatg($catg,$winnerid) {
+
+		 	$this->db->select('*');
+		 	$this->db->from('winnerslist');
+			//$this->db->where('status', 1);
+			$this->db->where('g_catg', $catg);
+			$this->db->where('winnerid', $winnerid);
+			$this->db->order_by('id','ASC');
+ 		 	$sql = $this->db->get();
+		 	return $sql->result();
+
+		 }
+
+
+		 /********************************
+		  SUPER ADMIN - listdepartment
+		 ********************************/
+		 public function listactivewinnersbyid($winnerid) {
+
+		 	$this->db->select('*');
+		 	$this->db->from('winnerslist');
+			//$this->db->where('status', 1);
+ 			$this->db->where('winnerid', $winnerid);
+			$this->db->order_by('id','ASC');
+ 		 	$sql = $this->db->get();
+		 	return $sql->result();
+
+		 }
+
+		 /********************************
+		  SUPER ADMIN - listdepartment
+		 ********************************/
+		 public function listactivewinnersbyidgdate($winnerid) {
+
+			$this->db->select('startdate');
+		 	$this->db->select('enddate ');
+		 	$this->db->from('winnerslist');
+			//$this->db->where('status', 1);
+ 			$this->db->where('winnerid', $winnerid);
+			$this->db->group_by('startdate');
+			$this->db->group_by('enddate');
+ 		 	$sql = $this->db->get();
+		 	return $sql->result();
+
+		 }
+
+
+
+		 /********************************
+		 SUPER ADMIN - deletewinnerempid
+		********************************/
+		public function deletewinnerempid($winnerid,$empid) {
+
+		 $this->db->where('winnerid', $winnerid);
+		 $this->db->where('g_empid', $empid);
+		 $this->db->delete('winnerslist');
+
+
+				 if($this->db->affected_rows() > 0) {
+					 redirect('admin/kaizenidea/winners/createwinner/'.$winnerid.'/');
+				 } else {
+					 redirect('admin/kaizenidea/winners/createwinner/'.$winnerid.'/');
+		 		 }
 		 }
 
 

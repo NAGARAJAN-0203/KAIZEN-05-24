@@ -34,6 +34,48 @@
       <p>&nbsp;</p>
              <div class="row">
 
+
+               <div class="col-md-2">
+                <label>Category
+                </label>
+                <select class="form-control" name="catg" >
+                  <option value="Gold">Gold</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Bronze">Bronze</option>
+                </select>
+               </div>
+
+
+               <div class="col-md-2">
+                <label>Emp ID
+                </label>
+                <input type="text" class="form-control eempid typeempid"  placeholder="" name="empid" />
+               </div>
+
+               <div class="col-md-3">
+                <label>Emp Name
+                </label>
+                <input type="text" readonly class="form-control efname etypefname" placeholder="" name="fname" />
+               </div>
+
+               <div class="col-md-2">
+                <label>Domain
+                </label>
+                <input type="text" readonly class="form-control edomain etypedomain" placeholder="" name="domain" />
+               </div>
+
+               <div class="col-md-3">
+                <label>Department
+                </label>
+                <input type="text" readonly class="form-control edepart etypedepart" placeholder="" name="depart" />
+               </div>
+
+</div>
+
+
+
+
+<?php /*
               <div class="col-md-1">
                <label><h3>GOLD </h3></label>
                </div>
@@ -62,8 +104,9 @@
                </label>
                <input type="text" readonly class="form-control edepart etypedepart" placeholder="" name="depart" />
               </div>
-              </div>
+<?php */ ?>
 
+<?php /*
               <p>&nbsp;</p>
 
               <div class="row">
@@ -97,8 +140,9 @@
                   <input type="text" readonly class="form-control edepart2 etypedepart2" placeholder="" name="depart2" />
                  </div>
                 </div>
+<?php */ ?>
 
-
+<?php /*
                 <p>&nbsp;</p>
 
                 <div class="row">
@@ -133,24 +177,66 @@
                   </div>
 
                   </div>
-
+*/ ?>
             <p>&nbsp;</p>
 
-            <div class="row">
+            <?php
+              $uri5 = $this->uri->segment(5);
+              if(empty($uri5)) {
+                $randomiduniq = $this->mapi->randomiduniq();
+                $winnerid_post     = 'WIN'.$randomiduniq;
+              } else {
+                $winnerid_post = $uri5;
+              }
+            ?>
 
-             <div class="col-md-2">
+            <?php
+
+              $listactivewinnersbyid = $this->mapi->listactivewinnersbyidgdate($winnerid_post);
+              if(!empty($listactivewinnersbyid)) {
+                  foreach ($listactivewinnersbyid as $listactivewinnersbyidArray) {
+                    $startdate_fe  = $listactivewinnersbyidArray->startdate;
+                    $startdate_ex = explode("-",$startdate_fe);
+                    $startdate_day = $startdate_ex[0];
+                    $startdate_month = $startdate_ex[1];
+                    $startdate_year = $startdate_ex[2];
+                    //$startdate_form = $startdate_day."/".$startdate_month."/".$startdate_year;
+                    $startdate_form = $startdate_year."-".$startdate_month."-".$startdate_day;
+
+
+                    $enddate_fe  = $listactivewinnersbyidArray->enddate;
+                    $enddate_ex = explode("-",$enddate_fe);
+                		$enddate_day = $enddate_ex[0];
+                		$enddate_month = $enddate_ex[1];
+                		$enddate_year = $enddate_ex[2];
+                		$enddate_form = $enddate_year."-".$enddate_month."-".$enddate_day;
+                  }
+             } else {
+               $startdate_form  = '';
+               $enddate_form  = '';
+             }
+            ?>
+
+            <div class="row">
+              <div class="col-md-2">
               <label>Start Date </label>
-              <input type="date" class="form-control" placeholder="" name="startdate" />
+              <input type="date" class="form-control" value="<?php echo $startdate_form; ?>" placeholder="" name="startdate" />
              </div>
 
              <div class="col-md-2">
               <label>End Date </label>
-              <input type="date" class="form-control" placeholder="" name="enddate" />
+              <input type="date" class="form-control" value="<?php echo $enddate_form; ?>" placeholder="" name="enddate" />
              </div>
            </div>
 
+
+
+
+
           <div class="form-group col-md-1">
             <label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+
+            <input type="hidden" name="id"  value="<?php echo $winnerid_post; ?>" />
             <button type="submit" class="btn btn-primary">Add</button>
           </div>
        </div>
@@ -164,13 +250,184 @@
   <!--END Div-->
 
 
-
-
-
-
-
-
 </div>
+
+
+
+
+  <!--Row-->
+  <div class="row">
+  <div class="col-sm-12">
+
+    <!-- Div-->
+    <div class="row page-titles mx-0">
+    <div class="col-sm-12 p-md-0">
+        <h4 class="card-title">List Winners - <?php
+
+          $listactivewinnersbyid = $this->mapi->listactivewinnersbyidgdate($winnerid_post);
+          if(!empty($listactivewinnersbyid)) {
+          foreach ($listactivewinnersbyid as $listactivewinnersbyidArray) {
+            $startdate  = $listactivewinnersbyidArray->startdate;
+            $enddate  = $listactivewinnersbyidArray->enddate;
+            echo '(Start Date : '.$startdate.' - '.'To Date : '.$enddate.')';
+          }
+         }
+        ?> </h4>
+        <p>&nbsp;</p>
+
+
+
+
+
+        <div class="row padd20">
+          <!-- Card 1 -->
+          <div class='card_p'>
+            <div class='card__info' style='background-image: url(<?php echo base_url(); ?>assets/images/gold.jpg)'>
+              <!--<h2 class='card__name'>BASIC</h2>
+              <p class='card__price' style='color: var(--color05)'>$19.99 <span class='card__priceSpan'>/month</span></p>-->
+            </div>
+            <div class='card__content'  >
+              <div class='card__rows'>
+                <p class=''>
+
+
+                  <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                    <tr><td>EmpID</td><td>Name</td><td>Domain & Department</td> </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $listactivewinners = $this->mapi->listactivewinnersbyidcatg('Gold',$winnerid_post);
+                   foreach ($listactivewinners as $listactivewinnersArray) {
+                     $winnerid = $listactivewinnersArray->winnerid;
+                     $g_catg = $listactivewinnersArray->g_catg;
+                     $g_empid = $listactivewinnersArray->g_empid;
+                     $g_name = $listactivewinnersArray->g_name;
+                     $g_domain = $listactivewinnersArray->g_domain;
+                     $g_depart = $listactivewinnersArray->g_depart;
+                      ?>
+                    <tr>
+                      <td>
+                        <a href="<?php echo site_url('admin/deletewinnerempid/'.$winnerid.'/'.$g_empid.''); ?>">
+                        <img src="<?php echo base_url(); ?>assets/images/cross.png" width="15" alt=""/>
+                        </a>
+                        <?php echo $g_empid; ?>
+
+                      </td>
+                      <td><?php echo $g_name; ?></td>
+                      <td><b><?php echo $g_domain; ?></b><br/>
+                             <?php echo $g_depart; ?></td>
+
+                    </tr>
+                    <?php } ?>
+                  </tbody>
+                  </table>
+
+        				</p>
+
+              </div>
+             </div>
+          </div>
+
+
+
+
+
+
+          <!-- Card 2 -->
+          <div class='card_p'>
+            <div class='card__info' style='background-image: url(<?php echo base_url(); ?>assets/images/silver.jpg)'>
+              <!--<h2 class='card__name'>STANDARD</h2>
+              <p class='card__price' style='color: var(--color06)'>$29.99 <span class='card__priceSpan'>/month</span></p>-->
+            </div>
+            <div class='card__content' style='border-color: var(--color06)'>
+              <div class='card__rows'>
+                <p class=''>
+
+
+                  <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                    <tr><td>EmpID</td><td>Name</td><td>Domain & Department</td></tr>
+                    </thead>
+                    <?php
+                    $listactivewinners = $this->mapi->listactivewinnersbyidcatg('Silver',$winnerid_post);
+                   foreach ($listactivewinners as $listactivewinnersArray) {
+                     $winnerid = $listactivewinnersArray->winnerid;
+                     $g_catg = $listactivewinnersArray->g_catg;
+                     $g_empid = $listactivewinnersArray->g_empid;
+                     $g_name = $listactivewinnersArray->g_name;
+                     $g_domain = $listactivewinnersArray->g_domain;
+                     $g_depart = $listactivewinnersArray->g_depart;
+                      ?>
+                    <tr>
+                      <td><?php echo $g_empid; ?></td>
+                      <td><?php echo $g_name; ?></td>
+                      <td><b><?php echo $g_domain; ?></b><br/>
+                          <?php echo $g_depart; ?></td>
+                    </tr>
+                    <?php } ?>
+                  </table>
+
+        				</p>
+
+              </div>
+             </div>
+          </div>
+
+
+
+
+
+          <!-- Card 3 -->
+          <div class='card_p'>
+            <div class='card__info' style='background-image: url(<?php echo base_url(); ?>assets/images/bronze.jpg)'>
+              <!--<h2 class='card__name'>PREMIUM</h2>
+              <p class='card__price' style='color: var(--color12)'>$49.99 <span class='card__priceSpan'>/month</span></p>-->
+            </div>
+            <div class='card__content' style='border-color: var(--color07)'>
+              <div class='card__rows'>
+                <p class=''>
+
+
+                  <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                    <tr><td>EmpID</td><td>Name</td><td>Domain & Department</td></tr>
+                    </thead>
+                    <?php
+                    $listactivewinners = $this->mapi->listactivewinnersbyidcatg('Bronze',$winnerid_post);
+                   foreach ($listactivewinners as $listactivewinnersArray) {
+                     $winnerid = $listactivewinnersArray->winnerid;
+                     $g_catg = $listactivewinnersArray->g_catg;
+                     $g_empid = $listactivewinnersArray->g_empid;
+                     $g_name = $listactivewinnersArray->g_name;
+                     $g_domain = $listactivewinnersArray->g_domain;
+                     $g_depart = $listactivewinnersArray->g_depart;
+                      ?>
+                    <tr>
+                      <td><?php echo $g_empid; ?></td>
+                      <td><?php echo $g_name; ?></td>
+                      <td><b><?php echo $g_domain; ?></b><br/>
+                          <?php echo $g_depart; ?></td>
+                    </tr>
+                    <?php } ?>
+                  </table>
+
+        				</p>
+
+              </div>
+             </div>
+          </div>
+
+        </div>
+
+
+
+    </div>
+    </div>
+  </div>
+  </div>
+  <!--END Row-->
+
 
 </div>
 </div>

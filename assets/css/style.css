@@ -29122,7 +29122,7 @@ b1 { color: #1d7dbe !important; font-weight: bold; }
     }
 }
 .card_p {
-    width: 300px;
+    width: 293px;
     /* min-height: 470px; */
     border-radius: 15px 15px 0 0;
     overflow: hidden;
@@ -29133,6 +29133,7 @@ b1 { color: #1d7dbe !important; font-weight: bold; }
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 10px; 
 }
 
 .card_p:hover {
@@ -29280,3 +29281,5 @@ b1 { color: #1d7dbe !important; font-weight: bold; }
     background-color: var(--color04Hover) !important;
 }
 /** END PRICING TABLE **/
+
+.padd20 { padding:20px !important;  }
