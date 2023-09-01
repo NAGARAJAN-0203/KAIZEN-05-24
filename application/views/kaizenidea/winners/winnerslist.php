@@ -34,10 +34,10 @@
               <div>
 
                 <?php
-                $count_listwinners = $this->mapi->count_listwinners();
+                $count_listwinners_gp = $this->mapi->count_listwinners_gp();
                 ?>
 
-                <h4 class="card-title">Winners List - <?php echo $count_listwinners; ?>
+                <h4 class="card-title">Winners List - <?php echo $count_listwinners_gp; ?>
                 </h4>
 
               <p class="responsemessage"></p>
@@ -75,56 +75,146 @@
                       <tbody>
 
                         <?php
-                        $listwinners = $this->mapi->listwinners();
+                        $listwinners_gp = $this->mapi->listwinners_gp();
+
                         $count_listwinners = $this->mapi->count_listwinners();
                         $findlastidofwinner = $this->mapi->findlastidofwinner();
 
 
-                        if($count_listwinners>0){
+                        if($count_listwinners_gp>0){
                          $i=1;
-                         foreach ($listwinners as $rowArray) {
-                           $winnerid = $rowArray->winnerid;
-                           $idd = $rowArray->id;
+                         foreach ($listwinners_gp as $rowArray) {
+                           $winnerid_post = $rowArray->winnerid;
+                           $status = $rowArray->status;
+
                         ?>
-                          <tr class="<?php if($findlastidofwinner==$idd) { echo 'bgtdgreen'; } ?>">
+                          <tr  class="<?php if($status=='1') { echo 'bgtdgreen'; } ?>">
                               <td class="text-center"><?php echo $i; ?></td>
 
-                               <td><?php
-                               echo "EmpID : ".$rowArray->g_empid."<br/>";
-                               echo "Name : ".$rowArray->g_name."<br/>";
-                               echo "Domain : ".$rowArray->g_domain."<br/>";
-                               echo "Department : ".$rowArray->g_depart."<br/>";
-                                  ?>
-                               </td>
-                               <td><?php
-                               echo "EmpID : ".$rowArray->s_empid."<br/>";
-                               echo "Name : ".$rowArray->s_name."<br/>";
-                               echo "Domain : ".$rowArray->s_domain."<br/>";
-                               echo "Department : ".$rowArray->s_depart."<br/>";
-                                  ?>
+                               <td valign="top">
+                                 <table class="">
+                                   <thead>
+                                   <tr><td>#</td><td>EmpID Details</td> </tr>
+                                   </thead>
+                                   <tbody>
+                                   <?php
+                                   $listactivewinners = $this->mapi->listactivewinnersbyidcatg('Gold',$winnerid_post);
+                                   $i=1;
+                                  foreach ($listactivewinners as $listactivewinnersArray) {
+                                    $winnerid = $listactivewinnersArray->winnerid;
+                                    $g_catg = $listactivewinnersArray->g_catg;
+                                    $g_empid = $listactivewinnersArray->g_empid;
+                                    $g_name = $listactivewinnersArray->g_name;
+                                    $g_domain = $listactivewinnersArray->g_domain;
+                                    $g_depart = $listactivewinnersArray->g_depart;
+                                     ?>
+                                   <tr>
+                                     <td><?php echo $i; ?></td>
+                                     <td>
+                                        <b><?php echo $g_empid; ?>-<?php echo $g_name; ?></b> <br/>
+                                       <?php echo $g_domain; ?>, <?php echo $g_depart; ?>
+                                     </td>
+
+
+
+                                   </tr>
+                                   <?php $i++; } ?>
+                                 </tbody>
+                                 </table>
                                </td>
 
-                               <td><?php
-                               echo "EmpID : ".$rowArray->b_empid."<br/>";
-                               echo "Name : ".$rowArray->b_name."<br/>";
-                               echo "Domain : ".$rowArray->b_domain."<br/>";
-                               echo "Department : ".$rowArray->b_depart."<br/>";
-                                  ?>
+
+
+
+                               <td valign="top">
+                                 <table class="">
+                                   <thead>
+                                   <tr><td>#</td><td>EmpID Details</td> </tr>
+                                   </thead>
+                                   <tbody>
+                                   <?php
+                                   $listactivewinners = $this->mapi->listactivewinnersbyidcatg('Silver',$winnerid_post);
+                                   $i=1;
+                                  foreach ($listactivewinners as $listactivewinnersArray) {
+                                    $winnerid = $listactivewinnersArray->winnerid;
+                                    $g_catg = $listactivewinnersArray->g_catg;
+                                    $g_empid = $listactivewinnersArray->g_empid;
+                                    $g_name = $listactivewinnersArray->g_name;
+                                    $g_domain = $listactivewinnersArray->g_domain;
+                                    $g_depart = $listactivewinnersArray->g_depart;
+                                     ?>
+                                   <tr>
+                                     <td><?php echo $i; ?></td>
+                                     <td>
+                                        <b><?php echo $g_empid; ?>-<?php echo $g_name; ?></b> <br/>
+                                       <?php echo $g_domain; ?>, <?php echo $g_depart; ?>
+                                     </td>
+
+
+
+                                   </tr>
+                                   <?php $i++; } ?>
+                                 </tbody>
+                                 </table>
                                </td>
 
+                               <td valign="top">
+                                 <table class="">
+                                   <thead>
+                                   <tr><td>#</td><td>EmpID Details</td> </tr>
+                                   </thead>
+                                   <tbody>
+                                   <?php
+                                   $listactivewinners = $this->mapi->listactivewinnersbyidcatg('Bronze',$winnerid_post);
+                                   $i=1;
+                                  foreach ($listactivewinners as $listactivewinnersArray) {
+                                    $winnerid = $listactivewinnersArray->winnerid;
+                                    $g_catg = $listactivewinnersArray->g_catg;
+                                    $g_empid = $listactivewinnersArray->g_empid;
+                                    $g_name = $listactivewinnersArray->g_name;
+                                    $g_domain = $listactivewinnersArray->g_domain;
+                                    $g_depart = $listactivewinnersArray->g_depart;
+                                     ?>
+                                   <tr>
+                                     <td><?php echo $i; ?></td>
+                                     <td>
+                                        <b><?php echo $g_empid; ?>-<?php echo $g_name; ?></b> <br/>
+                                       <?php echo $g_domain; ?>, <?php echo $g_depart; ?>
+                                     </td>
+
+
+
+                                   </tr>
+                                   <?php $i++; } ?>
+                                 </tbody>
+                                 </table>
+                               </td>
+
+                               <?php
+
+                                 $listactivewinnersbyid = $this->mapi->listactivewinnersbyidgdate($winnerid_post);
+                                 if(!empty($listactivewinnersbyid)) {
+                                 foreach ($listactivewinnersbyid as $listactivewinnersbyidArray) {
+                                   $startdate_ls  = $listactivewinnersbyidArray->startdate;
+                                   $enddate_ls  = $listactivewinnersbyidArray->enddate;
+                                  }
+                                }
+                               ?>
+
+
                                <td class="text-center">
-                                 <?php echo $rowArray->startdate; ?>
+                                 <?php echo $startdate_ls; ?>
                                </td>
                                <td class="text-center">
-                                 <?php echo $rowArray->enddate; ?>
+                                 <?php echo $enddate_ls; ?>
                                </td>
 
                                <td class="text-center">
                                 <?php $status = $rowArray->status;
                                 if($status==1) { ?>
-                                <a href="<?php echo site_url('admin/updwinnerstatus/'.$winnerid.'/0'); ?>"><span class="badge-sm badge-success">Active</span></a>
+                                <a href="<?php echo site_url('admin/updwinnerstatus/'.$winnerid_post.'/0'); ?>"><span class="badge-sm badge-success">Active</span></a>
                               <?php } else if($status==0) { ?>
-                                <a href="<?php echo site_url('admin/updwinnerstatus/'.$winnerid.'/1'); ?>"><span class="badge-sm badge-warning">Inactive</span></a>
+                                <a href="<?php echo site_url('admin/updwinnerstatus/'.$winnerid_post.'/1'); ?>"><span class="badge-sm badge-warning">Inactive</span></a>
                               <?php } else if($status==2) { ?>
                                 <a><span class="badge-sm badge-danger">Expired</span></a>
                               <?php } ?>
@@ -136,7 +226,7 @@
                                   <a href="" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                 -->
 
-                                  <a  onclick="return confirm('Are you sure you want to delete this winner list page?');" href="<?php echo site_url('admin/deletewinner/'.$winnerid.''); ?>" dataid="" class="btn btn-danger shadow btn-xs sharp deleteuser"><i class="fa fa-trash"></i></a>
+                                  <a  onclick="return confirm('Are you sure you want to delete this winner list page?');" href="<?php echo site_url('admin/deletewinner/'.$winnerid_post.''); ?>" dataid="" class="btn btn-danger shadow btn-xs sharp deleteuser"><i class="fa fa-trash"></i></a>
                                   </div>
                               </td>
                           </tr>
