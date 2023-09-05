@@ -267,7 +267,7 @@ CREATE TABLE `ideas` (
   `emp_edit_status` varchar(255) NOT NULL,
   `shortlisted` varchar(255) NOT NULL,
   `shortlisteddesc` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ideas`
@@ -421,7 +421,7 @@ CREATE TABLE `idea_gen` (
   `iedept_status` varchar(255) NOT NULL,
   `iedept_reject_reason` longtext NOT NULL,
   `iedept_datetime` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `idea_gen`
@@ -593,7 +593,7 @@ CREATE TABLE `usermang` (
   `sub_time` varchar(255) NOT NULL,
   `sub_by` varchar(255) NOT NULL,
   `cadre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usermang`
