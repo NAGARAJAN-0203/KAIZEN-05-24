@@ -233,6 +233,8 @@ class Admin extends CI_Controller {
 	public function get_dept_bydomain() { $this->mapi->get_dept_bydomain(); }
 	public function mforgotpassword_user() { $this->mapi->mforgotpassword_user(); }
 
+	public function deletewinnerempid($winnerid,$empid) { $this->mapi->deletewinnerempid($winnerid,$empid); }
+
 
 
 
