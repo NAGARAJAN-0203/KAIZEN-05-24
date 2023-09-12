@@ -66,9 +66,8 @@
                               <th>Gold</th>
                               <th>Silver</th>
                               <th>Bronze</th>
-                              <th class="text-center">Start Date</th>
-                              <th class="text-center">End Date</th>
-                               <th class="text-center">Status</th>
+                              <th class="text-center">Date</th>
+                                <th class="text-center">Status</th>
                               <th >Action</th>
                           </tr>
                       </thead>
@@ -203,11 +202,12 @@
 
 
                                <td class="text-center">
-                                 <?php echo $startdate_ls; ?>
-                               </td>
-                               <td class="text-center">
+                                 <b>Start Date</b></br>
+                                 <?php echo $startdate_ls; ?></br></br>
+                                 <b>End Date</b></br>
                                  <?php echo $enddate_ls; ?>
                                </td>
+
 
                                <td class="text-center">
                                 <?php $status = $rowArray->status;
@@ -222,9 +222,9 @@
 
                                <td>
                                   <div class="d-flex align-center84">
-                                    <!--
-                                  <a href="" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                -->
+
+                                  <a href="<?php echo site_url('admin/kaizenidea/winners/createwinner/'.$winnerid_post.''); ?>" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+
 
                                   <a  onclick="return confirm('Are you sure you want to delete this winner list page?');" href="<?php echo site_url('admin/deletewinner/'.$winnerid_post.''); ?>" dataid="" class="btn btn-danger shadow btn-xs sharp deleteuser"><i class="fa fa-trash"></i></a>
                                   </div>

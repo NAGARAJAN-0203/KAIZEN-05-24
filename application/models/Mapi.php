@@ -12957,7 +12957,7 @@ public function addwinner() {
 		if($todaydate_timestamp>$etimestamp) {
 				$status = 2;
 			} else {
-				$status = 1;
+				$status = 0;
 				}
 
  		$sday=date('d');
@@ -13093,6 +13093,26 @@ public function findlastidofwinner() {
 	}
 	if(empty($id)) { $id = 0; }
 	return $id;
+
+}
+
+
+/********************************
+ SUPER ADMIN - findactivewinnerid_post
+********************************/
+public function findactivewinnerid_post() {
+
+	$this->db->select('*');
+	$this->db->from('winnerslist');
+	$this->db->where('status', 1);
+	$this->db->order_by('id', 'DESC');
+ 	$this->db->limit(1);
+	$sql = $this->db->get();
+	foreach ($sql->result() as $rowArray) {
+				$winnerid = $rowArray->winnerid;
+	}
+	if(empty($winnerid)) { $winnerid = 0; }
+	return $winnerid;
 
 }
 
@@ -13269,6 +13289,8 @@ public function findlastidofwinner() {
 		 SUPER ADMIN - deletewinnerempid
 		********************************/
 		public function deletewinnerempid($winnerid,$empid) {
+
+		 if(empty($empid) || $empid==0) { $empid = ''; }	
 
 		 $this->db->where('winnerid', $winnerid);
 		 $this->db->where('g_empid', $empid);

@@ -49,7 +49,7 @@
                <div class="col-md-2">
                 <label>Emp ID
                 </label>
-                <input type="text" class="form-control eempid typeempid"  placeholder="" name="empid" />
+                <input type="text" required class="form-control eempid typeempid"  placeholder="" name="empid" />
                </div>
 
                <div class="col-md-3">
@@ -220,12 +220,12 @@
             <div class="row">
               <div class="col-md-2">
               <label>Start Date </label>
-              <input type="date" class="form-control" value="<?php echo $startdate_form; ?>" placeholder="" name="startdate" />
+              <input type="date" required class="form-control" value="<?php echo $startdate_form; ?>" placeholder="" name="startdate" />
              </div>
 
              <div class="col-md-2">
               <label>End Date </label>
-              <input type="date" class="form-control" value="<?php echo $enddate_form; ?>" placeholder="" name="enddate" />
+              <input type="date" required class="form-control" value="<?php echo $enddate_form; ?>" placeholder="" name="enddate" />
              </div>
            </div>
 
@@ -305,6 +305,7 @@
                      $g_name = $listactivewinnersArray->g_name;
                      $g_domain = $listactivewinnersArray->g_domain;
                      $g_depart = $listactivewinnersArray->g_depart;
+                     if(empty($g_empid)) { $g_empid = '0'; }
                       ?>
                     <tr>
                       <td>
@@ -358,9 +359,14 @@
                      $g_name = $listactivewinnersArray->g_name;
                      $g_domain = $listactivewinnersArray->g_domain;
                      $g_depart = $listactivewinnersArray->g_depart;
+                     if(empty($g_empid)) { $g_empid = '0'; }
                       ?>
                     <tr>
-                      <td><?php echo $g_empid; ?></td>
+                      <td>
+                        <a href="<?php echo site_url('admin/deletewinnerempid/'.$winnerid.'/'.$g_empid.''); ?>">
+                        <img src="<?php echo base_url(); ?>assets/images/cross.png" width="15" alt=""/>
+                        </a>
+                        <?php echo $g_empid; ?></td>
                       <td><?php echo $g_name; ?></td>
                       <td><b><?php echo $g_domain; ?></b><br/>
                           <?php echo $g_depart; ?></td>
@@ -402,9 +408,14 @@
                      $g_name = $listactivewinnersArray->g_name;
                      $g_domain = $listactivewinnersArray->g_domain;
                      $g_depart = $listactivewinnersArray->g_depart;
+                     if(empty($g_empid)) { $g_empid = '0'; }
                       ?>
                     <tr>
-                      <td><?php echo $g_empid; ?></td>
+                      <td>
+                        <a href="<?php echo site_url('admin/deletewinnerempid/'.$winnerid.'/'.$g_empid.''); ?>">
+                        <img src="<?php echo base_url(); ?>assets/images/cross.png" width="15" alt=""/>
+                        </a>
+                        <?php echo $g_empid; ?></td>
                       <td><?php echo $g_name; ?></td>
                       <td><b><?php echo $g_domain; ?></b><br/>
                           <?php echo $g_depart; ?></td>

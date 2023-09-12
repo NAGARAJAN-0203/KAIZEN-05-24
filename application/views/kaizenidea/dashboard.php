@@ -27,6 +27,183 @@
   <!--END Page Title-->
 
 
+	<!--Page Title-->
+  <div class="row page-titles mx-0">
+  <div class="">
+  <div class="">
+ 	<?php
+	$winnerid_post = $this->mapi->findactivewinnerid_post();
+	if(!empty($winnerid_post) || $winnerid_post!='0') {
+	?>
+
+
+	<div class="col-sm-12">
+		<h2>Winners List</h2>
+		<!--Theme-->
+		<div class="row padd20">
+
+
+
+			<!-- Card 1 -->
+			<div class='card_p'>
+				<div class='card__info' style='background-image: url(<?php echo base_url(); ?>assets/images/gold.jpg)'>
+					<!--<h2 class='card__name'>BASIC</h2>
+					<p class='card__price' style='color: var(--color05)'>$19.99 <span class='card__priceSpan'>/month</span></p>-->
+				</div>
+				<div class='card__content'  >
+					<div class='card__rows'>
+						<p class=''>
+
+
+							<table class="table table-bordered table-responsive-sm">
+								<thead>
+								<tr><td>EmpID</td><td>Emp Info</td>  </tr>
+								</thead>
+								<tbody>
+								<?php
+								$listactivewinners = $this->mapi->listactivewinnersbyidcatg('Gold',$winnerid_post);
+							 foreach ($listactivewinners as $listactivewinnersArray) {
+								 $winnerid = $listactivewinnersArray->winnerid;
+								 $g_catg = $listactivewinnersArray->g_catg;
+								 $g_empid = $listactivewinnersArray->g_empid;
+								 $g_name = $listactivewinnersArray->g_name;
+								 $g_domain = $listactivewinnersArray->g_domain;
+								 $g_depart = $listactivewinnersArray->g_depart;
+									?>
+								<tr>
+									<td>
+
+										<?php echo $g_empid; ?>
+
+									</td>
+									<td><?php echo $g_name; ?></br>
+											<b><?php echo $g_domain; ?></b></br>
+											<?php echo $g_depart; ?>
+
+									</td>
+
+
+								</tr>
+								<?php } ?>
+							</tbody>
+							</table>
+
+						</p>
+
+					</div>
+				 </div>
+			</div>
+
+
+
+
+
+
+			<!-- Card 2 -->
+			<div class='card_p'>
+				<div class='card__info' style='background-image: url(<?php echo base_url(); ?>assets/images/silver.jpg)'>
+					<!--<h2 class='card__name'>STANDARD</h2>
+					<p class='card__price' style='color: var(--color06)'>$29.99 <span class='card__priceSpan'>/month</span></p>-->
+				</div>
+				<div class='card__content' style='border-color: var(--color06)'>
+					<div class='card__rows'>
+						<p class=''>
+
+
+							<table class="table table-bordered table-responsive-sm">
+								<thead>
+								<tr><td>EmpID</td><td>Emp Info</td></tr>
+								</thead>
+								<?php
+								$listactivewinners = $this->mapi->listactivewinnersbyidcatg('Silver',$winnerid_post);
+							 foreach ($listactivewinners as $listactivewinnersArray) {
+								 $winnerid = $listactivewinnersArray->winnerid;
+								 $g_catg = $listactivewinnersArray->g_catg;
+								 $g_empid = $listactivewinnersArray->g_empid;
+								 $g_name = $listactivewinnersArray->g_name;
+								 $g_domain = $listactivewinnersArray->g_domain;
+								 $g_depart = $listactivewinnersArray->g_depart;
+									?>
+								<tr>
+									<td>
+
+										<?php echo $g_empid; ?></td>
+									<td><?php echo $g_name; ?></br>
+										<b><?php echo $g_domain; ?></b><br/>
+												<?php echo $g_depart; ?>
+									</td>
+
+								</tr>
+								<?php } ?>
+							</table>
+
+						</p>
+
+					</div>
+				 </div>
+			</div>
+
+
+
+
+
+			<!-- Card 3 -->
+			<div class='card_p'>
+				<div class='card__info' style='background-image: url(<?php echo base_url(); ?>assets/images/bronze.jpg)'>
+					<!--<h2 class='card__name'>PREMIUM</h2>
+					<p class='card__price' style='color: var(--color12)'>$49.99 <span class='card__priceSpan'>/month</span></p>-->
+				</div>
+				<div class='card__content' style='border-color: var(--color07)'>
+					<div class='card__rows'>
+						<p class=''>
+
+
+							<table class="table table-bordered table-responsive-sm">
+								<thead>
+								<tr><td>EmpID</td><td>EmpInfo</td></tr>
+								</thead>
+								<?php
+								$listactivewinners = $this->mapi->listactivewinnersbyidcatg('Bronze',$winnerid_post);
+							 foreach ($listactivewinners as $listactivewinnersArray) {
+								 $winnerid = $listactivewinnersArray->winnerid;
+								 $g_catg = $listactivewinnersArray->g_catg;
+								 $g_empid = $listactivewinnersArray->g_empid;
+								 $g_name = $listactivewinnersArray->g_name;
+								 $g_domain = $listactivewinnersArray->g_domain;
+								 $g_depart = $listactivewinnersArray->g_depart;
+									?>
+								<tr>
+									<td>
+
+										<?php echo $g_empid; ?></td>
+									<td><?php echo $g_name; ?><br/>
+										<b><?php echo $g_domain; ?></b><br/>
+												<?php echo $g_depart; ?>
+									</td>
+
+								</tr>
+								<?php } ?>
+							</table>
+
+						</p>
+
+					</div>
+				 </div>
+			</div>
+
+		</div>
+		<!--END Theme-->
+	</div>
+
+	<?php } ?>
+
+
+</div>
+</div>
+</div>
+<!--END Page Title-->
+
+
 <?php if($viv_user_type=='TRMMADMIN') { ?>
 
 
@@ -513,6 +690,7 @@
    </div>
 	 <!-- END Modal -->
 <?php */ ?>
+
 
 
 	<div class="col-sm-11">
