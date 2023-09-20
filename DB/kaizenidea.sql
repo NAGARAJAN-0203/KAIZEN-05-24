@@ -269,6 +269,7 @@ CREATE TABLE `ideas` (
   `shortlisteddesc` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 --
 -- Dumping data for table `ideas`
 --
@@ -304,6 +305,7 @@ INSERT INTO `ideas` (`id`, `idea_id`, `profile_id`, `viv_email`, `activity`, `ac
 (325, 'IDEA59cc30f2beef1c4e', 'USER-d2a8f2ab036007dc', '', 'MURA', 'asadad', 'TEPL-IE-C-FR-0005', '01/11.07.2023', 'sadas', 'dasdasd', '', 'asdasdas', 'asdasd', '', 'dasdas', 'Main Plant', 'dasdas', 'dasd', 'sadasd', 'asd', '', '345345435', '', 'sd', 'asdsa', 'd', '', 'esakkimuthu.shanmugha@tataelectronics.co.in', 'tajender.khurana@tataelectronics.co.in', '', '', '', '', '', '', '', '', '', '', '', 'asdasdasdasd', 'asdasd', 'asdasdasd', '', 'NO', '', '', '', '', 'Production', 'Production - Anodizing', 'chandru', '2023-07-12', '12', '07', '2023', 'Production - Anodizing', '206361 - Arunabha Nath', '206361', 'arunabha.nath@tataelectronics.co.in', '2023-07-11', '', '', '', '0', '0', '0', '', '', '', '', '', '11', '07', '2023', 'July 11, 2023, 11:24 am', '1689013800', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', ''),
 (326, 'IDEA3b0d2a7b4586e9dc', 'USER-f468c69ccddabb38', '', '', '', 'TEPL-IE-C-FR-0005', '01/08.08.2023', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'esakkimuthu.shanmugha@tataelectronics.co.in', 'tajender.khurana@tataelectronics.co.in', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'NO', '', '', '', '', 'Quality', 'Quality - Metrology', 'Sakthivel.M', '', '', '', '', 'Quality - Metrology', '', '', '', '', '', '', '', '0', '0', '0', '', '', '', '', '', '08', '08', '2023', 'August 8, 2023, 4:30 pm', '', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', ''),
 (327, 'IDEAd60b2188bd8b3106', 'USER-59f14b827a1d0211', '', 'MURA', 'sd', 'TEPL-IE-C-FR-0005', '01/23.08.2023', 'sad as', 'dasd', 'P,D', 'asdasd', 'asdasd', '', 'adasd', 'Main Plant', 'asdasd', 'asdasd', 'sadsa', 'dasda', '', '', '', '', '', '', '', 'esakkimuthu.shanmugha@tataelectronics.co.in', 'tajender.khurana@tataelectronics.co.in', '', '', '', '', '', '', '', '', '', '', '', 'asdasdasd', 'asdasd', 'asdasd', '', 'NO', '', '', '', '', 'Quality', 'Quality - Metrology', 'GOWSHIK DHARAN U', '2023-08-24', '24', '08', '2023', 'Quality - Metrology', '202953 - Abirami K', '202953', 'abirami.k@tataelectronics.co.in', '2023-08-24', '', '', '', '1', '0', '2', '', '', '', '', '', '23', '08', '2023', 'August 23, 2023, 11:43 am', '1692729000', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '');
+
 
 -- --------------------------------------------------------
 
@@ -423,6 +425,7 @@ CREATE TABLE `idea_gen` (
   `iedept_datetime` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 --
 -- Dumping data for table `idea_gen`
 --
@@ -452,6 +455,7 @@ INSERT INTO `idea_gen` (`id`, `idea_id`, `profile_id`, `viv_email`, `activity`, 
 (26, 'IDEAGEN2e46558014cd79dc', 'USER-db04522bbc103ae4', '', '', 'ddddddd', 'TEPL-IE-C-FR-0005', '01/28.06.2022', 'ddddddd', 'ddddddd', '', 'ddddddd', 'ddddddd', '', 'ddddddd', '', 'ddddddd', 'ddddddd', '', '', '', '', '', '', '', '', '', 'prasad.parkhi@tataelectronics.co.in', 'tajender.khurana@tataelectronics.co.in', '', '', '', '', '', '', '', 'Fishbone Diag', '1656366371Universitystudentsjpg.jpg', 'jpg', '', '', 'ddddddd', 'ddddddd', 'ddddddd', 'NO', '', '', '', '', 'Quality', 'Quality - Assembly', 'Rabia', '2022-06-28', '28', '06', '2022', 'Quality - Assembly', '202001 - Kanicka Mary D', '202001', 'kanicka.maryd@tataelectronics.co.in', '', '', '', '', '1', '2', 'USER-73b2480c29ec7ede', '', '', '', '28', '06', '2022', 'June 28, 2022, 3:16 am', '', '', '', '', '', '', '', '', '', '', '', ''),
 (27, 'IDEAGEN3222aedbf4125988', 'USER-73b2480c29ec7ede', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '', '', '', '', '', '', '1656366452', '', '', '', '', '', '', '', '', '', '', '', ''),
 (28, 'IDEAGEN85b5fed7306c0b3e', 'USER-d86e95a27c09699d', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '', '', '', '', '', '', '1687601063', '', '', '', '', '', '', '', '', '', '', '', '');
+
 
 -- --------------------------------------------------------
 
