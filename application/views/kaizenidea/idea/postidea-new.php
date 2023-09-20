@@ -746,6 +746,9 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														-->
 													 <div class="card-body">
 														 <div class="row">
+
+
+														<?php /*
 														 <div class="col-sm-6">
 														 <div class="form-group">
 															 <label>Plant Name<r1>*</r1></label> <br/>
@@ -767,7 +770,39 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 																</select>
 														</div>
 														</div>
+														*/ ?>
 
+														<div class="col-sm-6">
+														<div class="form-group">
+															<label>Block<r1>*</r1></label> <br/>
+															<select class="form-control " name="plantname" id="plantname">
+
+																<?php if($emp_edit_status=='0') {    ?>
+																							 <option value="">Select</option>
+																							 <?php $plantname = $rowArray->plantname; ?>
+																							  
+
+																							 <option value="BMB1" <?php if($plantname=='BMB1') { echo 'selected'; } ?>>BMB1</option>
+
+																							 <option value="BMB2" <?php if($plantname=='BMB2') { echo 'selected'; } ?>>BMB2</option>
+
+																							 <option value="Assembly" <?php if($plantname=='Assembly') { echo 'selected'; } ?>>Assembly</option>
+
+																							 <option value="Ano" <?php if($plantname=='Ano') { echo 'selected'; } ?>>Ano</option>
+
+																							 <option value="ToolRoom" <?php if($plantname=='ToolRoom') { echo 'selected'; } ?>>ToolRoom</option>
+
+
+																 <?php }  else { ?>
+
+																	 <?php $plantname = $rowArray->plantname; ?>
+																	 <option value="<?php echo $plantname; ?>"  ><?php echo $plantname; ?></option>
+																 <?php  }	?>
+
+
+															 </select>
+													 </div>
+													 </div>
 
 														<div class="col-sm-6">
 														<div class="form-group">

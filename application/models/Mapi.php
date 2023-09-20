@@ -13290,7 +13290,7 @@ public function findactivewinnerid_post() {
 		********************************/
 		public function deletewinnerempid($winnerid,$empid) {
 
-		 if(empty($empid) || $empid==0) { $empid = ''; }	
+		 if(empty($empid) || $empid==0) { $empid = ''; }
 
 		 $this->db->where('winnerid', $winnerid);
 		 $this->db->where('g_empid', $empid);

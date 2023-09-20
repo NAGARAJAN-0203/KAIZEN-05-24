@@ -41,7 +41,7 @@
 		$status = $rowArray->status;
 		$subdatetime = $rowArray->subdatetime;
 		$root_cause = $rowArray->root_cause;
-		 
+
 
 	?>
 
@@ -704,6 +704,8 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 														-->
 													 <div class="card-body">
 														 <div class="row">
+
+															<?php /*
 														 <div class="col-sm-6">
 														 <div class="form-group">
 															 <label>Plant Name<r1>*</r1></label> <br/>
@@ -725,6 +727,35 @@ Q - This poka yoke will make sure the rail orientation is always right.         
 																</select>
 														</div>
 														</div>
+														*/ ?>
+
+														<?php $plantname = $rowArray->plantname; ?>
+														<input type="hidden" name="plantname" id="plantname" value="<?php echo $plantname; ?>">
+
+														<div class="col-sm-6">
+														<div class="form-group">
+															<label>Block<r1>*</r1></label> <br/>
+															<select class="form-control " name="blockname" id="blockname">
+
+																<?php if($status=='1') {    ?>
+																							 <option value="">Select</option>
+																							 <?php $plantname = $rowArray->plantname; ?>
+																							 <option value="Pilot Plant" <?php if($plantname=='Pilot Plant') { echo 'selected'; } ?>>Pilot Plant</option>
+
+																							 <option value="Main Plant" <?php if($plantname=='Main Plant') { echo 'selected'; } ?>>Main Plant</option>
+
+																							 <option value="Both" <?php if($plantname=='Both') { echo 'selected'; } ?>>Both</option>
+																 <?php }  else { ?>
+
+																	 <?php $plantname = $rowArray->plantname; ?>
+																	 <option value="<?php echo $plantname; ?>"  ><?php echo $plantname; ?></option>
+																 <?php  }	?>
+
+
+															 </select>
+													 </div>
+													 </div>
+
 
 
 														<div class="col-sm-6">

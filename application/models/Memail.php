@@ -21,11 +21,21 @@ class Memail extends CI_Model {
  						'wordwrap' => 'TRUE',
  						'charset' => 'iso-8859-1',
  						'isHTML' => 'TRUE',
- 						'protocol' => 'smtp',
+
+						/*
+						'protocol' => 'smtp',
   					'smtp_host' => 'vivartha.com',
  						'smtp_port' => 587,
  						'smtp_user' => 'dgldeveloper@vivartha.com',
  						'smtp_pass' => 'Reset@@123'
+						*/
+
+
+						'protocol' => 'smtp',
+  					'smtp_host' => '172.21.5.125',
+ 						'smtp_port' => 25,
+ 						'smtp_user' => 'no-reply@tataelectronics.co.in',
+ 						//'smtp_pass' => 'Reset@@123'
 
 
 
@@ -46,8 +56,11 @@ class Memail extends CI_Model {
 					 $this->email->initialize($config);
 					 $this->email->set_newline('\r\n');
 					 //$this->email->from('dgldeveloper@vivartha.com', 'Noreply Kaizen');
+					 $this->email->from('no-reply@tataelectronics.co.in', 'Noreply Kaizen');
 					 //$this->email->to($to);
 					 //$this->email->to('chandru5452@gmail.com');
+					 //$this->email->to('anbuselvi.v@tataelectronics.co.in');
+
 					 //$this->email->cc($cc);
 					 //$this->email->bcc('chandru5452@gmail.com');
 					 $this->email->subject($subject);

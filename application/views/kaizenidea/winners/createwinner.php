@@ -55,19 +55,19 @@
                <div class="col-md-3">
                 <label>Emp Name
                 </label>
-                <input type="text" readonly class="form-control efname etypefname" placeholder="" name="fname" />
+                <input type="text"  class="form-control efname etypefname" placeholder="" name="fname" />
                </div>
 
                <div class="col-md-2">
                 <label>Domain
                 </label>
-                <input type="text" readonly class="form-control edomain etypedomain" placeholder="" name="domain" />
+                <input type="text"  class="form-control edomain etypedomain" placeholder="" name="domain" />
                </div>
 
                <div class="col-md-3">
                 <label>Department
                 </label>
-                <input type="text" readonly class="form-control edepart etypedepart" placeholder="" name="depart" />
+                <input type="text"  class="form-control edepart etypedepart" placeholder="" name="depart" />
                </div>
 
 </div>
